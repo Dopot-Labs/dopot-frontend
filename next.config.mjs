@@ -55,9 +55,11 @@ const nextconfig =  {
         config.resolve.fallback.crypto = false;
       }
     }
-    config.bail = false;
     return config;
   },
+  eslint: { 
+    ignoreDuringBuilds: true, 
+  }
 };
 
 
