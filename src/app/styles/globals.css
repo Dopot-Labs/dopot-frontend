@@ -1,0 +1,172 @@
+/* Global Styles throughout the app */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+:root {
+  font-size: 9px;
+  --white: #fff;
+  --black: #000;
+  --main-yellow: #ffe425;
+  --main-purple: #ff43a0;
+  --trns1: 0.25s;
+  --trns2: 0s;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+}
+.box {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 5rem;
+}
+.dashboard {
+  background: rgba(57, 57, 66, 255);
+}
+
+p, h3{
+  color: white;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+.app a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.grd-btn-favorites {
+  font-size: 1.85rem;
+  color: var(--white);
+  background: linear-gradient(30deg, #fca040, #c22e80);
+  /* border: 2px solid var(--white); */
+  outline: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px 10px rgba(255, 67, 161, 0.35);
+  transition: var(--trns1);
+  z-index: 100;
+  position: relative;
+  border-radius: 1000px;
+  width: 10%;
+  cursor: pointer;
+}
+.img-heart {
+  color: #fca040;
+}
+.grd-btn {
+  font-size: 1.85rem;
+  color: var(--white);
+  background: linear-gradient(30deg, #fca040, #c22e80);
+  border: 2px solid var(--white);
+  outline: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px 10px rgba(255, 67, 161, 0.35);
+  transition: var(--trns1);
+  z-index: 100;
+  position: relative;
+  border-radius: 1000px;
+  width: fit-content;
+  cursor: pointer;
+}
+.purple-border-btn {
+  font-size: 1.85rem;
+  color: var(--white);
+  border: 2px solid var(--main-purple);
+  outline: 0;
+  background-color: #ffe425;
+  color: #ff43a0;
+  border-radius: 1000px;
+  box-shadow: 0 0 15px 5px rgba(255, 67, 161, 0.5);
+  transition: var(--trns1);
+  border-radius: 1000px;
+  width: fit-content;
+  cursor: pointer;
+}
+.purple-border-transparent-btn {
+  font-size: 1.85rem;
+  color: var(--white);
+  border: 2px solid var(--main-purple);
+  outline: 0;
+  background-color: transparent;
+  color: white;
+  border-radius: 1000px;
+  box-shadow: 0 0 15px 5px rgba(255, 67, 161, 0.5);
+  transition: var(--trns1);
+  border-radius: 1000px;
+  width: fit-content;
+  cursor: pointer;
+}
+.react-tabs__tab--selected {
+  background: linear-gradient(30deg, #fca040, #c22e80) !important;
+  border-color: #fff !important;
+  color: #fff !important;
+  border-radius: 5px 5px 0 0;
+  font-size: 1.5rem !important;
+}
+.react-tabs__tab {
+  font-size: 1.6rem !important;
+}
+.grd-btn:hover,
+.purple-border-btn:hover
+.purple-border-transparent-btn:hover
+{
+  box-shadow: 0 0 15px 5px rgba(255, 67, 161, 0.4);
+}
+.purple-border-btn img,
+.purple-border-transparent-btn img,
+.grd-btn img {
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+  margin: 0 1rem 0 0;
+}
+.dopot-btn-sm {
+  padding: 0.5rem 2rem;
+  font-size: 1.15rem;
+}
+.dopot-btn-lg {
+  padding: 1.25rem 3.5rem;
+  font-size: 1.75rem;
+}
+.dopot-btn-lg-2 {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+.section-heading {
+  width: 100%;
+  text-align: center;
+  font-size: 5rem;
+  font-weight: 500;
+  color: var(--white);
+  z-index: 100;
+  position: relative;
+}
+@media screen and (max-width: 650px) {
+  .section-heading {
+    font-size: 3.5rem;
+  }
+  .box {
+    padding: 0 2rem;
+  }
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
