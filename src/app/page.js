@@ -41,7 +41,7 @@ export default function App() {
         {isTempMsgHidden ? null : (
           <div className="temp-msg">
             <p>Dopot is live on Arbitrum One!</p>
-            <button
+            <button style={{ maxWidth: "3em", background: "darkred" }}
               onClick={() => {
                 setIsTempMsgHidden(true);
               }}

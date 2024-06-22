@@ -1,5 +1,5 @@
 "use client"
-import { getPushUser, getIdentity, init } from "./firebaseInit.jsx"
+import { getPushUser, getIdentity, init, db } from "./firebaseInit.jsx"
 import { getRecoil, setRecoil } from 'recoil-nexus';
 import { addressState, providerState, progettiState } from '../../recoilState.js';
 import { genproj, bundlrFund, bundlrAdd, contrattoProjectAddTier, initialiseBundlr, webIrys } from "../genproj.jsx"

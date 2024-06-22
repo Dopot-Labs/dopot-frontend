@@ -27,7 +27,7 @@ export async function getProvider(){ let signer;
                 method: 'wallet_addEthereumChain',
                 params: [{
                 chainId: "0xa4b1",
-                rpcUrls: ["https://arbitrum.llamarpc.com"],
+                rpcUrls: ["https://endpoints.omniatech.io/v1/arbitrum/one/public"],
                  chainName: "Arbitrum One",
                 nativeCurrency: {
                     name: "ETH",
@@ -81,7 +81,7 @@ async function getInvestors(projdb, dopotReward){
     let currentBlock = await provider.getBlockNumber();
     const endBlock = currentBlock;
     currentBlock = currentBlock - (337510 * 120); // Arbitrum blocks per day * 120 days
-    const batchSize = 3500;
+    const batchSize = 10000; //8000;
     if (blockHeight > currentBlock) currentBlock = blockHeight;
 
     while (currentBlock <= endBlock) {
@@ -97,6 +97,7 @@ async function getInvestors(projdb, dopotReward){
             }
         }
         currentBlock = nextBlock + 1;
+        console.log(currentBlock)
     }
     setRecoil(blockHeightState, endBlock);
 }

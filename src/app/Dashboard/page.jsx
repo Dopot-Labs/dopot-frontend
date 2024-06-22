@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "../i18n/client.js";
 import "../styles/dashboard.css";
 import "../styles/globals.css";
@@ -18,17 +18,20 @@ import {
   retriveFavorites,
   getInsuranceFunds
 } from "../utils/firebase/retriveInfo.jsx";
-import useSearchForm from "./useSearchForm.jsx";
 const { ethers } = require("ethers");
+
+
 
 const Home = () => {
   const { t } = useTranslation();
-  const HandleSearch = useSearchForm();
+  //const HandleSearch = useSearchForm();
   const [progettiFavourites, setProgettiFavourites] = useState([]);
   const [insuranceState, setInsuranceState] = useState(0);
-  const cards = [];
+  const [cards, setCards] = useState([]);
+  const [reload, setReload] = useState(false);
   
   const load = useCallback(async () => {
+    const cardsTemp = [];
     await downloadProjects(t);
     const newData = await retriveFavorites();
     let insuranceFunds = await getInsuranceFunds();
@@ -36,56 +39,79 @@ const Home = () => {
     if (insuranceFunds >= 1) insuranceFunds = insuranceFunds.substring(0, insuranceFunds.indexOf("."));
     setInsuranceState(insuranceFunds);
     setProgettiFavourites(newData);
-  }, [t]);
+    let progetti = getRecoil(progettiState);
+    const query = new URLSearchParams(window ? window.location.search : "");
+    const state = query.get("s") || "ongoing";
+    const campaign = query.get("c") || "reward";
+    const type = query.get("t") || "any";
+    let value = query.get("v") || "any";
+
+    //test
+    let expanded = false;
+    /*function showCheckboxes() {
+      let checkboxes = document.getElementById("checkboxes");
+      if (!expanded) {
+        checkboxes.style.display = "block";
+        expanded = true;
+      } else {
+        checkboxes.style.display = "none";
+        expanded = false;
+      }
+    }*/
+    //test
+
+    progetti = progetti.filter(
+      (progetto) =>
+        progetto.stateText?.toLowerCase().replace(" ", "") === state &&
+        progetto.tipoCampagna === campaign &&
+        (type !== "any" ? progetto.settore === type : true) &&
+        (value !== "any"
+          ? progetto.minInvestment >= parseInt(value.split("-")[0]) &&
+            progetto.minInvestment <= parseInt(value.split("-")[1])
+          : true)
+    );
+    if(state === "ongoing") progetti.sort((a, b) => b.totalStaked - a.totalStaked);
+
+    progetti.forEach((element) => {
+      cardsTemp.push(
+        <Card
+          progetto={element}
+          progettiFavourites={progettiFavourites}
+          immagini={getRecoil(progettiImageState)[element.address]}
+          address={element.address}
+          tier={element.tier}
+        ></Card>
+      );
+    });
+    setCards(cardsTemp);
+  }, [progettiFavourites, t]);
   useEffect(() => {
     load();
   }, [load]);
 
-  let progetti = getRecoil(progettiState);
-  const query = new URLSearchParams(window ? window.location.search : "");
-  const state = query.get("s") || "ongoing";
-  const campaign = query.get("c") || "reward";
-  const type = query.get("t") || "any";
-  let value = query.get("v") || "any";
-
-  //test
-  let expanded = false;
-
-  /*function showCheckboxes() {
-    let checkboxes = document.getElementById("checkboxes");
-    if (!expanded) {
-      checkboxes.style.display = "block";
-      expanded = true;
-    } else {
-      checkboxes.style.display = "none";
-      expanded = false;
+  const HandleSearch = (e) => {
+    e.preventDefault(); // This prevents the default form submission behavior
+    if (typeof window !== "undefined" && typeof document !== "undefined") {
+      const stateSelect = document.querySelector("#sel1");
+      const typeSelect = document.querySelector("#sel2");
+      const categorySelect = document.querySelector("#sel3");
+      const investmentSelect = document.querySelector("#sel4");
+      const stateValue = stateSelect?.value;
+      const typeValue = typeSelect?.value;
+      const categoryValue = categorySelect?.value;
+      const investmentValue = investmentSelect?.value;
+      
+      const newURL = new URL(window.location.href);
+      if(stateValue) newURL.searchParams.set('s', stateValue);
+      if(typeValue) newURL.searchParams.set('c', typeValue);
+      if(categoryValue) newURL.searchParams.set('t', categoryValue);
+      if(investmentValue) newURL.searchParams.set('v', investmentValue);
+      window.history.pushState({ path: newURL.href }, '', newURL.href);
+      //window.location.href = newURL;
+      console.log("search param")
+      setReload(!reload);
     }
-  }*/
-  //test
-
-  progetti = progetti.filter(
-    (progetto) =>
-      progetto.stateText?.toLowerCase().replace(" ", "") === state &&
-      progetto.tipoCampagna === campaign &&
-      (type !== "any" ? progetto.settore === type : true) &&
-      (value !== "any"
-        ? progetto.minInvestment >= parseInt(value.split("-")[0]) &&
-          progetto.minInvestment <= parseInt(value.split("-")[1])
-        : true)
-  );
-  if(state === "ongoing") progetti.sort((a, b) => b.totalStaked - a.totalStaked);
-
-  progetti.forEach((element) => {
-    cards.push(
-      <Card
-        progetto={element}
-        progettiFavourites={progettiFavourites}
-        immagini={getRecoil(progettiImageState)[element.address]}
-        address={element.address}
-        tier={element.tier}
-      ></Card>
-    );
-  });
+}
 
   const [isHeaderOpen, setIsHeaderOpen] = useState(false);
   return (
@@ -102,6 +128,7 @@ const Home = () => {
                 <select name="sel1" id="sel1">
                   <option value="ongoing">Live Crowdfounding</option>
                   <option value="successful">Closed Crowdfunding</option>
+                  <option value="pendingapproval">Pending</option>
                 </select>
               </div>
               <div className="dash-sel-opt-content">
@@ -213,9 +240,9 @@ const Home = () => {
                   <option value="audi">Audi</option>*/}
                 </select>
               </div>
-              <div onClick={HandleSearch} className="das-search-btn">
+              <button onClick={HandleSearch} className="das-search-btn">
                 <MdSearch />
-              </div>
+              </button>
             </div> 
             <div onClick={load} className="das-refresh-btn">
               <MdRefresh />

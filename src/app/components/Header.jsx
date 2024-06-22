@@ -28,26 +28,24 @@ function deleteDatabase(dbName) {
 const DeleteCookiesAndReload = () => {
   localStorage.clear();
   // Delete all cookies
-  useEffect(() => {
-    if(typeof window !== "undefined"){
-      document.cookie.split(";").forEach(function(c) {
-        document.cookie = c
-        .replace(/^ +/, "")
-        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-      });
-      // Clear IndexedDB
-      const indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-      indexedDB.databases().then((dbs) => {
-        const deletePromises = dbs.map((db) => deleteDatabase(db.name));
-        return Promise.all(deletePromises);
-      }).then((results) => {
-        console.log(results);
-        window.location.reload();
-      }).catch((error) => {
-        console.error(error);
-      });
-      }
-  }, []);
+  if(typeof window !== "undefined"){
+    document.cookie.split(";").forEach(function(c) {
+      document.cookie = c
+      .replace(/^ +/, "")
+      .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    // Clear IndexedDB
+    const indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+    indexedDB.databases().then((dbs) => {
+      const deletePromises = dbs.map((db) => deleteDatabase(db.name));
+      return Promise.all(deletePromises);
+    }).then((results) => {
+      console.log(results);
+      window.location.reload();
+    }).catch((error) => {
+      console.error(error);
+    });
+    }
 }
 
 const Header = (props) => {
