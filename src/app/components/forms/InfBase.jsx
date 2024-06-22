@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-key */
 "use client"
 import React, { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../../i18n/client";
+import Link from 'next/link';
+
 const InfBase = (props) => {
   const { t, i18n } = useTranslation();
   const [val, setVal] = useState([]);

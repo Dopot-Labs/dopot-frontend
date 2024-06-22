@@ -1,19 +1,17 @@
 "use client"
 import React, { useEffect } from "react";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import IconInfoCard from "../../components/PaginaCard/IconInfoCard";
 import IconInfoDai from "../../components/PaginaCard/IconInfoDai";
 import { CircularProgressbar } from "react-circular-progressbar";
-import { useNavigate } from "react-router-dom";
 import Flag from "react-world-flags";
 import { addFavorites, postpone } from "../../utils/firebase/writeInfos";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../../i18n/client";
 import { getWithdrawalFees, getPWithSigner } from "../../utils/firebase/writeInfos";
 const { ethers } = require("ethers");
 
 const Card = (props) => {
-  const { t, i18n } = useTranslation();
-  const navigate = useNavigate();
+  const { t } = useTranslation();
   const { progetto, loadFees } = props;
   const percentage = (progetto.funds / progetto.quota) * 100;
   const fundRaisingDeadline = progetto.fundRaisingDeadline;
@@ -47,7 +45,7 @@ const Card = (props) => {
   }, []); 
 
   function handleRedirect(e) {
-    navigate(`/card/${address}`);
+    window.location.href = `/Card/${address}`;
     window.scrollTo(0, -1000000);
   }
   let desc = String(progetto.descProgetto);

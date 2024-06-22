@@ -88,7 +88,7 @@ async function contrattoprojectFactory(quota, giorniCampagna){
         description:  inputs["description"+i],
         image: "ar://" + nftimgtx.id,
         project: inputs.address,
-        external_url: `https://dopot.fi/#/card/${inputs.address}`,
+        external_url: `https://dopot.fi/Card/${inputs.address}`,
         specs: inputs["specs"+i],
         price: inputs["price"+i],
         supply: parseInt( inputs["supply"+i])

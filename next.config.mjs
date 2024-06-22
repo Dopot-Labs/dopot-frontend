@@ -1,7 +1,5 @@
 // next.config.mjs
 
-import path from 'path';
-
 const nextconfig =  {
     i18n: {
       locales: ['en', 'it'],
@@ -10,6 +8,10 @@ const nextconfig =  {
     trailingSlash: true,
   webpack: (config, { isServer }) => {
     if (!isServer) {
+      config.module.rules.push({
+        test: /vm2/,
+        use: 'null-loader',
+      });
       // Add a rule for SVG files using @svgr/webpack
       config.module.rules.push({
         test: /\.svg$/,
@@ -42,24 +44,31 @@ const nextconfig =  {
           },
         ],
       });
-      
-      // Add a rule for CoffeeScript files using coffee-loader
-      config.module.rules.push({
-        test: /\.coffee$/,
-        use: ['coffee-loader'],
-      });
   
-      if (!isServer) {
-        // Ensure that the file-loader is applied to the client as well
-        config.resolve.fallback.fileSystem = false;
-        config.resolve.fallback.crypto = false;
-      }
+      // Ensure that the file-loader is applied to the client as well
+      config.resolve.fallback = { fs: false, net: false, tls: false, lokijs: false };
+    
+    } else {
+      config.externals = [...config.externals, 'vm2'];
     }
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'eccrypto': '@toruslabs/eccrypto',
+      //'warp-contracts-old': 'warp-contracts',
+    };
     return config;
   },
   eslint: { 
     ignoreDuringBuilds: true, 
-  }
+  },
+  images: {
+    domains: ['i.ibb.co'],
+  },
+  experimental: {
+    serverComponentsExternalPackages: ["coffee-script"],
+    externalDir: true,
+  },
+  reactStrictMode: true,
 };
 
 

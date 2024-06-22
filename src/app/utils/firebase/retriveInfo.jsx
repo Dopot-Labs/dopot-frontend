@@ -1,26 +1,27 @@
 "use client"
 import { getRecoil, setRecoil } from 'recoil-nexus';
-import { addressState , progettiState, blockHeightState, providerState } from '../../recoilState';
-import { db, getIdentity, init } from './firebaseInit';
+import { addressState , progettiState, blockHeightState, providerState } from '../../recoilState.js';
+import { db, getIdentity, init } from './firebaseInit.jsx';
 import addressProjectFactory from '../../abi/projectFactory/address.js';
 import addressFundingToken from '../../abi/fundingToken/address.js';
 import addressDopotReward from '../../abi/dopotReward/address.js';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../../i18n/client.js";
 const { ethers, Contract } = require("ethers");
 const abiProject = require('../../abi/project/1.json');
 const abiProjectFactory = require('../../abi/projectFactory/1.json');
 const abiFundingToken = require('../../abi/fundingToken/1.json');
 const abiDopotReward = require('../../abi/dopotReward/1.json');
-export let provider;
 
 export async function getProvider(){ let signer;
     try {
-        await window.ethereum.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: '0xa4b1' }],
-        });
+        if(typeof window !== "undefined"){
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0xa4b1' }],
+            });
+        }
     } catch (switchError) {
-        if (switchError.code === 4902) {
+        if (switchError.code === 4902 && typeof window !== "undefined") {
             try {
             await window.ethereum.request({
                 method: 'wallet_addEthereumChain',
@@ -42,9 +43,9 @@ export async function getProvider(){ let signer;
         }
     }
     try{
-        provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
         await provider.send("eth_requestAccounts", [])
-        signer = await provider.getSigner();
+        signer = provider.getSigner();
         setRecoil(providerState, provider);
     } catch (e){ console.log(e)}
     return await signer.getAddress();
@@ -53,7 +54,7 @@ export async function getProvider(){ let signer;
 export async function getAddr(setState, dontAutoConnect, t) {
     let address;
     if(dontAutoConnect){ //Just get stored address
-        provider = getRecoil(providerState);
+        const provider = getRecoil(providerState);
         if(provider){
             let signer = await provider.getSigner();
             address = await signer.getAddress();
@@ -65,7 +66,6 @@ export async function getAddr(setState, dontAutoConnect, t) {
        
     } else{ //Web3 connect
         address = await getProvider();
-        provider = getRecoil(providerState);
         setRecoil(addressState, address)
         setState(address.toString().substring(0, 7) + "...")
         await init();
@@ -118,61 +118,58 @@ export async function downloadProjects(t) {
     setRecoil(addressState, address)
     await init()
     try{
-        let projects = getRecoil(progettiState)
         const dopotReward = new Contract(addressDopotReward, abiDopotReward, getRecoil(providerState));
-        //if(!projects || projects.length === 0){
-            projects = await db.get("projects"/*, identity*/);
-            console.dir(projects)
-            for(let projdb of projects){
-                if(!projdb.address) continue;
-                const project = new Contract(projdb.address, abiProject, getRecoil(providerState));
-                const tiersLenghts = await project.getTiersLength();
-                for(let t = 0; t < tiersLenghts; t++){
-                    projdb.imageNftDefListFiles[t].currentSupply = (await dopotReward.currentSupplyByProjectAndURI(projdb.address, projdb.imageNftDefListFiles[t].uri)).toNumber()                    
-                }
-                projdb.investors = {};
-                await getInvestors(projdb, dopotReward);
-                projdb.investorsNumber = Object.keys(projdb.investors).length;
-                const projectFunds = Math.round(ethers.utils.formatEther(await getProjectFunds(projdb.address)));
-                projdb.funds = projectFunds || 0;
-                const deadline = await project.fundRaisingDeadline();
-                const now = new Date();
-                const difference = deadline * 1000 - now;
-                const seconds = Math.floor(difference / 1000);
-                const minutes = Math.floor(seconds / 60);
-                const hours = Math.floor(minutes / 60);
-                const days = Math.floor(hours / 24);
-                projdb.fundRaisingDeadline = days;
-                projdb.minInvestment = Math.min(...projdb.imageNftDefListFiles.map(item => parseInt(item.price)));
-                projdb.state = await project.state();
-                projdb.totalStaked = typeof project.totalStaked === 'function' ? (await project.totalStaked()).toString().replace(/\d{18}$/, '') : 0;
+        let projects = await db.get("projects"/*, identity*/);
+        console.dir(projects)
+        for(let projdb of projects){
+            if(!projdb.address) continue;
+            const project = new Contract(projdb.address, abiProject, getRecoil(providerState));
+            const tiersLenghts = await project.getTiersLength();
+            for(let t = 0; t < tiersLenghts; t++){
+                projdb.imageNftDefListFiles[t].currentSupply = (await dopotReward.currentSupplyByProjectAndURI(projdb.address, projdb.imageNftDefListFiles[t].uri)).toNumber()                    
+            }
+            projdb.investors = {};
+            await getInvestors(projdb, dopotReward);
+            projdb.investorsNumber = Object.keys(projdb.investors).length;
+            const projectFunds = Math.round(Number(ethers.utils.formatEther(await getProjectFunds(projdb.address))));
+            projdb.funds = projectFunds || 0;
+            const deadline = await project.fundRaisingDeadline();
+            const now = new Date();
+            const difference = deadline * 1000 - now;
+            const seconds = Math.floor(difference / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            projdb.fundRaisingDeadline = days;
+            projdb.minInvestment = Math.min(...projdb.imageNftDefListFiles.map(item => parseInt(item.price)));
+            projdb.state = await project.state();
+            projdb.totalStaked = typeof project.totalStaked === 'function' ? (await project.totalStaked()).toString().replace(/\d{18}$/, '') : 0;
 
-                if(days < 0 && projdb.state !== 0) projdb.state = 4;
-                switch(projdb.state){
-                    case 0:
-                        projdb.stateText = "Pending Approval";
-                        break;
-                    case 1:
-                        projdb.stateText = "Rejected";
-                        break;
-                    case 2:
-                        projdb.stateText = "Ongoing";
-                        break;
-                    case 3:
-                        projdb.stateText = "Successful";
-                        if(projdb.funds === 0) projdb.funds = projdb.quota;
-                        break;
-                    case 4:
-                        projdb.stateText = "Expired";
-                        break;
-                    case 5:
-                        projdb.stateText = "Cancelled";
-                        break;
-                    default: break;
-                  }
-            //}
-            
-            setRecoil(progettiState, projects)
+            if(days < 0 && projdb.state !== 0) projdb.state = 4;
+            switch(projdb.state){
+                case 0:
+                    projdb.stateText = "Pending Approval";
+                    break;
+                case 1:
+                    projdb.stateText = "Rejected";
+                    break;
+                case 2:
+                    projdb.stateText = "Ongoing";
+                    break;
+                case 3:
+                    projdb.stateText = "Successful";
+                    if(projdb.funds === 0) projdb.funds = projdb.quota;
+                    break;
+                case 4:
+                    projdb.stateText = "Expired";
+                    break;
+                case 5:
+                    projdb.stateText = "Cancelled";
+                    break;
+                default: break;
+                }
+                
+                setRecoil(progettiState, projects)
         }
     }   catch(e){console.log(e)}
     return true
@@ -228,7 +225,7 @@ export async function retriveProjectStakes(projectAddress) {
 }
 
 export function RetriveProjectTypes(tipoKey){
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const types = {
         tipo1: t("socialcare"),
         tipo2: t("healthcare"),

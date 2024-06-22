@@ -6,6 +6,7 @@ import React from "react";
 import { getRecoil } from "recoil-nexus";
 import { addressState } from "../recoilState";
 import "react-circular-progressbar/dist/styles.css";
+import Link from 'next/link';
 
 const Profile = () => {
   const address = getRecoil(addressState);
@@ -17,9 +18,9 @@ const Profile = () => {
           <div className="box">
             <div className="pts-content">
               <div className="pts-left">
-                <a href="#">
+                <Link href="#">
                   <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
-                </a>
+                </Link>
                 <div className="profile-img-box">
                   <h3>
                     Profilo di{" "}
@@ -33,56 +34,56 @@ const Profile = () => {
               <div className="pts-right">
                 <div className="pts-right-grid">
                   <div className="pts-right-grid-card">
-                    <a href={"/#/profile"}>
+                    <Link href={"/profile"}>
                       <img src={"/assets/img/profile-icon-1.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/profile"}>
+                    </Link>
+                    <Link href={"/profile"}>
                       <p>Panoramica</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/insprogetto"}>
+                    <Link href={"/insprogetto"}>
                       <img src={"/assets/img/ins-project-def.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/insprogetto"}>
+                    </Link>
+                    <Link href={"/insprogetto"}>
                       <p>Crea Campagna</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/mynft"}>
+                    <Link href={"/mynft"}>
                       <img src={"/assets/img/profile-icon-3.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/mynft"}>
+                    </Link>
+                    <Link href={"/mynft"}>
                       <p>I Miei NFT</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/myprojects"}>
+                    <Link href={"/myprojects"}>
                       <img className="" src={"/assets/img/profile-icon-4.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/myprojects"}>
+                    </Link>
+                    <Link href={"/myprojects"}>
                       <p>I Miei Progetti</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/xdao"}>
+                    <Link href={"/xdao"}>
                       <img
                         className="myprojects-img"
                         src={"/assets/img/widget.png"}
                         alt="ProfileIcon"
                       />
-                    </a>
-                    <a href={"https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"} target="_blank" rel="noreferrer">
+                    </Link>
+                    <Link href={"https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"} target="_blank" rel="noreferrer">
                       <p>DAO</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"https://app.proofofhumanity.id"} target="_blank" rel="noreferrer">
+                    <Link href={"https://app.proofofhumanity.id"} target="_blank" rel="noreferrer">
                       <img src={"/assets/img/impostazioni.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"https://app.proofofhumanity.id"} target="_blank" rel="noreferrer">
+                    </Link>
+                    <Link href={"https://app.proofofhumanity.id"} target="_blank" rel="noreferrer">
                       <p>Verify Identity</p>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

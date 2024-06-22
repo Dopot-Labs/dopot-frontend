@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../../i18n/client";
 
 const Faq = (props) => {
   const { t, i18n } = useTranslation();

@@ -7,7 +7,6 @@ import PCUserIcon from "/assets/img/pc-person-icon.png";
 import PCCalendarIcon from "/assets/img/pc-calendar-icon.png";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { progettiState } from "../recoilState";
-import { useNavigate } from "react-router-dom";
 import {RetriveProjectTypes} from "../utils/firebase/retriveInfo";
 
 const SmallProject = (props) => {
@@ -16,10 +15,9 @@ const SmallProject = (props) => {
   );
 
   const percentage = (progetto.funds / progetto.quota) * 100;
-  const navigate = useNavigate();
 
   function handleRedirect(e) {
-    navigate(`/card/${props.address}`);
+    window.location.href = `/Card/${props.address}`;
     window.scrollTo(0, -1000000);
   }
 

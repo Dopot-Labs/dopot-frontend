@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import "../styles/globals.css";
 import "../styles/paginacard.css";
@@ -9,10 +10,11 @@ import {
   progettiState,
   progettiImageState,
 } from "../recoilState";
-
+import Link from 'next/link';
+import Image from 'next/image';
 import "react-circular-progressbar/dist/styles.css";
-import CardPref from "../components/PaginaCard/CardPref";
-import { useTranslation } from "react-i18next";
+import CardPref from "../components/PaginaCard/CardPref.jsx";
+import { useTranslation } from "../i18n/client";
 
 import { retriveFavorites } from "../utils/firebase/retriveInfo";
 
@@ -66,7 +68,7 @@ const Profile = () => {
     }
 
     fetchData();
-  }, []);
+  }, [address, projects]);
 
   const ToggleSec = () => {
     setActive(!isActive);
@@ -86,9 +88,9 @@ const Profile = () => {
           <div className="box">
             <div className="pts-content">
               <div className="pts-left">
-                <a href="#">
+                <Link href="#">
                   <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
-                </a>
+                </Link>
                 <div className="profile-img-box">
                   <h3>
                     {t("profileof")}{" "}
@@ -101,43 +103,43 @@ const Profile = () => {
               <div className="pts-right">
                 <div className="pts-right-grid">
                   <div className="pts-right-grid-card">
-                    <a href={"/#/profile"}>
+                    <Link href={"/profile"}>
                       <img
                         className="panoramica-img"
                         src={"/assets/img/profile-icon-1.png"}
                         alt="ProfileIcon"
                       />
-                    </a>
-                    <a href={"/#/profile"}>
+                    </Link>
+                    <Link href={"/profile"}>
                       <p>{t("overview")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/insprogetto"}>
+                    <Link href={"/insprogetto"}>
                       <img src={"/assets/img/ins-project-def.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/insprogetto"}>
+                    </Link>
+                    <Link href={"/insprogetto"}>
                       <p>{t("createcampaign")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/mynft"}>
+                    <Link href={"/mynft"}>
                       <img src={"/assets/img/profile-icon-3.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/mynft"}>
+                    </Link>
+                    <Link href={"/mynft"}>
                       <p>{t("mynft")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/myprojects"}>
+                    <Link href={"/myprojects"}>
                       <img src={"/assets/img/profile-icon-4.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/myprojects"}>
+                    </Link>
+                    <Link href={"/myprojects"}>
                       <p>{t("myprojects")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a
+                    <Link
                       href={
                         "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
                       }
@@ -145,8 +147,8 @@ const Profile = () => {
                       rel="noreferrer"
                     >
                       <img src={"/assets/img/widget.png"} alt="ProfileIcon" />
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href={
                         "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
                       }
@@ -154,23 +156,23 @@ const Profile = () => {
                       rel="noreferrer"
                     >
                       <p>DAO</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a
+                    <Link
                       href={"https://app.proofofhumanity.id"}
                       target="_blank"
                       rel="noreferrer"
                     >
                       <img src={"/assets/img/identity.png"} alt="ProfileIcon" />
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href={"https://app.proofofhumanity.id"}
                       target="_blank"
                       rel="noreferrer"
                     >
                       <p>{t("identity")}</p>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

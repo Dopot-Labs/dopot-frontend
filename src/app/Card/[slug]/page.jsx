@@ -1,36 +1,40 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import "../styles/globals.css";
-import "../styles/paginacard.css";
-import IconInfoDai from "../components/PaginaCard/IconInfoDai";
+import "../../styles/globals.css";
+import "../../styles/paginacard.css";
+import IconInfoDai from "../../components/PaginaCard/IconInfoDai";
+import Link from 'next/link';
 
-import IconInfoCard from "../components/PaginaCard/IconInfoCard";
-import InvestiCard from "../components/PaginaCard/InvestiCard";
+import IconInfoCard from "../../components/PaginaCard/IconInfoCard";
+import InvestiCard from "../../components/PaginaCard/InvestiCard";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useParams } from "react-router-dom";
-import { progettiState } from "../recoilState";
+import { progettiState } from "../../recoilState";
 import { getRecoil } from "recoil-nexus";
-import TabCampagna from "../components/TabCampagna";
-import TabRoadmap from "../components/TabRoadmap";
-import TabFaq from "../components/TabFaq";
-import TabSocial from "../components/TabSocial";
-import TabQuestionario from "../components/TabQuestionario";
-import TabDocumenti from "../components/TabDocumenti";
-import { addFavorites } from "../utils/firebase/writeInfos";
+import TabCampagna from "../../components/TabCampagna";
+import TabRoadmap from "../../components/TabRoadmap";
+import TabFaq from "../../components/TabFaq";
+import TabSocial from "../../components/TabSocial";
+import TabQuestionario from "../../components/TabQuestionario";
+import TabDocumenti from "../../components/TabDocumenti";
+import { addFavorites } from "../../utils/firebase/writeInfos";
 import {
   downloadProjects,
   retriveFavorites,
   RetriveProjectTypes,
   retriveProjectStakes
-} from "../utils/firebase/retriveInfo";
-import { useTranslation } from "react-i18next";
+} from "../../utils/firebase/retriveInfo";
+import { useTranslation } from "../../i18n/client";
 const PaginaCard = () => {
   const { t } = useTranslation();
   const [toggleHeart, setToggleHeart] = useState(false);
   const [progettiStakes, setProgettiStakes] = useState([]);
 
-  let { address } = useParams();
+  //let { address } = useParams();
+  const currentURL = window.location.href;
+  const urlWithoutTrailingSlash = currentURL.endsWith('/') ? currentURL.slice(0, -1) : currentURL;
+  const address = urlWithoutTrailingSlash.split('/').pop();
   let progetto = getRecoil(progettiState).find((x) => x.address === address);
   const [base64Data, setBase64Data] = useState([]);
 
@@ -140,7 +144,7 @@ const PaginaCard = () => {
                 </div>
                 <div className="span-card">
                       <span>
-                        <strong>{t("creatoraddress")}:</strong> <a style={{textDecoration: "underline", cursor: "pointer"}} target="_blank" href={`https://app.proofofhumanity.id/profile/${progetto.addressCreator}`} rel="noreferrer">{progetto.addressCreator}</a>
+                        <strong>{t("creatoraddress")}:</strong> <Link style={{textDecoration: "underline", cursor: "pointer"}} target="_blank" href={`https://app.proofofhumanity.id/profile/${progetto.addressCreator}`} rel="noreferrer">{progetto.addressCreator}</Link>
                       </span>
                   </div>
               </div>

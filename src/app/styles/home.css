@@ -514,6 +514,7 @@
 .temp-msg {
   width: 50%;
   max-width: 60rem;
+  max-height: 25%;
   background-color: rgb(206, 26, 26);
   padding: 1.5rem 1.5rem;
   display: flex;

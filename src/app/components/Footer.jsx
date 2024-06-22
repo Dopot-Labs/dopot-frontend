@@ -2,7 +2,8 @@
 import React from "react";
 import "../styles/components/footer.css";
 import { SocialIcon } from "react-social-icons";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n/client";
+import Link from 'next/link';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -12,14 +13,14 @@ const Footer = () => {
         <div className="footer-grid">
           <div className="footer-grid-box">
             <h4>{t("contact")}</h4>
-            <a href="mailto:info@dopot.fi ">info@dopot.fi </a>
+            <Link href="mailto:info@dopot.fi ">info@dopot.fi </Link>
           </div>
           <div className="footer-grid-box">
             <h4>{t("services")}</h4>
-            <a href="/#/insprogetto">{t("createcampaign")}</a>
-            <a href="/#/dopottoken">Dopot Token</a>
-            {/* <a href="#">{t('learn')}</a> */}
-            <a href="/#/FaqIta">Tutorials</a>
+            <Link href="/InsProgetto">{t("createcampaign")}</Link>
+            <Link href="/DopotToken">Dopot Token</Link>
+            {/* <Link href="/">{t('learn')}</Link> */}
+            <Link href="/FaqIta">Tutorials</Link>
           </div>
           <div className="footer-grid-box">
             <h4>Community</h4>
@@ -53,20 +54,20 @@ const Footer = () => {
           </div>
           <div className="footer-grid-box">
             <h4>{t("document")}</h4>
-            <a href="/assets/dopot.pdf">Whitepaper </a>
-            <a href="https://dopot.gitbook.io/dopot/">GitBook </a>
-            <a href="https://github.com/Dopot-Labs">
+            <Link href="/assets/dopot.pdf">Whitepaper </Link>
+            <Link href="https://dopot.gitbook.io/dopot/">GitBook </Link>
+            <Link href="https://github.com/Dopot-Labs">
               <img
                 id="badge-button"
                 style={{ marginBottom: "2rem" }}
                 src={"/assets/img/open-source.png"}
                 alt="Open Source"
               />
-            </a>
+            </Link>
           </div>
         </div>
         <div className="footer-bottom">
-          {/*<a href="#">
+          {/*<Link href="/">
             <img
               onClick={logBadgeClick}
               id="badge-button"
@@ -74,7 +75,7 @@ const Footer = () => {
               src="https://static.alchemyapi.io/images/marketing/badge.png"
               alt="Alchemy Supercharged"
             />
-          </a>
+          </Link>
               */}
           <h6>DOPOT.FI</h6>
           {/* <p>Copyright © 2021 tutti diritti riservati a Dopot.ﬁ</p> */}

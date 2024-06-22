@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/components/footer.css";
 import { Document, Page, pdfjs } from "react-pdf";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n/client";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const TabDocumenti = (props) => {

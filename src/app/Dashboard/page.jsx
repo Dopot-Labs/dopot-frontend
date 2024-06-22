@@ -1,50 +1,48 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-
+import { useTranslation } from "../i18n/client.js";
 import "../styles/dashboard.css";
 import "../styles/globals.css";
-import Header from "../components/Header";
+import Header from "../components/Header.jsx";
 import "../styles/components/header.css";
 import { MdSearch, MdRefresh } from "react-icons/md";
-import Card from "../components/PaginaCard/Card";
+import Card from "../components/PaginaCard/Card.jsx";
 import "react-circular-progressbar/dist/styles.css";
 import "../styles/paginacard.css";
 import "../styles/profile.css";
-import { progettiState, progettiImageState } from "../recoilState";
+import { progettiState, progettiImageState } from "../recoilState.js";
 import { getRecoil } from "recoil-nexus";
-import Footer from "../components/Footer";
+import Footer from "../components/Footer.jsx";
 import {
   downloadProjects,
   retriveFavorites,
   getInsuranceFunds
-} from "../utils/firebase/retriveInfo";
-import useSearchForm from "./useSearchForm";
+} from "../utils/firebase/retriveInfo.jsx";
+import useSearchForm from "./useSearchForm.jsx";
 const { ethers } = require("ethers");
 
 const Home = () => {
   const { t } = useTranslation();
-  const handleSearch = useSearchForm();
+  const HandleSearch = useSearchForm();
   const [progettiFavourites, setProgettiFavourites] = useState([]);
   const [insuranceState, setInsuranceState] = useState(0);
   const cards = [];
-  async function load(){
+  
+  const load = useCallback(async () => {
     await downloadProjects(t);
     const newData = await retriveFavorites();
     let insuranceFunds = await getInsuranceFunds();
     insuranceFunds = ethers.utils.formatEther(insuranceFunds.toString());
-    if(insuranceFunds>=1) insuranceFunds = insuranceFunds.substring(0, insuranceFunds.indexOf("."));
+    if (insuranceFunds >= 1) insuranceFunds = insuranceFunds.substring(0, insuranceFunds.indexOf("."));
     setInsuranceState(insuranceFunds);
     setProgettiFavourites(newData);
-  }
+  }, [t]);
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   let progetti = getRecoil(progettiState);
-  const location = useLocation();
-  const query = new URLSearchParams(location.search);
+  const query = new URLSearchParams(window ? window.location.search : "");
   const state = query.get("s") || "ongoing";
   const campaign = query.get("c") || "reward";
   const type = query.get("t") || "any";
@@ -53,7 +51,7 @@ const Home = () => {
   //test
   let expanded = false;
 
-  function showCheckboxes() {
+  /*function showCheckboxes() {
     let checkboxes = document.getElementById("checkboxes");
     if (!expanded) {
       checkboxes.style.display = "block";
@@ -62,7 +60,7 @@ const Home = () => {
       checkboxes.style.display = "none";
       expanded = false;
     }
-  }
+  }*/
   //test
 
   progetti = progetti.filter(
@@ -215,7 +213,7 @@ const Home = () => {
                   <option value="audi">Audi</option>*/}
                 </select>
               </div>
-              <div onClick={handleSearch} className="das-search-btn">
+              <div onClick={HandleSearch} className="das-search-btn">
                 <MdSearch />
               </div>
             </div> 

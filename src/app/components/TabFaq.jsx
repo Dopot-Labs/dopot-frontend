@@ -2,7 +2,7 @@
 import React from "react";
 import "../styles/components/footer.css";
 import BlogPost from "./PaginaCard/BlogPost";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n/client";
 
 const TabFaq = (props) => {
   console.dir(props);

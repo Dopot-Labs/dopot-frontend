@@ -3,14 +3,12 @@ import React, { useState, useEffect } from "react";
 import IconInfoCard from "./IconInfoCard";
 import IconInfoDai from "./IconInfoDai";
 import { CircularProgressbar } from "react-circular-progressbar";
-import { useNavigate } from "react-router-dom";
 import Flag from "react-world-flags";
 import { addFavorites } from "../../utils/firebase/writeInfos";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../../i18n/client";
 
 const Card = (props) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { progetto } = props;
   const percentage = (progetto.funds / progetto.quota) * 100;
   const fundRaisingDeadline = progetto.fundRaisingDeadline;
@@ -22,7 +20,7 @@ const Card = (props) => {
     setToggleHeart(progettiFavourites && Array.isArray(progettiFavourites) ? progettiFavourites.includes(address) : false)
   }, [progettiFavourites, address]);
   function handleRedirect(e) {
-    navigate(`/card/${address}`);
+    window.location.href = `/Card/${address}`;
     window.scrollTo(0, -1000000);
   }
   let desc = String(progetto.descProgetto);

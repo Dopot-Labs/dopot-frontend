@@ -10,13 +10,14 @@ import { getRecoil  } from 'recoil-nexus';
 import { providerState } from "../../recoilState";
 
 const contractTxId = "NkYdataKkg9KYtjbopSyjqeFTfBGEa6h66zHSdB33W8";
-export let db, pushUser;
+export let db;
 
 async function addDptToken() {
   const tokenSymbol = 'DPT';
   const tokenDecimals = 18;
   const tokenImage = 'ipfs://QmQTcCgeYoN5wZFjngaMq22QxYEdL5rWZYtZmskG766WCg/dpttokenlogo.png';
   try {
+    if (typeof window !== "undefined") {
       await window.ethereum.request({
           method: 'wallet_watchAsset',
           params: {
@@ -29,6 +30,7 @@ async function addDptToken() {
           },
           },
       });
+    }
   } catch (error) {
   console.log(error);
   }
@@ -36,20 +38,26 @@ async function addDptToken() {
 
 export async function init ()  {
   try{
-    window.Buffer = Buffer
+    if (typeof window !== "undefined") window.Buffer = Buffer
     if(!db){
       db = new WeaveDB({ contractTxId });
       await db.init();
     }
+
     const signer = await getRecoil(providerState).getSigner();
-    if(!pushUser){
-      pushUser = await PushAPI.initialize(signer, {
-        env: 'prod',
-      });
+    if(!(await get("pushUser"))){
+      const pushUser = await PushAPI.initialize(signer, { env: 'prod' });
+      await set("pushUser", true);
       console.dir(pushUser)
     }
   } catch (e) { console.log(e)}
   
+}
+
+export async function getPushUser(){
+  const signer = await getRecoil(providerState).getSigner();
+  const address = await signer.getAddress();
+  return await PushAPI.user.get({ account: 'eip155:'+address, env: 'prod' });
 }
 
 export async function getIdentity(t){
@@ -57,7 +65,6 @@ export async function getIdentity(t){
     const storedIdentity = await get("weavedb-identity");
     if(!storedIdentity){
       toast.info(t("sign"));
-      console.dir(db);
       let { identity } = await db.createTempAddress();
       await set("weavedb-identity", identity);
       await addDptToken();

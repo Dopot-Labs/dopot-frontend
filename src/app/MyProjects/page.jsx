@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import "../styles/globals.css";
 import "../styles/paginacard.css";
@@ -11,10 +12,12 @@ import {
 } from "../recoilState";
 import "react-circular-progressbar/dist/styles.css";
 import { withdraw } from "../utils/firebase/writeInfos";
-import Card from "../components/PaginaCard/Card";
-import { useTranslation } from "react-i18next";
+import Card from "../components/PaginaCard/Card.jsx";
+import { useTranslation } from "../i18n/client";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from 'next/link';
+import Image from 'next/image';
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -22,18 +25,44 @@ const Profile = () => {
   const address = getRecoil(addressState);
   let projects = getRecoil(progettiState);
 
-  async function handleWithdraw(projectAddress) {
-    try {
-      await toast.promise(withdraw(projectAddress),{
-        pending: t("confirm"),
-        success: t("withdrawn"),
-        error: t("error"),
-      });
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    // Update the document title using the browser API
+    async function fetchData() {
+      let myProjects = [];
+      projects
+        .filter((p) => p.addressCreator === address)
+        .forEach((project) => {
+          myProjects.push(
+            <Card
+              progetto={project}
+              immagini={getRecoil(progettiImageState)[project.address]}
+              address={project.address}
+              tier={project.tier}
+              state={project.stateText}
+              withdraw={handleWithdraw}
+              isMyProject={true}
+              loadFees={true}
+            ></Card>
+          );
+        });
+
+      setProjectsCard(myProjects);
     }
-    
-  }
+
+    async function handleWithdraw(projectAddress) {
+        try {
+          await toast.promise(withdraw(projectAddress),{
+            pending: t("confirm"),
+            success: t("withdrawn"),
+            error: t("error"),
+          });
+        } catch (error) {
+          console.log(error);
+        }
+    }
+
+    fetchData();
+}, [address, projects, t]);
 
   useEffect(() => {
     // Update the document title using the browser API
@@ -59,7 +88,7 @@ const Profile = () => {
       setProjectsCard(myProjects);
     }
     fetchData();
-  }, []);
+  }, [address, projects]);
 
   return (
     <div className="app">
@@ -68,9 +97,9 @@ const Profile = () => {
           <div className="box">
             <div className="pts-content">
               <div className="pts-left">
-                <a href="#">
+                <Link href="#">
                   <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
-                </a>
+                </Link>
                 <div className="profile-img-box">
                   <h3>
                     {t("profileof")}{" "}
@@ -83,43 +112,43 @@ const Profile = () => {
               <div className="pts-right">
                 <div className="pts-right-grid">
                   <div className="pts-right-grid-card">
-                    <a href={"/#/profile"}>
+                    <Link href={"/profile"}>
                       <img src={"/assets/img/profile-icon-1.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/profile"}>
+                    </Link>
+                    <Link href={"/profile"}>
                       <p>{t("overview")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/insprogetto"}>
+                    <Link href={"/insprogetto"}>
                       <img src={"/assets/img/ins-project-def.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/insprogetto"}>
+                    </Link>
+                    <Link href={"/insprogetto"}>
                       <p>{t("createcampaign")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/mynft"}>
+                    <Link href={"/mynft"}>
                       <img src={"/assets/img/profile-icon-3.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/mynft"}>
+                    </Link>
+                    <Link href={"/mynft"}>
                       <p>{t("mynft")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/myprojects"}>
+                    <Link href={"/myprojects"}>
                       <img
                         className="myprojects-img"
                         src={"/assets/img/profile-icon-4.png"}
                         alt="ProfileIcon"
                       />
-                    </a>
-                    <a href={"/#/myprojects"}>
+                    </Link>
+                    <Link href={"/myprojects"}>
                       <p>{t("myprojects")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a
+                    <Link
                       href={
                         "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
                       }
@@ -127,8 +156,8 @@ const Profile = () => {
                       rel="noreferrer"
                     >
                       <img src={"/assets/img/widget.png"} alt="ProfileIcon" />
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href={
                         "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
                       }
@@ -136,23 +165,23 @@ const Profile = () => {
                       rel="noreferrer"
                     >
                       <p>DAO</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a
+                    <Link
                       href={"https://app.proofofhumanity.id"}
                       target="_blank"
                       rel="noreferrer"
                     >
                       <img src={"/assets/img/identity.png"} alt="ProfileIcon" />
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href={"https://app.proofofhumanity.id"}
                       target="_blank"
                       rel="noreferrer"
                     >
                       <p>{t("identity")}</p>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -160,8 +189,8 @@ const Profile = () => {
           </div>
         </section>
         <div className="box">
-          <a
-            href="https://staging.push.org/chat"
+          <Link
+            href="https://app.push.org/chat"
             target="_blank"
             rel="noreferrer"
           >
@@ -181,7 +210,7 @@ const Profile = () => {
                 </p>
               </div>
             </button>
-          </a>
+          </Link>
         </div>
 
         <div className="box0">

@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { NftMint } from "./NftMint";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../../i18n/client";
+import Link from 'next/link';
 
 const Prodotto = (props) => {
   const { t } = useTranslation();

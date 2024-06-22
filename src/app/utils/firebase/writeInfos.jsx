@@ -1,8 +1,9 @@
-import { db, pushUser, getIdentity, init } from "./firebaseInit"
+"use client"
+import { getPushUser, getIdentity, init } from "./firebaseInit.jsx"
 import { getRecoil, setRecoil } from 'recoil-nexus';
-import { addressState, providerState, progettiState } from '../../recoilState';
-import { genproj, bundlrFund, bundlrAdd, contrattoProjectAddTier, initialiseBundlr, webIrys } from "../genproj"
-import { getProvider, provider, downloadProjects } from "./retriveInfo";
+import { addressState, providerState, progettiState } from '../../recoilState.js';
+import { genproj, bundlrFund, bundlrAdd, contrattoProjectAddTier, initialiseBundlr, webIrys } from "../genproj.jsx"
+import { getProvider, downloadProjects } from "./retriveInfo.jsx";
 import addressFundingToken  from '../../abi/fundingToken/address.js';
 import addressDpt from '../../abi/dpt/address.js';
 import "react-toastify/dist/ReactToastify.css";
@@ -18,6 +19,7 @@ const env = "prod";
 async function optInNotifications() {
   const signer = getRecoil(providerState).getSigner();
   const address = await signer.getAddress();
+  const pushUser = await getPushUser();
   const subscriptions = await pushUser.notification.subscriptions({ user: `eip155:42161:${address}`, env });
   console.dir(subscriptions)
   if(!subscriptions.some(r => r.channel === pushChannelAddress)){
@@ -28,12 +30,7 @@ async function optInNotifications() {
 
 async function pushChatSend(projectCreatorAddress, content) {
   const signer = getRecoil(providerState).getSigner();
-  //const address = await signer.getAddress();
-
-  /*const pgpDecryptedPvtKey = await PushAPI.chat.decryptPGPKey({
-    encryptedPGPPrivateKey: pushUser.encryptedPrivateKey, 
-    signer
-  });*/
+  const pushUser = await getPushUser();
   const params = {
     content,
     type: 'Text',
@@ -45,10 +42,9 @@ async function pushChatSend(projectCreatorAddress, content) {
   console.dir(response);
 }
 
-export async function addproj(inputs, t) {
+export async function addproj(inputs, t, db) {
   const address = await getProvider();
   await init();
-  setRecoil(providerState, provider);
   setRecoil(addressState, address);
   !webIrys && await initialiseBundlr(getRecoil(providerState));
   let domanda = [];
@@ -63,7 +59,7 @@ export async function addproj(inputs, t) {
 
   console.log("Adding project")
   inputs.addressCreator = address
-  let identity = await getIdentity(t)
+  let identity = await getIdentity(t, db)
   console.dir(identity)
   //identity.linkedAccount = identity.address
   await bundlrFund();
@@ -112,10 +108,10 @@ export async function addproj(inputs, t) {
   
 }
 
-export async function addFavorites(addressProject, t) {
+export async function addFavorites(addressProject, t, db) {
   let address = await getProvider();
   address = address.toLowerCase();
-  let identity = await getIdentity(t)
+  let identity = await getIdentity(t, db)
   //identity.linkedAccount = address
   //identity.signer = address
   //identity.address = address
@@ -135,10 +131,10 @@ export async function addFavorites(addressProject, t) {
   }
 }
 
-export async function addProjectStake(addressProject, amount, t) {
+export async function addProjectStake(addressProject, amount, t, db) {
   let address = await getProvider();
   address = address.toLowerCase();
-  let identity = await getIdentity(t)
+  let identity = await getIdentity(t, db)
   console.dir(identity);
   //identity.linkedAccount = address
   //identity.signer = address
@@ -168,7 +164,7 @@ export async function addShippingDetailsNft(projectAddress, tokenId, shippingDet
   await pushChatSend(result[0].addressCreator, `Project ${title}, Token Id ${tokenId}, Shipping Details ${shippingDetails}` )
 }
 
-export async function refundNft(project, tokenId, t, navigate) {
+export async function refundNft(project, tokenId, t) {
   console.log(project, tokenId);
   const provider = getRecoil(providerState);
   const projectContract = new ethers.Contract(project, abiProject, provider);
@@ -178,7 +174,7 @@ export async function refundNft(project, tokenId, t, navigate) {
     const tx = await pWithSigner.refund(tokenId);
     await tx.wait(1);
     setRecoil(progettiState, null);
-    navigate("/loading");
+    if (typeof window !== "undefined") window.location.href = "/LoadingPage";
   } catch (e) {
     console.error(e);
   }
@@ -288,7 +284,7 @@ export async function addInvestment(pAddress, numTier, price, title, t) {
     }
     const tx = await pWithSigner.invest(numTier);
     await tx.wait(1);
-    const shippingDetails = window.prompt(t("shippingDetails"));
+    const shippingDetails = typeof window !== "undefined" ? window.prompt(t("shippingDetails")): "";
     await addShippingDetailsNft(pAddress, title, shippingDetails, title);
     await optInNotifications();
     await downloadProjects(t);

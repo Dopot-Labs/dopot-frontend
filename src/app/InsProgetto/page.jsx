@@ -1,24 +1,22 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import React, { useState } from "react";
 import "../styles/globals.css";
 import "../styles/ins-progetto.css";
-import { InfBase, InfBaseHeader } from "../components/forms/InfBase";
-import {
-  Questionario,
-  QuestionarioHeader,
-} from "../components/forms/Questionario";
-import { Progetto, ProgettoHeader } from "../components/forms/Progetto";
-import { Prodotto, ProdottoHeader } from "../components/forms/Prodotto";
-import { Faq, FaqHeader } from "../components/forms/Faq";
-
-import { addproj } from "../utils/firebase/writeInfos";
-import Footer from "../components/Footer";
-
+import { InfBase, InfBaseHeader } from "../components/forms/InfBase.jsx";
+import { Questionario, QuestionarioHeader } from "../components/forms/Questionario.jsx";
+import { Progetto, ProgettoHeader } from "../components/forms/Progetto.jsx";
+import { Prodotto, ProdottoHeader } from "../components/forms/Prodotto.jsx";
+import { Faq, FaqHeader } from "../components/forms/Faq.jsx";
+import { addproj } from "../utils/firebase/writeInfos.jsx";
+import Footer from "../components/Footer.jsx";
 import { getRecoil } from "recoil-nexus";
 import { addressState } from "../recoilState";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n/client";
+import Link from 'next/link';
+import Image from 'next/image';
 
 function getFileExtension(filename) {
   // Find the last occurrence of a dot (.) in the filename
@@ -283,9 +281,9 @@ const InsProgetto = () => {
           <div className="box">
             <div className="pts-content">
               <div className="pts-left">
-                <a href="#">
+                <Link href="#">
                   <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
-                </a>
+                </Link>
                 <div className="profile-img-box">
                   <h3>
                     {t("profileof")}{" "}
@@ -298,76 +296,72 @@ const InsProgetto = () => {
               <div className="pts-right">
                 <div className="pts-right-grid">
                   <div className="pts-right-grid-card">
-                    <a href={"/#/profile"}>
+                    <Link href="/profile">
                       <img src={"/assets/img/profile-icon-1.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/profile"}>
+                    </Link>
+                    <Link href="/profile">
                       <p>{t("overview")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/insprogetto"}>
+                    <Link href="/insprogetto">
                       <img
                         className="camp-img"
                         src={"/assets/img/ins-project-def.png"}
                         alt="ProfileIcon"
                       />
-                    </a>
-                    <a href={"/#/insprogetto"}>
+                    </Link>
+                    <Link href="/insprogetto">
                       <p>{t("createcampaign")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/mynft"}>
+                    <Link href="/mynft">
                       <img src={"/assets/img/profile-icon-3.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/mynft"}>
+                    </Link>
+                    <Link href="/mynft">
                       <p>{t("mynft")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a href={"/#/myprojects"}>
+                    <Link href="/myprojects">
                       <img src={"/assets/img/profile-icon-4.png"} alt="ProfileIcon" />
-                    </a>
-                    <a href={"/#/myprojects"}>
+                    </Link>
+                    <Link href="/myprojects">
                       <p>{t("myprojects")}</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a
-                      href={
-                        "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
-                      }
+                    <Link
+                      href="https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <img src={"/assets/img/widget.png"} alt="ProfileIcon" />
-                    </a>
-                    <a
-                      href={
-                        "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
-                      }
+                    </Link>
+                    <Link
+                      href="https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <p>DAO</p>
-                    </a>
+                    </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <a
-                      href={"https://app.proofofhumanity.id"}
+                    <Link
+                      href="https://app.proofofhumanity.id"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <img src={"/assets/img/identity.png"} alt="ProfileIcon" />
-                    </a>
-                    <a
-                      href={"https://app.proofofhumanity.id"}
+                    </Link>
+                    <Link
+                      href="https://app.proofofhumanity.id"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <p>{t("identity")}</p>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -378,9 +372,9 @@ const InsProgetto = () => {
         <section className="ins-progetto-content">
           <div className="box">
             <div className="ins-head">
-              {/* <a href="#">
+              {/* <Link href="#">
                 <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
-              </a> */}
+              </Link> */}
               <h2>{t("enterproject")}</h2>
             </div>
             {renderCurrentSelectionHeader()}

@@ -1,6 +1,7 @@
 "use client"
 import React from "react";
 import "../styles/components/footer.css";
+import Link from 'next/link';
 
 const TabSocial = (props) => {
   var socialList = [];

@@ -2,17 +2,15 @@
 import React from "react";
 import "../styles/dashboard.css";
 import "../styles/globals.css";
-import Header from "../components/Header";
+import Header from "../components/Header.jsx";
 import "../styles/components/header.css";
 import "react-circular-progressbar/dist/styles.css";
 import "../styles/paginacard.css";
 import "../styles/profile.css";
 import "../styles/dopottoken.css";
-import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
+import Footer from "../components/Footer.jsx";
 
 const DopotShare = () => {
-  let navigate = useNavigate();
 
   return (
     <div className="app">
@@ -32,7 +30,7 @@ const DopotShare = () => {
                   padding: "8px 15px",
                   boxShadow: "none",
                 }}
-                onClick={(e) => navigate("/FaqIta")}
+                onClick={(e) => window.location.href = "/FaqIta"}
                 className="purple-border-btn dopot-btn-lg"
               >
                 Ita
