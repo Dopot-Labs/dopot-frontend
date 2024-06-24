@@ -24,10 +24,7 @@ import RecoilNexus from "recoil-nexus";
 export default function App() {
   const { t } = useTranslation();
   const [isTempMsgHidden, setIsTempMsgHidden] = useState(false);
-  useEffect(() => {
-    AOS.init();
-  }, []);
-
+  AOS.init();
   useEffect(() => {
     if (typeof window.ethereum === "undefined") {
       toast.info(t("web3Notice"));

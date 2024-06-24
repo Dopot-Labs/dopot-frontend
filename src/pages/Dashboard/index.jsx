@@ -1,15 +1,9 @@
 "use client"
 import React, { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "../i18n/client.js";
-import "../styles/dashboard.css";
-import "../styles/globals.css";
 import Header from "../components/Header.jsx";
-import "../styles/components/header.css";
 import { MdSearch, MdRefresh } from "react-icons/md";
 import Card from "../components/PaginaCard/Card.jsx";
-import "react-circular-progressbar/dist/styles.css";
-import "../styles/paginacard.css";
-import "../styles/profile.css";
 import { progettiState, progettiImageState } from "../recoilState.js";
 import { getRecoil } from "recoil-nexus";
 import Footer from "../components/Footer.jsx";
