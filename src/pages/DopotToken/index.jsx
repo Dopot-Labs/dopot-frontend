@@ -10,7 +10,7 @@ import "../styles/paginacard.css";
 import "../styles/profile.css";
 import "../styles/dopottoken.css";
 import Footer from "../components/Footer.jsx";
-import { useTranslation } from "../i18n/client";
+import { useTranslation } from "../i18n/client.js";
 import Image from 'next/image'
 
 const DopotPower = () => {

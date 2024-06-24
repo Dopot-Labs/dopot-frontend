@@ -11,10 +11,10 @@ import { Faq, FaqHeader } from "../components/forms/Faq.jsx";
 import { addproj } from "../utils/firebase/writeInfos.jsx";
 import Footer from "../components/Footer.jsx";
 import { getRecoil } from "recoil-nexus";
-import { addressState } from "../recoilState";
+import { addressState } from "../recoilState.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useTranslation } from "../i18n/client";
+import { useTranslation } from "../i18n/client.js";
 import Link from 'next/link';
 import Image from 'next/image';
 

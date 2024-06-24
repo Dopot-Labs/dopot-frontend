@@ -9,82 +9,91 @@ import {
   addressState,
   progettiState,
   progettiImageState,
-} from "../recoilState";
+} from "../recoilState.js";
+import "react-circular-progressbar/dist/styles.css";
+import { withdraw } from "../utils/firebase/writeInfos.jsx";
+import Card from "../components/PaginaCard/Card.jsx";
+import { useTranslation } from "../i18n/client.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
 import Image from 'next/image';
-import "react-circular-progressbar/dist/styles.css";
-import CardPref from "../components/PaginaCard/CardPref.jsx";
-import { useTranslation } from "../i18n/client";
-
-import { retriveFavorites } from "../utils/firebase/retriveInfo";
 
 const Profile = () => {
   const { t } = useTranslation();
-  const [investedCard, setinvestedCard] = useState([]);
-  const [favoriteCard, setfavoriteCard] = useState([]);
-  const [isActive, setActive] = useState(true);
-  const [isActive2, setActive2] = useState(false);
+  const [projectsCard, setProjectsCard] = useState([]);
   const address = getRecoil(addressState);
   let projects = getRecoil(progettiState);
-  
+
   useEffect(() => {
     // Update the document title using the browser API
     async function fetchData() {
-      let tempCard = [];
-      const favorites = await retriveFavorites();
-      for (const project of projects) {
-        if(!project.investors) continue;
-        let tiers = project.investors[address];
-        for (const tierId in tiers) {
-          if (tiers.hasOwnProperty(tierId) /* && tiers[tierId] !== 0*/) {
-            tempCard.push(
-              <CardPref
-                progetto={project}
-                immagini={getRecoil(progettiImageState)[project.address]}
-                address={project.address}
-                tier={project.tier}
-                progettiFavourites={favorites}
-              ></CardPref>
-            );
-          }
-        }
-      }
-      setinvestedCard(tempCard);
+      let myProjects = [];
+      projects
+        .filter((p) => p.addressCreator === address)
+        .forEach((project) => {
+          myProjects.push(
+            <Card
+              progetto={project}
+              immagini={getRecoil(progettiImageState)[project.address]}
+              address={project.address}
+              tier={project.tier}
+              state={project.stateText}
+              withdraw={handleWithdraw}
+              isMyProject={true}
+              loadFees={true}
+            ></Card>
+          );
+        });
 
-      let tempCard2 = [];
-      for (const element of favorites) {
-        let project = projects.find((project) => project.address === element);
-        tempCard2.push(
-          <CardPref
-            progetto={project}
-            immagini={getRecoil(progettiImageState)[project.address]}
-            address={project.address}
-            tier={project.tier}
-            progettiFavourites={favorites}
-          ></CardPref>
-        );
-      }
-      setfavoriteCard(tempCard2);
+      setProjectsCard(myProjects);
+    }
+
+    async function handleWithdraw(projectAddress) {
+        try {
+          await toast.promise(withdraw(projectAddress),{
+            pending: t("confirm"),
+            success: t("withdrawn"),
+            error: t("error"),
+          });
+        } catch (error) {
+          console.log(error);
+        }
     }
 
     fetchData();
-  }, [address, projects]);
+}, [address, projects, t]);
 
-  const ToggleSec = () => {
-    setActive(!isActive);
-    setActive2(false);
-  };
-  const ToggleSec2 = () => {
-    setActive2(!isActive2);
-    setActive(false);
-  };
+  useEffect(() => {
+    // Update the document title using the browser API
+    async function fetchData() {
+      let myProjects = [];
+      projects
+        .filter((p) => p.addressCreator === address)
+        .forEach((project) => {
+          myProjects.push(
+            <Card
+              progetto={project}
+              immagini={getRecoil(progettiImageState)[project.address]}
+              address={project.address}
+              tier={project.tier}
+              state={project.stateText}
+              withdraw={handleWithdraw}
+              isMyProject={true}
+              loadFees={true}
+            ></Card>
+          );
+        });
+
+      setProjectsCard(myProjects);
+    }
+    fetchData();
+  }, [address, projects]);
 
   return (
     <div className="app">
       <main className="profile-page">
         <section className="profile-top-section">
-          {/* <img className="profile-hero" src={ProfileHero} alt="ProfileHero" /> */}
-
           <div className="box">
             <div className="pts-content">
               <div className="pts-left">
@@ -104,11 +113,7 @@ const Profile = () => {
                 <div className="pts-right-grid">
                   <div className="pts-right-grid-card">
                     <Link href={"/profile"}>
-                      <img
-                        className="panoramica-img"
-                        src={"/assets/img/profile-icon-1.png"}
-                        alt="ProfileIcon"
-                      />
+                      <img src={"/assets/img/profile-icon-1.png"} alt="ProfileIcon" />
                     </Link>
                     <Link href={"/profile"}>
                       <p>{t("overview")}</p>
@@ -132,7 +137,11 @@ const Profile = () => {
                   </div>
                   <div className="pts-right-grid-card">
                     <Link href={"/myprojects"}>
-                      <img src={"/assets/img/profile-icon-4.png"} alt="ProfileIcon" />
+                      <img
+                        className="myprojects-img"
+                        src={"/assets/img/profile-icon-4.png"}
+                        alt="ProfileIcon"
+                      />
                     </Link>
                     <Link href={"/myprojects"}>
                       <p>{t("myprojects")}</p>
@@ -179,53 +188,44 @@ const Profile = () => {
             </div>
           </div>
         </section>
-        <div className="box0">
-          <div className="sec-inv-desk-flex">
-            <img src={"/assets/img/profile-icon-grd-1.png"} alt="ProfileIconGrd" />
-            <p>{t("myinvestments")}</p>
-          </div>
-          <div className="sec-pref-desk-flex">
-            <img src={"/assets/img/profile-icon-grd-2.png"} alt="ProfileIconGrd" />
-            <p>{t("myfavourites")}</p>
-          </div>
+        <div className="box">
+          <Link
+            href="https://app.push.org/chat"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <button
+              className="grd-btn"
+              style={{ marginTop: "1rem", padding: "1rem" }}
+            >
+              <div className="shipping">
+                <img src={"/assets/img/icon-plane.svg"} alt="ProfileIcon" />
+                <p
+                  style={{
+                    margin: "0 0 0 1rem",
+                    fontSize: "1.75rem",
+                  }}
+                >
+                  {t("shipping")}
+                </p>
+              </div>
+            </button>
+          </Link>
         </div>
 
-        <div className="box1">
-          <div className="sec-inv-mob">
-            <button onClick={ToggleSec2}>
-              <img
-                className={isActive2 ? "shadow-inv" : null}
-                src={"/assets/img/profile-icon-grd-1.png"}
-                alt="ProfileIconGrd"
-              />
-              <p>{t("myinvestments")}</p>
-            </button>
-          </div>
-          <div className="sec-pref-mob">
-            <button onClick={ToggleSec}>
-              <img
-                className={isActive ? "shadow-inv" : null}
-                src={"/assets/img/profile-icon-grd-2.png"}
-                alt="ProfileIconGrd"
-              />
-              <p>{t("myfavourites")}</p>
-            </button>
+        <div className="box0">
+          <div style={{ display: "flex", margin: "8rem 0" }}>
+            <img src={"/assets/img/profile-icon-grd-1.png"} alt="ProfileIconGrd" />
+            <p>{t("myprojects")}</p>
           </div>
         </div>
 
         <section className="profile-bottom">
           <div className="box">
-            <div className="profile-main-grid">
-              <div className={isActive2 ? "pmg-left" : "sec-display-none-inv"}>
-                {investedCard}
-              </div>
-
-              <div className={isActive ? "pmg-right" : "sec-display-none-pref"}>
-                {favoriteCard}
-              </div>
-            </div>
+            <div className="profile-main-grid">{projectsCard}</div>
           </div>
         </section>
+        <ToastContainer />
       </main>
     </div>
   );

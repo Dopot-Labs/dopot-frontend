@@ -1,9 +1,7 @@
 "use client"
 import React, { /*useState,*/ useEffect } from "react";
-import "../styles/loading.css";
 import { downloadProjects } from "../utils/firebase/retriveInfo";
 import { useTranslation } from "../i18n/client";
-import Image from 'next/image';
 
 const LoadingPage = () => {
   const { t } = useTranslation();

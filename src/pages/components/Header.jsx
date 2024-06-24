@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import React, { useState, useEffect } from "react";
-import "../styles/components/header.css";
 import { MdMenu, MdClear } from "react-icons/md";
 import { SocialIcon } from "react-social-icons";
 import { useTranslation } from "../i18n/client";
@@ -11,7 +10,7 @@ import { ethers } from "ethers";
 import Link from 'next/link';
 
 async function isWalletConnected() {
-  if (typeof window !== "undefined") {
+  if (typeof window !== "undefined" && window.ethereum) {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     return provider && (await provider.send("eth_accounts", [])).length > 0;
   }
@@ -56,7 +55,7 @@ const Header = (props) => {
   useEffect(() => {
     (async () => {
       setWalletState(await isWalletConnected());
-      getAddr(setWalletText, true, t);
+      if(walletState) getAddr(setWalletText, true, t);
     })();
   });
   return (

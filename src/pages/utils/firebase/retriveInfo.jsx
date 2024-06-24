@@ -12,7 +12,9 @@ const abiProjectFactory = require('../../abi/projectFactory/1.json');
 const abiFundingToken = require('../../abi/fundingToken/1.json');
 const abiDopotReward = require('../../abi/dopotReward/1.json');
 
-export async function getProvider(){ let signer;
+export async function getProvider(){ 
+    if(!window.ethereum) return;
+    let signer;
     try {
         if(typeof window !== "undefined"){
             await window.ethereum.request({

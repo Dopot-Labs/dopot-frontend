@@ -3,23 +3,30 @@
 import React, { useState, useEffect } from "react";
 import "./styles/home.css";
 import "./styles/globals.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./styles/components/footer.css";
+import "./styles/components/header.css";
+import "./styles/loading.css";
+
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import { MdClear } from "react-icons/md";
-import { useTranslation } from "./i18n/client";
+import { useTranslation } from "./i18n/client.js";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { checkAdBlock } from "adblock-checker";
 import Link from 'next/link';
-import Image from 'next/image';
+import { RecoilRoot } from 'recoil';
+import RecoilNexus from "recoil-nexus";
 
 export default function App() {
   const { t } = useTranslation();
   const [isTempMsgHidden, setIsTempMsgHidden] = useState(false);
-  AOS.init();
-  
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
   useEffect(() => {
     if (typeof window.ethereum === "undefined") {
@@ -30,10 +37,11 @@ export default function App() {
         toast.info(t("adblockNotice"));
     };
     checkAdblock();
-   
   }, [t]);
 
   return (
+    <RecoilRoot>
+    <RecoilNexus />
     <div className="app">
       <main className="home">
         <ToastContainer />
@@ -75,7 +83,7 @@ export default function App() {
               <div className="main-btns-box">
                 <div style={{ padding: 0 }} className="box">
                   <div className="mbb-content">
-                    <Link href="/LoadingPage">
+                    <Link href={"/LoadingPage"}>
                       <button
                         className="grd-btn dopot-btn-lg-2"
                         data-aos="fade-down"
@@ -535,5 +543,7 @@ export default function App() {
         <Footer />
       </main>
     </div>
+    </RecoilRoot>
+
   );
 };

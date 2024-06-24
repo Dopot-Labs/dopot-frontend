@@ -1,6 +1,5 @@
 "use client"
 import React from "react";
-import "../styles/components/footer.css";
 import { SocialIcon } from "react-social-icons";
 import { useTranslation } from "../i18n/client";
 import Link from 'next/link';
