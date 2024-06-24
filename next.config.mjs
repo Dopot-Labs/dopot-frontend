@@ -1,11 +1,6 @@
 // next.config.mjs
 
 const nextconfig =  {
-    i18n: {
-      locales: ['en', 'it'],
-      defaultLocale: 'en',
-    },
-    trailingSlash: true,
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.module.rules.push({
