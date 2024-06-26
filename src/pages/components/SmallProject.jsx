@@ -8,8 +8,10 @@ import PCCalendarIcon from "/assets/img/pc-calendar-icon.png";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { progettiState } from "../recoilState";
 import {RetriveProjectTypes} from "../utils/firebase/retriveInfo";
+import { useRouter } from "next/router"; // Import useRouter
 
 const SmallProject = (props) => {
+  const router = useRouter(); // Initialize useRouter
   let progetto = getRecoil(progettiState).find(
     (x) => x.address === props.address
   );
@@ -17,7 +19,7 @@ const SmallProject = (props) => {
   const percentage = (progetto.funds / progetto.quota) * 100;
 
   function handleRedirect(e) {
-    window.location.href = `/Card/${props.address}`;
+    router.push(`/Card/${props.address}`);
     window.scrollTo(0, -1000000);
   }
 

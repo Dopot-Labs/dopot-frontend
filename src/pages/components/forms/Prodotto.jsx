@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 import { NftMint } from "./NftMint";
 import { useTranslation } from "../../i18n/client";
 import Link from 'next/link';

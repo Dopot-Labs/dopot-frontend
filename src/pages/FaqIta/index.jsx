@@ -1,16 +1,11 @@
 "use client"
 import React from "react";
-import "../styles/dashboard.css";
-import "../styles/globals.css";
 import Header from "../components/Header.jsx";
-import "../styles/components/header.css";
-import "react-circular-progressbar/dist/styles.css";
-import "../styles/paginacard.css";
-import "../styles/profile.css";
-import "../styles/dopottoken.css";
 import Footer from "../components/Footer.jsx";
+import { useRouter } from "next/router"; // Import useRouter
 
 const DopotToken = () => {
+  const router = useRouter(); // Initialize useRouter
 
   return (
     <div className="app">
@@ -42,7 +37,7 @@ const DopotToken = () => {
                     padding: "8px 15px",
                     boxShadow: "none",
                   }}
-                  onClick={(e) => window.location.href = "/FaqEng"}
+                  onClick={(e) => router.push("/FaqEng") }
                   className="purple-border-btn dopot-btn-lg"
                 >
                   Eng
@@ -81,7 +76,6 @@ const DopotToken = () => {
           </p>*/}
         </div>
         {/* <img className="dopot-power-img" src={PBottom} alt="PBottom" /> */}
-        <Footer />
       </main>
     </div>
   );

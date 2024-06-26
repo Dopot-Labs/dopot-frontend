@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import React, { useState } from "react";
-import "../styles/globals.css";
-import "../styles/ins-progetto.css";
 import { InfBase, InfBaseHeader } from "../components/forms/InfBase.jsx";
 import { Questionario, QuestionarioHeader } from "../components/forms/Questionario.jsx";
 import { Progetto, ProgettoHeader } from "../components/forms/Progetto.jsx";
@@ -13,7 +11,6 @@ import Footer from "../components/Footer.jsx";
 import { getRecoil } from "recoil-nexus";
 import { addressState } from "../recoilState.js";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "../i18n/client.js";
 import Link from 'next/link';
 import Image from 'next/image';
@@ -281,7 +278,7 @@ const InsProgetto = () => {
           <div className="box">
             <div className="pts-content">
               <div className="pts-left">
-                <Link href="#">
+                <Link href="/">
                   <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
                 </Link>
                 <div className="profile-img-box">
@@ -304,30 +301,30 @@ const InsProgetto = () => {
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <Link href="/insprogetto">
+                    <Link href="/InsProgetto">
                       <img
                         className="camp-img"
                         src={"/assets/img/ins-project-def.png"}
                         alt="ProfileIcon"
                       />
                     </Link>
-                    <Link href="/insprogetto">
+                    <Link href="/InsProgetto">
                       <p>{t("createcampaign")}</p>
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <Link href="/mynft">
+                    <Link href="/MyNft">
                       <img src={"/assets/img/profile-icon-3.png"} alt="ProfileIcon" />
                     </Link>
-                    <Link href="/mynft">
+                    <Link href="/MyNft">
                       <p>{t("mynft")}</p>
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <Link href="/myprojects">
+                    <Link href="/MyProjects">
                       <img src={"/assets/img/profile-icon-4.png"} alt="ProfileIcon" />
                     </Link>
-                    <Link href="/myprojects">
+                    <Link href="/MyProjects">
                       <p>{t("myprojects")}</p>
                     </Link>
                   </div>
@@ -372,7 +369,7 @@ const InsProgetto = () => {
         <section className="ins-progetto-content">
           <div className="box">
             <div className="ins-head">
-              {/* <Link href="#">
+              {/* <Link href="/">
                 <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
               </Link> */}
               <h2>{t("enterproject")}</h2>
@@ -383,7 +380,6 @@ const InsProgetto = () => {
             </form>
           </div>
         </section>
-        <Footer />
         <ToastContainer />
       </main>
     </div>

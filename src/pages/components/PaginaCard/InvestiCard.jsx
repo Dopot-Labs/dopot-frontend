@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { addInvestment } from "../../utils/firebase/writeInfos";
 import addressDopotReward from '../../abi/dopotReward/address.js';
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "../../i18n/client";
 
 

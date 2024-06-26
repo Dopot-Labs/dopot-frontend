@@ -2,9 +2,11 @@
 import React, { /*useState,*/ useEffect } from "react";
 import { downloadProjects } from "../utils/firebase/retriveInfo";
 import { useTranslation } from "../i18n/client";
+import { useRouter } from "next/router"; // Import useRouter
 
 const LoadingPage = () => {
   const { t } = useTranslation();
+  const router = useRouter(); // Initialize useRouter
 
   //const loadingTexts = useMemo(() => [t("loading1"), t("loading2"), t("loading3"), t("loading4")], [t]); // Memoize loadingTexts array
   //const [currentText, setCurrentText] = useState(t("loading1"));
@@ -13,7 +15,7 @@ const LoadingPage = () => {
     const asyncFn = async () => {
       let status = await downloadProjects(t);
       if (status === true) {
-        if(typeof window !== "undefined") window.location.href = "/Dashboard";
+        router.push("/Dashboard");
       }
     };
     asyncFn();

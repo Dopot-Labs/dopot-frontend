@@ -1,14 +1,11 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import "../../styles/globals.css";
-import "../../styles/paginacard.css";
 import IconInfoDai from "../../components/PaginaCard/IconInfoDai";
 import Link from 'next/link';
-
+import ImageIcon from 'react';
 import IconInfoCard from "../../components/PaginaCard/IconInfoCard";
 import InvestiCard from "../../components/PaginaCard/InvestiCard";
 import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 import { useParams } from "react-router-dom";
 import { progettiState } from "../../recoilState";
 import { getRecoil } from "recoil-nexus";
@@ -25,57 +22,72 @@ import {
   RetriveProjectTypes,
   retriveProjectStakes
 } from "../../utils/firebase/retriveInfo";
+
 import { useTranslation } from "../../i18n/client";
 const PaginaCard = () => {
   const { t } = useTranslation();
   const [toggleHeart, setToggleHeart] = useState(false);
   const [progettiStakes, setProgettiStakes] = useState([]);
+  const [percentage, setPercentage] = useState(0);
 
   //let { address } = useParams();
-  const currentURL = window.location.href;
+  const currentURL = typeof window !== "undefined" ? window.location.href : "";
   const urlWithoutTrailingSlash = currentURL.endsWith('/') ? currentURL.slice(0, -1) : currentURL;
   const address = urlWithoutTrailingSlash.split('/').pop();
-  let progetto = getRecoil(progettiState).find((x) => x.address === address);
+  const [progetto, setProgetto] = useState({logoAziendaListFiles:[]});
   const [base64Data, setBase64Data] = useState([]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     const fetchBase64Data = async () => {
       await downloadProjects(t);
+      const fetchedProgetto = getRecoil(progettiState).find((x) => x.address === address);
+      setProgetto(fetchedProgetto);
       const fav = await retriveFavorites();
       setToggleHeart(fav ? fav.includes(address) : false);
       setProgettiStakes(await retriveProjectStakes(address));
-      for (const tier of progetto.imageNftDefListFiles) {
-        const response = await fetch(
-          tier["image"].replace("ar://", "https://arweave.net/")
-        );
-        const data = await response.blob();
-        setBase64Data((prevData) => [...prevData, data]);
+  
+      if (fetchedProgetto) {
+        const base64DataArray = [];
+        if (fetchedProgetto.imageNftDefListFiles) {
+          for (const tier of fetchedProgetto.imageNftDefListFiles) {
+            const response = await fetch(
+              tier["image"].replace("ar://", "https://arweave.net/")
+            );
+            const data = await response.blob();
+            base64DataArray.push(data);
+          }
+        }
+        setBase64Data(base64DataArray);
+  
+        const localCards = [];
+        for (let i = 1; i < parseInt(fetchedProgetto.numeroProdotti) + 1; i++) {
+          localCards.push(
+            <InvestiCard
+              key={i}
+              address={fetchedProgetto.address}
+              numTier={i}
+              spec={fetchedProgetto["specs" + i]}
+              supply={fetchedProgetto["supply" + i]}
+              price={fetchedProgetto["price" + i]}
+              img={base64DataArray[i - 1]}
+              titolo={fetchedProgetto["name" + i]}
+              currentSupply={fetchedProgetto.imageNftDefListFiles[i - 1]["currentSupply"]}
+              state={fetchedProgetto.stateText}
+            />
+          );
+        }
+        setCards(localCards);
+        setPercentage((fetchedProgetto.funds / fetchedProgetto.quota) * 100);
       }
     };
-
+  
     fetchBase64Data();
-  }, [progetto.imageNftDefListFiles, address, t]);
+  }, [address, t]);
 
-  const cards = [];
+  
   let i = 1;
 
-  for (; i < parseInt(progetto.numeroProdotti) + 1; i++) {
-    cards.push(
-      <InvestiCard
-        address={progetto.address}
-        numTier={i}
-        spec={progetto["specs" + i]}
-        supply={progetto["supply" + i]}
-        price={progetto["price" + i]}
-        img={base64Data[i - 1]}
-        titolo={progetto["name" + i]}
-        currentSupply={progetto.imageNftDefListFiles[i - 1]["currentSupply"]}
-        state={progetto.stateText}
-      ></InvestiCard>
-    );
-  }
-
-  const percentage = (progetto.funds / progetto.quota) * 100;
 
   const [tab, setTab] = useState(0);
 

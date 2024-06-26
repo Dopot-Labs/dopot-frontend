@@ -9,6 +9,7 @@ import { addFavorites, postpone } from "../../utils/firebase/writeInfos";
 import { useTranslation } from "../../i18n/client";
 import { getWithdrawalFees, getPWithSigner } from "../../utils/firebase/writeInfos";
 const { ethers } = require("ethers");
+import { useRouter } from "next/router"; // Import useRouter
 
 const Card = (props) => {
   const { t } = useTranslation();
@@ -19,6 +20,7 @@ const Card = (props) => {
   const { address } = progetto;
   const { progettiFavourites } = props;
   const [toggleHeart, setToggleHeart] = useState(false);
+  const router = useRouter(); // Initialize useRouter
 
   //if(progetto?.funds == 0 && )
   useEffect(() => {
@@ -45,7 +47,7 @@ const Card = (props) => {
   }, []); 
 
   function handleRedirect(e) {
-    window.location.href = `/Card/${address}`;
+    router.push(`/Card/${address}`);
     window.scrollTo(0, -1000000);
   }
   let desc = String(progetto.descProgetto);

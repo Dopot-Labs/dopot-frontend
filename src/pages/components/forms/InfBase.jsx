@@ -3,9 +3,8 @@
 import React, { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import { useTranslation } from "../../i18n/client";
-import Link from 'next/link';
 
-const InfBase = (props) => {
+const InfBase = ({inputs, handleChange, handleCountryChange, handleChangeArray, setState, }) => {
   const { t, i18n } = useTranslation();
   const [val, setVal] = useState([]);
   const handleAdd = (e) => {
@@ -18,7 +17,7 @@ const InfBase = (props) => {
     e.preventDefault();
     const deletVal = [...val];
     deletVal.splice(i - 1, 1);
-    props.inputs[e.target.name].splice(i, 1);
+    inputs[e.target.name].splice(i, 1);
     setVal(deletVal);
   };
   //val 2
@@ -48,8 +47,8 @@ const InfBase = (props) => {
         <input
           type="text"
           name="nomeAzienda"
-          value={props.inputs.nomeAzienda}
-          onChange={props.handleChange}
+          value={inputs.nomeAzienda}
+          onChange={handleChange}
           placeholder={t("infbasenamep")}
         />
       </div>
@@ -57,15 +56,15 @@ const InfBase = (props) => {
         <h4>{t("infbasenation")}</h4>
         <ReactFlagsSelect
           className="nazioneAziendaSelect"
-          selected={props.inputs.nazioneAzienda}
-          onSelect={props.handleCountryChange}
+          selected={inputs.nazioneAzienda}
+          onSelect={handleCountryChange}
           searchable
         />
         ;
       </div>
       <div className="ins-input-box">
         <h4>{t("infbasesector")}</h4>
-        <select name="settore" onChange={props.handleChange}>
+        <select name="settore" onChange={handleChange}>
           <option disabled selected value>
             {t("selectcateg")}
           </option>
@@ -152,8 +151,8 @@ const InfBase = (props) => {
         <input
           key="logoAzienda"
           name="logoAzienda"
-          value={props.inputs.logoAzienda}
-          onChange={props.handleChange}
+          value={inputs.logoAzienda}
+          onChange={handleChange}
           type="file"
           accept=".png,.jpg,.jpeg"
         />
@@ -162,8 +161,8 @@ const InfBase = (props) => {
         <h4>{t("projectdesc")}</h4>
         <textarea
           name="descrizione"
-          value={props.inputs.descrizione}
-          onChange={props.handleChange}
+          value={inputs.descrizione}
+          onChange={handleChange}
           type="textarea"
           placeholder={t("projectdescp")}
         />
@@ -172,8 +171,8 @@ const InfBase = (props) => {
         <h4>{t("vatnumber")}</h4>
         <input
           name="pIva"
-          value={props.inputs.pIva}
-          onChange={props.handleChange}
+          value={inputs.pIva}
+          onChange={handleChange}
           type="text"
           placeholder={t("vatnumberp")}
         />
@@ -182,8 +181,8 @@ const InfBase = (props) => {
         <h4>{t("website")}</h4>
         <input
           name="sito"
-          value={props.inputs.sito || ""}
-          onChange={props.handleChange}
+          value={inputs.sito || ""}
+          onChange={handleChange}
           type="text"
           placeholder={t("websitep")}
         />
@@ -194,7 +193,7 @@ const InfBase = (props) => {
           <input
             name="socialMedia"
             type="text"
-            onChange={(e) => props.handleChangeArray(e, 0)}
+            onChange={(e) => handleChangeArray(e, 0)}
             placeholder={t("socialmediap")}
           />
 
@@ -209,7 +208,7 @@ const InfBase = (props) => {
                 name={"socialMedia"}
                 type="text"
                 placeholder={t("socialmediap")}
-                onChange={(e) => props.handleChangeArray(e, i + 1)}
+                onChange={(e) => handleChangeArray(e, i + 1)}
               />
               <button
                 className="btn-plus-minus"
@@ -229,7 +228,7 @@ const InfBase = (props) => {
             name="documentazione"
             accept=".pdf"
             type="file"
-            onChange={props.handleChange}
+            onChange={handleChange}
             multiple
             placeholder="trascina il o
                 clicca per inserirlo
@@ -241,8 +240,8 @@ const InfBase = (props) => {
       <div className="ins-input-box">
         <h4>{t("introduction")}</h4>
         <textarea
-          value={props.inputs.introduzione}
-          onChange={props.handleChange}
+          value={inputs.introduzione}
+          onChange={handleChange}
           name="introduzione"
           placeholder={t("introductionp")}
         />
@@ -250,15 +249,15 @@ const InfBase = (props) => {
           <h4>Immagine Introduzione </h4>
           <input
             name="fotoIntro"
-            value={props.inputs.fotoIntro}
-            onChange={props.handleChange}
+            value={inputs.fotoIntro}
+            onChange={handleChange}
             type="file"
           />
         </div> */}
         <h4>{t("story")}</h4>
         <textarea
-          value={props.inputs.storia}
-          onChange={props.handleChange}
+          value={inputs.storia}
+          onChange={handleChange}
           name="storia"
           placeholder={t("storyp")}
         />
@@ -266,16 +265,16 @@ const InfBase = (props) => {
           <h4>Immagine Introduzione </h4>
           <input
             name="fotoStoria"
-            value={props.inputs.fotoStoria}
-            onChange={props.handleChange}
+            value={inputs.fotoStoria}
+            onChange={handleChange}
             type="file"
           />
         </div> */}
 
         <h4>{t("vision")}</h4>
         <textarea
-          value={props.inputs.vision}
-          onChange={props.handleChange}
+          value={inputs.vision}
+          onChange={handleChange}
           name="vision"
           placeholder={t("visionp")}
         />
@@ -283,17 +282,17 @@ const InfBase = (props) => {
           <h4>Immagine Introduzione </h4>
           <input
             name="fotoVision"
-            value={props.inputs.fotoVision}
-            onChange={props.handleChange}
+            value={inputs.fotoVision}
+            onChange={handleChange}
             type="file"
           />
         </div> */}
       </div>
       {(() => {
-        if (props.setState != null) {
+        if (setState != null) {
           return (
             <div className="add-btn-box">
-              <a onClick={props.setState}>
+              <a onClick={setState}>
                 <img src={"/assets/img/plus-grd-icon.png"} alt="PlusGrdIcon" />
               </a>
             </div>

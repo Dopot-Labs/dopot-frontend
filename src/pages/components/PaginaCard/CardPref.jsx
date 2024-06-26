@@ -6,6 +6,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import Flag from "react-world-flags";
 import { addFavorites } from "../../utils/firebase/writeInfos";
 import { useTranslation } from "../../i18n/client";
+import { useRouter } from "next/router"; // Import useRouter
 
 const Card = (props) => {
   const { t } = useTranslation();
@@ -16,11 +17,13 @@ const Card = (props) => {
   const address = progetto.address;
   const { progettiFavourites } = props;
   const [toggleHeart, setToggleHeart] = useState(true);
+  const router = useRouter(); // Initialize useRouter
+
   useEffect(() => {
     setToggleHeart(progettiFavourites && Array.isArray(progettiFavourites) ? progettiFavourites.includes(address) : false)
   }, [progettiFavourites, address]);
   function handleRedirect(e) {
-    window.location.href = `/Card/${address}`;
+    router.push(`/Card/${address}`);
     window.scrollTo(0, -1000000);
   }
   let desc = String(progetto.descProgetto);

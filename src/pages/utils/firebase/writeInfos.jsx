@@ -6,7 +6,6 @@ import { genproj, bundlrFund, bundlrAdd, contrattoProjectAddTier, initialiseBund
 import { getProvider, downloadProjects } from "./retriveInfo.jsx";
 import addressFundingToken  from '../../abi/fundingToken/address.js';
 import addressDpt from '../../abi/dpt/address.js';
-import "react-toastify/dist/ReactToastify.css";
 const abiProject = require('../../abi/project/1.json');
 const abiFundingToken = require('../../abi/fundingToken/1.json');
 const abiDpt = require('../../abi/dpt/1.json');
@@ -42,7 +41,7 @@ async function pushChatSend(projectCreatorAddress, content) {
   console.dir(response);
 }
 
-export async function addproj(inputs, t, db) {
+export async function addproj(inputs, t) {
   const address = await getProvider();
   await init();
   setRecoil(addressState, address);
@@ -108,7 +107,7 @@ export async function addproj(inputs, t, db) {
   
 }
 
-export async function addFavorites(addressProject, t, db) {
+export async function addFavorites(addressProject, t) {
   let address = await getProvider();
   address = address.toLowerCase();
   let identity = await getIdentity(t, db)
@@ -131,7 +130,7 @@ export async function addFavorites(addressProject, t, db) {
   }
 }
 
-export async function addProjectStake(addressProject, amount, t, db) {
+export async function addProjectStake(addressProject, amount, t) {
   let address = await getProvider();
   address = address.toLowerCase();
   let identity = await getIdentity(t, db)
@@ -174,7 +173,7 @@ export async function refundNft(project, tokenId, t) {
     const tx = await pWithSigner.refund(tokenId);
     await tx.wait(1);
     setRecoil(progettiState, null);
-    if (typeof window !== "undefined") window.location.href = "/LoadingPage";
+    if (typeof window !== "undefined") window.location.href = "/";
   } catch (e) {
     console.error(e);
   }

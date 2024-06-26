@@ -261,3 +261,7 @@
   transition: 0.5s;
   font-weight: 400;
 }
+
+.nazioneAziendaSelect button{
+  margin: 0;
+}

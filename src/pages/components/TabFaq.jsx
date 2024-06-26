@@ -1,6 +1,5 @@
 "use client"
 import React from "react";
-import "../styles/components/footer.css";
 import BlogPost from "./PaginaCard/BlogPost";
 import { useTranslation } from "../i18n/client";
 

@@ -1,14 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import React from "react";
-import "../styles/dashboard.css";
-import "../styles/globals.css";
 import Header from "../components/Header.jsx";
-import "../styles/components/header.css";
-import "react-circular-progressbar/dist/styles.css";
-import "../styles/paginacard.css";
-import "../styles/profile.css";
-import "../styles/dopottoken.css";
 import Footer from "../components/Footer.jsx";
 import { useTranslation } from "../i18n/client.js";
 import Image from 'next/image'
@@ -58,7 +51,6 @@ const DopotPower = () => {
             </ul>
           </div>
         </div>
-        <Footer />
       </main>
     </div>
   );

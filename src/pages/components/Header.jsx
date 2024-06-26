@@ -143,7 +143,7 @@ const Header = (props) => {
         </div>
         {/* Header for Mobile Devices */}
         <div className="header-mob">
-          <Link href="#">
+          <Link href="/">
             <img src={"/assets/img/logo-white.svg"} alt="Dopot" />
           </Link>
 
@@ -169,7 +169,7 @@ const Header = (props) => {
 
           {isHeaderOpen ? (
             <div className="header-mob-box">
-              <Link href="#">Home</Link>
+              <Link href="/">Home</Link>
               <Link href="/FaqIta">Tutorials</Link>
               <Link href="/DopotToken">DPT Token</Link>
               <Link href="/Ambassador">Ambassador</Link>

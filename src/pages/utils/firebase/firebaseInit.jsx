@@ -3,7 +3,6 @@ import WeaveDB from "weavedb-sdk"
 import { get, set } from 'idb-keyval';
 import { Buffer } from "buffer"
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import addressDpt from '../../abi/dpt/address.js';
 import { PushAPI } from '@pushprotocol/restapi';
 import { getRecoil  } from 'recoil-nexus';
@@ -40,7 +39,7 @@ export async function init ()  {
   try{
     if (typeof window !== "undefined") window.Buffer = Buffer
     if(!db){
-      db = new WeaveDB({ contractTxId });
+      db = new WeaveDB({ contractTxId, nocache: true, remoteStateSyncEnabled: true, remoteStateSyncSource: "https://dre-1.warp.cc/contract" });
       await db.init();
     }
 
@@ -50,6 +49,7 @@ export async function init ()  {
       await set("pushUser", true);
       console.dir(pushUser)
     }
+    return db;
   } catch (e) { console.log(e)}
   
 }
@@ -57,6 +57,11 @@ export async function init ()  {
 export async function getPushUser(){
   const signer = await getRecoil(providerState).getSigner();
   const address = await signer.getAddress();
+  if(!PushAPI.user){
+    const pushUser = await PushAPI.initialize(signer, { env: 'prod' });
+    await set("pushUser", true);
+    return pushUser;
+  }
   return await PushAPI.user.get({ account: 'eip155:'+address, env: 'prod' });
 }
 

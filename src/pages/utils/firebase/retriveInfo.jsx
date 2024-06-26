@@ -83,7 +83,7 @@ async function getInvestors(projdb, dopotReward){
     let currentBlock = await provider.getBlockNumber();
     const endBlock = currentBlock;
     currentBlock = currentBlock - (337510 * 120); // Arbitrum blocks per day * 120 days
-    const batchSize = 10000; //8000;
+    const batchSize = 8000; // 8k public rpc - 20k private rpc
     if (blockHeight > currentBlock) currentBlock = blockHeight;
 
     while (currentBlock <= endBlock) {
@@ -213,9 +213,10 @@ export async function retriveInvestment(t) {
 
 export async function retriveFavorites() {
     await getProvider()
-    //await init()
+    const db_local = await init()
     let addressLogged=getRecoil(addressState);
-    const progettiFavourites =  await db.get("users", ["addressUser"], ["addressUser", "==", addressLogged.toString().toLowerCase()]);
+    console.log(addressLogged);
+    const progettiFavourites =  await db_local.get("users", ["addressUser"], ["addressUser", "==", addressLogged.toString().toLowerCase()]);
     return (progettiFavourites && progettiFavourites.length > 0) ? progettiFavourites[0].addressProjects : [];
 }
 

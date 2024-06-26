@@ -1,9 +1,5 @@
 "use client"
 import React from "react";
-import "../styles/globals.css";
-import "../styles/paginacard.css";
-import "../styles/profile.css";
-import "react-circular-progressbar/dist/styles.css";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import Link from 'next/link';
 
@@ -15,7 +11,7 @@ const Swap = () => {
           <div className="box">
             <div className="pts-content">
               <div className="pts-left">
-                <Link href="#">
+                <Link href="/">
                   <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
                 </Link>
                 <div className="profile-img-box">
@@ -34,26 +30,26 @@ const Swap = () => {
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <Link href={"/insprogetto"}>
+                    <Link href={"/InsProgetto"}>
                       <img src={"/assets/img/ins-project-def.png"} alt="ProfileIcon" />
                     </Link>
-                    <Link href={"/insprogetto"}>
+                    <Link href={"/InsProgetto"}>
                       <p>Crea Campagna</p>
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <Link href={"/mynft"}>
+                    <Link href={"/MyNft"}>
                       <img src={"/assets/img/profile-icon-3.png"} alt="ProfileIcon" />
                     </Link>
-                    <Link href={"/mynft"}>
+                    <Link href={"/MyNft"}>
                       <p>I Miei NFT</p>
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <Link href={"/myprojects"}>
+                    <Link href={"/MyProjects"}>
                       <img src={"/assets/img/profile-icon-4.png"} alt="ProfileIcon" />
                     </Link>
-                    <Link href={"/myprojects"}>
+                    <Link href={"/MyProjects"}>
                       <p>I Miei Progetti</p>
                     </Link>
                   </div>

@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 "use client"
-import React, { useState, useEffect } from "react";
-import "../styles/components/footer.css";
+import React, { useState, useEffect, useMemo } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useTranslation } from "../i18n/client";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -18,10 +17,12 @@ const TabDocumenti = (props) => {
     setNumPages(numPages);
   }
 
+  const documentazioneListFiles = useMemo(() => props.progetto.documentazioneListFiles, [props.progetto.documentazioneListFiles]);
+
   useEffect(() => {
     const fetchPdfs = async () => {
       const blobs = await Promise.all(
-        props.progetto.documentazioneListFiles.map(async (data) => {
+        documentazioneListFiles.map(async (data) => {
           const url = `https://arweave.net/${data}`;
           const response = await fetch(url);
           if (response.ok) {
@@ -35,7 +36,7 @@ const TabDocumenti = (props) => {
     };
 
     fetchPdfs();
-  }, [props.progetto.documentazioneListFiles]);
+  }, [documentazioneListFiles]);
 
   const handleClick = (index) => {
     const newIsVisible = [...showPdfs];

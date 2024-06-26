@@ -1,8 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import "../styles/globals.css";
-import "../styles/paginacard.css";
-import "../styles/profile.css";
 import React, { useState, useEffect } from "react";
 import { getRecoil } from "recoil-nexus";
 import {
@@ -10,12 +7,10 @@ import {
   progettiState,
   progettiImageState,
 } from "../recoilState.js";
-import "react-circular-progressbar/dist/styles.css";
 import { withdraw } from "../utils/firebase/writeInfos.jsx";
 import Card from "../components/PaginaCard/Card.jsx";
 import { useTranslation } from "../i18n/client.js";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -97,7 +92,7 @@ const Profile = () => {
           <div className="box">
             <div className="pts-content">
               <div className="pts-left">
-                <Link href="#">
+                <Link href="/">
                   <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
                 </Link>
                 <div className="profile-img-box">
@@ -120,30 +115,30 @@ const Profile = () => {
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <Link href={"/insprogetto"}>
+                    <Link href={"/InsProgetto"}>
                       <img src={"/assets/img/ins-project-def.png"} alt="ProfileIcon" />
                     </Link>
-                    <Link href={"/insprogetto"}>
+                    <Link href={"/InsProgetto"}>
                       <p>{t("createcampaign")}</p>
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <Link href={"/mynft"}>
+                    <Link href={"/MyNft"}>
                       <img src={"/assets/img/profile-icon-3.png"} alt="ProfileIcon" />
                     </Link>
-                    <Link href={"/mynft"}>
+                    <Link href={"/MyNft"}>
                       <p>{t("mynft")}</p>
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <Link href={"/myprojects"}>
+                    <Link href={"/MyProjects"}>
                       <img
                         className="myprojects-img"
                         src={"/assets/img/profile-icon-4.png"}
                         alt="ProfileIcon"
                       />
                     </Link>
-                    <Link href={"/myprojects"}>
+                    <Link href={"/MyProjects"}>
                       <p>{t("myprojects")}</p>
                     </Link>
                   </div>

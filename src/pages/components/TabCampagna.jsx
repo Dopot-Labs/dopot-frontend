@@ -1,10 +1,8 @@
 "use client"
 import React, { useState } from 'react';
-import "../styles/components/footer.css";
 import BlogPost from "../components/PaginaCard/BlogPost";
 import { useTranslation } from "../i18n/client";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { stakeProject, unstakeProject } from "../utils/firebase/writeInfos";
 
 const TabCampagna = (props) => {

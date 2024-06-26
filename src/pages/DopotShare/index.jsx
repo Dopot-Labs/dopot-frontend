@@ -1,14 +1,7 @@
 "use client"
 import React from "react";
 import Image from "next/image";
-import "../styles/dashboard.css";
-import "../styles/globals.css";
 //import Header from "../components/Header.jsx";
-import "../styles/components/header.css";
-import "react-circular-progressbar/dist/styles.css";
-import "../styles/paginacard.css";
-import "../styles/profile.css";
-import "../styles/dopottoken.css";
 import Footer from "../components/Footer.jsx";
 
 const DopotShare = () => {
@@ -92,7 +85,6 @@ const DopotShare = () => {
           </div>
         </div>
         {/* <img className="dopot-power-img" src={PBottom} alt="PBottom" /> */}
-        <Footer />
       </main>
     </div>
   );

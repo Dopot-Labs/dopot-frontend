@@ -81,10 +81,10 @@ const Home = () => {
   }, [progettiFavourites, t]);
   useEffect(() => {
     load();
-  }, [load]);
+  }, []);
 
   const HandleSearch = (e) => {
-    e.preventDefault(); // This prevents the default form submission behavior
+    //e.preventDefault(); // This prevents the default form submission behavior
     if (typeof window !== "undefined" && typeof document !== "undefined") {
       const stateSelect = document.querySelector("#sel1");
       const typeSelect = document.querySelector("#sel2");
@@ -104,6 +104,7 @@ const Home = () => {
       //window.location.href = newURL;
       console.log("search param")
       setReload(!reload);
+      load();
     }
 }
 
@@ -282,7 +283,6 @@ const Home = () => {
           <div className="profile-dash-cards">{cards}</div>
           <label style={{color: "white"}}>{t("insuranceFunds") + ": " + insuranceState + " DAI"}</label>
         </div>
-        <Footer />
       </main>
     </div>
   );
