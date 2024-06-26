@@ -2,9 +2,9 @@
 import React from "react";
 import IconInfoCard from "./PaginaCard/IconInfoCard";
 import IconInfoDai from "./PaginaCard/IconInfoDai";
-import PCDollarIcon from "/assets/img/pc-dollar-icon.png";
-import PCUserIcon from "/assets/img/pc-person-icon.png";
-import PCCalendarIcon from "/assets/img/pc-calendar-icon.png";
+import PCDollarIcon from "../../../public/assets/img/pc-dollar-icon.png";
+import PCUserIcon from "../../../public/assets/img/pc-person-icon.png";
+import PCCalendarIcon from "../../../public/assets/img/pc-calendar-icon.png";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { progettiState } from "../recoilState";
 import {RetriveProjectTypes} from "../utils/firebase/retriveInfo";

@@ -6,10 +6,10 @@ import {
   addressState,
   progettiState,
   progettiImageState,
-} from "../recoilState.js";
-import { withdraw } from "../utils/firebase/writeInfos.jsx";
-import Card from "../components/PaginaCard/Card.jsx";
-import { useTranslation } from "../i18n/client.js";
+} from "../../recoilState.js";
+import { withdraw } from "../../utils/firebase/writeInfos.jsx";
+import Card from "../../components/PaginaCard/Card.jsx";
+import { useTranslation } from "../../i18n/client.js";
 import { ToastContainer, toast } from "react-toastify";
 import Link from 'next/link';
 import Image from 'next/image';

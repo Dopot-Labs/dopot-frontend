@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import { getRecoil } from "recoil-nexus";
-import { addressState } from "../recoilState";
+import { addressState } from "../../recoilState";
 import Link from 'next/link';
 
 const Profile = () => {

@@ -1,29 +1,29 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import IconInfoDai from "../../components/PaginaCard/IconInfoDai";
+import IconInfoDai from "../../../components/PaginaCard/IconInfoDai";
 import Link from 'next/link';
 import ImageIcon from 'react';
-import IconInfoCard from "../../components/PaginaCard/IconInfoCard";
-import InvestiCard from "../../components/PaginaCard/InvestiCard";
+import IconInfoCard from "../../../components/PaginaCard/IconInfoCard";
+import InvestiCard from "../../../components/PaginaCard/InvestiCard";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { useParams } from "react-router-dom";
-import { progettiState } from "../../recoilState";
+import { progettiState } from "../../../recoilState";
 import { getRecoil } from "recoil-nexus";
-import TabCampagna from "../../components/TabCampagna";
-import TabRoadmap from "../../components/TabRoadmap";
-import TabFaq from "../../components/TabFaq";
-import TabSocial from "../../components/TabSocial";
-import TabQuestionario from "../../components/TabQuestionario";
-import TabDocumenti from "../../components/TabDocumenti";
-import { addFavorites } from "../../utils/firebase/writeInfos";
+import TabCampagna from "../../../components/TabCampagna";
+import TabRoadmap from "../../../components/TabRoadmap";
+import TabFaq from "../../../components/TabFaq";
+import TabSocial from "../../../components/TabSocial";
+import TabQuestionario from "../../../components/TabQuestionario";
+import TabDocumenti from "../../../components/TabDocumenti";
+import { addFavorites } from "../../../utils/firebase/writeInfos";
 import {
   downloadProjects,
   retriveFavorites,
   RetriveProjectTypes,
   retriveProjectStakes
-} from "../../utils/firebase/retriveInfo";
+} from "../../../utils/firebase/retriveInfo";
 
-import { useTranslation } from "../../i18n/client";
+import { useTranslation } from "../../../i18n/client";
 const PaginaCard = () => {
   const { t } = useTranslation();
   const [toggleHeart, setToggleHeart] = useState(false);

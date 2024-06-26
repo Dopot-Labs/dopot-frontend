@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { MdClear } from "react-icons/md";
 import Link from 'next/link';
-import Header from "./components/Header.jsx";
+import Header from "../components/Header.jsx";
 
 const Home = ({ t }) => {
   const [isTempMsgHidden, setIsTempMsgHidden] = useState(false);

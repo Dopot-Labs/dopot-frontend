@@ -1,8 +1,8 @@
 "use client"
 import React from "react";
 import Image from "next/image";
-//import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
+//import Header from "../../components/Header.jsx";
+import Footer from "../../components/Footer.jsx";
 
 const DopotShare = () => {
 

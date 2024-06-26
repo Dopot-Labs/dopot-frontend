@@ -17,9 +17,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-tabs/style/react-tabs.css";
 
 
-import Footer from "./components/Footer.jsx";
+import Footer from "../components/Footer.jsx";
 import { MdClear } from "react-icons/md";
-import { useTranslation } from "./i18n/client.js";
+import { useTranslation } from "../i18n/client.js";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ToastContainer, toast } from "react-toastify";

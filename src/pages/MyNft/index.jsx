@@ -2,10 +2,10 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import { getRecoil } from "recoil-nexus";
-import { addressState, progettiState } from "../recoilState";
-import { useTranslation } from "../i18n/client";
-import { getNftImage } from "../utils/firebase/retriveInfo";
-import { addShippingDetailsNft, refundNft } from "../utils/firebase/writeInfos";
+import { addressState, progettiState } from "../../recoilState";
+import { useTranslation } from "../../i18n/client";
+import { getNftImage } from "../../utils/firebase/retriveInfo";
+import { addShippingDetailsNft, refundNft } from "../../utils/firebase/writeInfos";
 import Link from 'next/link';
 import Image from 'next/image';
 

@@ -1,7 +1,7 @@
 "use client"
 import React, { /*useState,*/ useEffect } from "react";
-import { downloadProjects } from "../utils/firebase/retriveInfo";
-import { useTranslation } from "../i18n/client";
+import { downloadProjects } from "../../utils/firebase/retriveInfo";
+import { useTranslation } from "../../i18n/client";
 import { useRouter } from "next/router"; // Import useRouter
 
 const LoadingPage = () => {

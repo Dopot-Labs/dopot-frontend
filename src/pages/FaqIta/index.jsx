@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
+import Header from "../../components/Header.jsx";
+import Footer from "../../components/Footer.jsx";
 import { useRouter } from "next/router"; // Import useRouter
 
 const DopotToken = () => {

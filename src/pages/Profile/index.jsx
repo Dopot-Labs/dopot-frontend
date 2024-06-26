@@ -6,13 +6,13 @@ import {
   addressState,
   progettiState,
   progettiImageState,
-} from "../recoilState.js";
+} from "../../recoilState.js";
 import Link from 'next/link';
 import Image from 'next/image';
-import CardPref from "../components/PaginaCard/CardPref.jsx";
-import { useTranslation } from "../i18n/client.js";
+import CardPref from "../../components/PaginaCard/CardPref.jsx";
+import { useTranslation } from "../../i18n/client.js";
 
-import { retriveFavorites } from "../utils/firebase/retriveInfo.jsx";
+import { retriveFavorites } from "../../utils/firebase/retriveInfo.jsx";
 
 const Profile = () => {
   const { t } = useTranslation();

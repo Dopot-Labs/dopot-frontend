@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import React from "react";
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
-import { useTranslation } from "../i18n/client.js";
+import Header from "../../components/Header.jsx";
+import Footer from "../../components/Footer.jsx";
+import { useTranslation } from "../../i18n/client.js";
 import Image from 'next/image'
 
 const DopotPower = () => {

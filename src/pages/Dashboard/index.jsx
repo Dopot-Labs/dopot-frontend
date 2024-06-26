@@ -1,17 +1,17 @@
 "use client"
 import React, { useState, useEffect, useCallback } from "react";
-import { useTranslation } from "../i18n/client.js";
-import Header from "../components/Header.jsx";
+import { useTranslation } from "../../i18n/client.js";
+import Header from "../../components/Header.jsx";
 import { MdSearch, MdRefresh } from "react-icons/md";
-import Card from "../components/PaginaCard/Card.jsx";
-import { progettiState, progettiImageState } from "../recoilState.js";
+import Card from "../../components/PaginaCard/Card.jsx";
+import { progettiState, progettiImageState } from "../../recoilState.js";
 import { getRecoil } from "recoil-nexus";
-import Footer from "../components/Footer.jsx";
+import Footer from "../../components/Footer.jsx";
 import {
   downloadProjects,
   retriveFavorites,
   getInsuranceFunds
-} from "../utils/firebase/retriveInfo.jsx";
+} from "../../utils/firebase/retriveInfo.jsx";
 const { ethers } = require("ethers");
 
 

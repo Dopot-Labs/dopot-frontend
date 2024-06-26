@@ -1,17 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import React, { useState } from "react";
-import { InfBase, InfBaseHeader } from "../components/forms/InfBase.jsx";
-import { Questionario, QuestionarioHeader } from "../components/forms/Questionario.jsx";
-import { Progetto, ProgettoHeader } from "../components/forms/Progetto.jsx";
-import { Prodotto, ProdottoHeader } from "../components/forms/Prodotto.jsx";
-import { Faq, FaqHeader } from "../components/forms/Faq.jsx";
-import { addproj } from "../utils/firebase/writeInfos.jsx";
-import Footer from "../components/Footer.jsx";
+import { InfBase, InfBaseHeader } from "../../components/forms/InfBase.jsx";
+import { Questionario, QuestionarioHeader } from "../../components/forms/Questionario.jsx";
+import { Progetto, ProgettoHeader } from "../../components/forms/Progetto.jsx";
+import { Prodotto, ProdottoHeader } from "../../components/forms/Prodotto.jsx";
+import { Faq, FaqHeader } from "../../components/forms/Faq.jsx";
+import { addproj } from "../../utils/firebase/writeInfos.jsx";
+import Footer from "../../components/Footer.jsx";
 import { getRecoil } from "recoil-nexus";
-import { addressState } from "../recoilState.js";
+import { addressState } from "../../recoilState.js";
 import { ToastContainer, toast } from "react-toastify";
-import { useTranslation } from "../i18n/client.js";
+import { useTranslation } from "../../i18n/client.js";
 import Link from 'next/link';
 import Image from 'next/image';
 

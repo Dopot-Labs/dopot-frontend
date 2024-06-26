@@ -1,8 +1,8 @@
 "use client"
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
+import Header from "../../components/Header.jsx";
+import Footer from "../../components/Footer.jsx";
 
 const Ambassador = () => {
 

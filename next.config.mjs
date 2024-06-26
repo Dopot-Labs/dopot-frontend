@@ -25,20 +25,6 @@ const nextconfig =  {
           },
         ],
       });
-
-      // Add a rule for PNG files using file-loader
-      config.module.rules.push({
-        test: /\.(png)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              publicPath: '/',
-              name: 'static/media/[name].[hash].[ext]',
-            },
-          },
-        ],
-      });
   
       // Ensure that the file-loader is applied to the client as well
       config.resolve.fallback = { fs: false, net: false, tls: false, lokijs: false };
@@ -57,7 +43,7 @@ const nextconfig =  {
     ignoreDuringBuilds: true, 
   },
   images: {
-    domains: ['i.ibb.co'],
+    domains: ['i.ibb.co']
   },
   experimental: {
     serverComponentsExternalPackages: ["coffee-script"],
