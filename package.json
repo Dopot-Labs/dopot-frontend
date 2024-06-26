@@ -55,7 +55,7 @@
     "@types/crypto-js": "^4.2.2",
     "@types/file-loader": "^5.0.4",
     "@types/react-world-flags": "^1.4.5",
-    "eslint": "^9.5.0",
+    "eslint": "^8.0.0",
     "eslint-config-next": "14.2.4",
     "file-loader": "^6.2.0"
   }
