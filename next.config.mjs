@@ -50,6 +50,7 @@ const nextconfig =  {
     externalDir: true,
   },
   reactStrictMode: true,
+  output: "standalone",
 };
 
 
