@@ -212,12 +212,17 @@ export async function retriveInvestment(t) {
 }
 
 export async function retriveFavorites() {
+try {
     await getProvider()
     const db_local = await init()
     let addressLogged=getRecoil(addressState);
-    console.log(addressLogged);
-    const progettiFavourites =  await db_local.get("users", ["addressUser"], ["addressUser", "==", addressLogged.toString().toLowerCase()]);
-    return (progettiFavourites && progettiFavourites.length > 0) ? progettiFavourites[0].addressProjects : [];
+    console.log("ciao", addressLogged);
+    const progettiFavourites =  await db_local?.get("users", ["addressUser"], ["addressUser", "==", addressLogged?.toString()?.toLowerCase()]);
+    return (progettiFavourites && progettiFavourites?.length > 0) ? progettiFavourites[0]?.addressProjects : [];
+} catch (error) {
+    console.log(error,"error")
+    
+}
 }
 
 export async function retriveProjectStakes(projectAddress) {
