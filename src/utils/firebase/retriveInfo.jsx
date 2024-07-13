@@ -83,7 +83,7 @@ async function getInvestors(projdb, dopotReward){
     let currentBlock = await provider.getBlockNumber();
     const endBlock = currentBlock;
     currentBlock = currentBlock - (337510 * 120); // Arbitrum blocks per day * 120 days
-    const batchSize = 8000; // 8k public rpc - 20k private rpc
+    const batchSize = 5000; // 5k public rpc - 20k private rpc
     if (blockHeight > currentBlock) currentBlock = blockHeight;
 
     while (currentBlock <= endBlock) {

@@ -7,7 +7,7 @@ const TabQuestionario = (props) => {
   const { t, i18n } = useTranslation();
   return (
     <div className="pc-content-grid-left">
-      <h1>Domande Questionario</h1>
+      <h1>{t("tabsurveyh1")}</h1>
       <div className="div-sep"></div>
       <BlogPost heading={t("survey1")} text={props.progetto.domanda[0]} />
       <BlogPost heading={t("survey2")} text={props.progetto.domanda[1]} />
