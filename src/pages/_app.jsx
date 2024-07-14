@@ -30,7 +30,6 @@ import RecoilNexus from "recoil-nexus";
 
 export default function App({ Component, pageProps }) {
   const { t } = useTranslation();
-  const [isTempMsgHidden, setIsTempMsgHidden] = useState(false);
   useEffect(() => {
     AOS.init();
   }, []);
@@ -52,19 +51,6 @@ export default function App({ Component, pageProps }) {
     <div className="app">
       <main className="home">
         <ToastContainer />
-        {/* Temporary Message */}
-        {isTempMsgHidden ? null : (
-          <div className="temp-msg">
-            <p>Dopot is live on Arbitrum One!</p>
-            <button style={{ maxWidth: "3em", background: "darkred" }}
-              onClick={() => {
-                setIsTempMsgHidden(true);
-              }}
-            >
-              <MdClear />
-            </button>
-          </div>
-        )}
         {/* Hero Section */}
         <Component t={t} {...pageProps} />
       </main>
