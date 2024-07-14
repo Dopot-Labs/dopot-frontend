@@ -107,10 +107,10 @@ const Profile = () => {
               <div className="pts-right">
                 <div className="pts-right-grid">
                   <div className="pts-right-grid-card">
-                    <Link href={"/profile"}>
+                    <Link href={"/Profile"}>
                       <img src={"/assets/img/profile-icon-1.png"} alt="ProfileIcon" />
                     </Link>
-                    <Link href={"/profile"}>
+                    <Link href={"/Profile"}>
                       <p>{t("overview")}</p>
                     </Link>
                   </div>
