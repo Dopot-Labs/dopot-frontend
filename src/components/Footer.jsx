@@ -16,7 +16,6 @@ const Footer = () => {
           </div>
           <div className="footer-grid-box">
             <h4>{t("services")}</h4>
-            <Link href="/InsProgetto">{t("createcampaign")}</Link>
             <Link href="/DopotToken">Dopot Token</Link>
             {/* <Link href="/">{t('learn')}</Link> */}
             <Link href="/FaqIta">Tutorials</Link>
