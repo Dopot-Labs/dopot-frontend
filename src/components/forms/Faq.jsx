@@ -96,7 +96,7 @@ const Faq = (props) => {
       })()}
 
       <div className="proceed-btn-box">
-        <p style={{fontSize: 15, alignSelf: 'center', marginRight: 10}}>Min ~0.0008 eth</p>
+        <p style={{fontSize: 15, alignSelf: 'center', marginRight: 10}}>Min ~0.000145eth = 20MB</p>
         <input className="grd-btn dopot-btn-lg" type="submit" />
       </div>
     </>
@@ -104,10 +104,9 @@ const Faq = (props) => {
 };
 
 const FaqHeader = (props) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   return (
-    <>
-      <div className="ins-progress">
+    <div className="ins-progress">
         <div className="ins-circle ins-circle-done">
           <p>{t("infobase")}</p>
         </div>
@@ -132,7 +131,6 @@ const FaqHeader = (props) => {
           <p>FAQ</p>
         </div>
       </div>
-    </>
   );
 };
 

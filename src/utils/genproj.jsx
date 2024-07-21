@@ -41,7 +41,7 @@ async function contrattoprojectFactory(quota, giorniCampagna){
   export async function bundlrFund(){
     const nodeBalance = webIrys.utils.fromAtomic(await webIrys.getLoadedBalance()).toString();
     console.log(nodeBalance);
-    if(nodeBalance < 0.00008) await webIrys.fund(webIrys.utils.toAtomic(0.00008)); // eth
+    if(nodeBalance < 0.000145) await webIrys.fund(webIrys.utils.toAtomic(0.000145)); // eth
   }
 
   export async function bundlrAdd(obj, contentType){ 
