@@ -3,6 +3,8 @@ import React, { /*useState,*/ useEffect } from "react";
 import { downloadProjects } from "../../utils/firebase/retriveInfo";
 import { useTranslation } from "../../i18n/client";
 import { useRouter } from "next/router"; // Import useRouter
+import { getRecoil } from "recoil-nexus";
+import { progettiState } from "../../recoilState.js";
 
 const LoadingPage = () => {
   const { t } = useTranslation();
@@ -19,8 +21,9 @@ const LoadingPage = () => {
       }
     };
     asyncFn();
+
   }, [t]);
-  
+
   /*useEffect(() => {
     const intervalId = setInterval(() => {
       // Rotate through loading texts

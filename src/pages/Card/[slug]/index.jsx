@@ -42,6 +42,7 @@ const PaginaCard = () => {
     const fetchBase64Data = async () => {
       await downloadProjects(t);
       const fetchedProgetto = getRecoil(progettiState).find((x) => x.address === address);
+
       setProgetto(fetchedProgetto);
       const fav = await retriveFavorites();
       setToggleHeart(fav ? fav.includes(address) : false);

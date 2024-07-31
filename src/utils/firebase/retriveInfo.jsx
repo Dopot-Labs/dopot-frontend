@@ -1,6 +1,6 @@
 "use client"
 import { getRecoil, setRecoil } from 'recoil-nexus';
-import { addressState , progettiState, blockHeightState, providerState } from '../../recoilState.js';
+import { addressState, progettiState, blockHeightState, providerState } from '../../recoilState.js';
 import { db, getIdentity, init } from './firebaseInit.jsx';
 import addressProjectFactory from '../../abi/projectFactory/address.js';
 import addressFundingToken from '../../abi/fundingToken/address.js';
@@ -12,11 +12,11 @@ const abiProjectFactory = require('../../abi/projectFactory/1.json');
 const abiFundingToken = require('../../abi/fundingToken/1.json');
 const abiDopotReward = require('../../abi/dopotReward/1.json');
 
-export async function getProvider(){ 
-    if(!window.ethereum) return;
+export async function getProvider() {
+    if (!window.ethereum) return;
     let signer;
     try {
-        if(typeof window !== "undefined"){
+        if (typeof window !== "undefined") {
             await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
                 params: [{ chainId: '0xa4b1' }],
@@ -25,48 +25,48 @@ export async function getProvider(){
     } catch (switchError) {
         if (switchError.code === 4902 && typeof window !== "undefined") {
             try {
-            await window.ethereum.request({
-                method: 'wallet_addEthereumChain',
-                params: [{
-                chainId: "0xa4b1",
-                rpcUrls: ["https://endpoints.omniatech.io/v1/arbitrum/one/public"],
-                 chainName: "Arbitrum One",
-                nativeCurrency: {
-                    name: "ETH",
-                    symbol: "ETH",
-                    decimals: 18
-                },
-                blockExplorerUrls: ["https://arbiscan.io"]
-            }]
-            });
+                await window.ethereum.request({
+                    method: 'wallet_addEthereumChain',
+                    params: [{
+                        chainId: "0xa4b1",
+                        rpcUrls: ["https://endpoints.omniatech.io/v1/arbitrum/one/public"],
+                        chainName: "Arbitrum One",
+                        nativeCurrency: {
+                            name: "ETH",
+                            symbol: "ETH",
+                            decimals: 18
+                        },
+                        blockExplorerUrls: ["https://arbiscan.io"]
+                    }]
+                });
             } catch (addError) {
-            // handle "add" error
+                // handle "add" error
             }
         }
     }
-    try{
+    try {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         await provider.send("eth_requestAccounts", [])
         signer = provider.getSigner();
         setRecoil(providerState, provider);
-    } catch (e){ console.log(e)}
+    } catch (e) { console.log(e) }
     return await signer.getAddress();
 }
 
 export async function getAddr(setState, dontAutoConnect, t) {
     let address;
-    if(dontAutoConnect){ //Just get stored address
+    if (dontAutoConnect) { //Just get stored address
         const provider = getRecoil(providerState);
-        if(provider){
+        if (provider) {
             let signer = await provider.getSigner();
             address = await signer.getAddress();
             setRecoil(addressState, address)
             setState(address.toString().substring(0, 7) + "...")
-        }else{
+        } else {
             setState("Connect Wallet")
         }
-       
-    } else{ //Web3 connect
+
+    } else { //Web3 connect
         address = await getProvider();
         setRecoil(addressState, address)
         setState(address.toString().substring(0, 7) + "...")
@@ -75,10 +75,10 @@ export async function getAddr(setState, dontAutoConnect, t) {
     }
 }
 
-async function getInvestors(projdb, dopotReward){
+async function getInvestors(projdb, dopotReward) {
     const provider = getRecoil(providerState);
     const blockHeight = getRecoil(blockHeightState);
-    
+
     const contract = new ethers.Contract(addressProjectFactory, abiProjectFactory, provider);
     let currentBlock = await provider.getBlockNumber();
     const endBlock = currentBlock;
@@ -93,8 +93,8 @@ async function getInvestors(projdb, dopotReward){
         for (const event of eventsInvest) {
             const tokenId = event.args.tokenId;
             const rewardBalance = (await dopotReward.balanceOf(event.args.investor, tokenId)).toNumber();
-            if(rewardBalance > 0) {
-                if(!projdb.investors[event.args.investor]) projdb.investors[event.args.investor] = {};
+            if (rewardBalance > 0) {
+                if (!projdb.investors[event.args.investor]) projdb.investors[event.args.investor] = {};
                 projdb.investors[event.args.investor][tokenId] = rewardBalance;
             }
         }
@@ -104,32 +104,36 @@ async function getInvestors(projdb, dopotReward){
     setRecoil(blockHeightState, endBlock);
 }
 
-async function getProjectFunds(addressProject){
+async function getProjectFunds(addressProject) {
     const provider = getRecoil(providerState);
     const dai = new ethers.Contract(addressFundingToken, abiFundingToken, provider);
     return await dai.balanceOf(addressProject);
 }
 
-export async function getInsuranceFunds(){
+export async function getInsuranceFunds() {
     const provider = getRecoil(providerState);
     const dai = new ethers.Contract(addressFundingToken, abiFundingToken, provider);
     return await dai.balanceOf(addressProjectFactory);
 }
 
 export async function downloadProjects(t) {
+    // console.log('inside here----')
+
     const address = await getProvider()
     setRecoil(addressState, address)
     await init()
-    try{
+    try {
         const dopotReward = new Contract(addressDopotReward, abiDopotReward, getRecoil(providerState));
+        // console.log("🚀 ~ downloadProjects ~ dopotReward:", dopotReward)
         let projects = await db.get("projects"/*, identity*/);
+        // console.log("🚀 ~ downloadProjects ~ projects:", projects)
         console.dir(projects)
-        for(let projdb of projects){
-            if(!projdb.address) continue;
+        for (let projdb of projects) {
+            if (!projdb.address) continue;
             const project = new Contract(projdb.address, abiProject, getRecoil(providerState));
             const tiersLenghts = await project.getTiersLength();
-            for(let t = 0; t < tiersLenghts; t++){
-                projdb.imageNftDefListFiles[t].currentSupply = (await dopotReward.currentSupplyByProjectAndURI(projdb.address, projdb.imageNftDefListFiles[t].uri)).toNumber()                    
+            for (let t = 0; t < tiersLenghts; t++) {
+                projdb.imageNftDefListFiles[t].currentSupply = (await dopotReward.currentSupplyByProjectAndURI(projdb.address, projdb.imageNftDefListFiles[t].uri)).toNumber()
             }
             projdb.investors = {};
             await getInvestors(projdb, dopotReward);
@@ -148,8 +152,8 @@ export async function downloadProjects(t) {
             projdb.state = await project.state();
             projdb.totalStaked = typeof project.totalStaked === 'function' ? (await project.totalStaked()).toString().replace(/\d{18}$/, '') : 0;
 
-            if(days < 0 && projdb.state !== 0) projdb.state = 4;
-            switch(projdb.state){
+            if (days < 0 && projdb.state !== 0) projdb.state = 4;
+            switch (projdb.state) {
                 case 0:
                     projdb.stateText = "Pending Approval";
                     break;
@@ -161,7 +165,7 @@ export async function downloadProjects(t) {
                     break;
                 case 3:
                     projdb.stateText = "Successful";
-                    if(projdb.funds === 0) projdb.funds = projdb.quota;
+                    if (projdb.funds === 0) projdb.funds = projdb.quota;
                     break;
                 case 4:
                     projdb.stateText = "Expired";
@@ -170,17 +174,17 @@ export async function downloadProjects(t) {
                     projdb.stateText = "Cancelled";
                     break;
                 default: break;
-                }
-                
-                setRecoil(progettiState, projects)
+            }
+
+            setRecoil(progettiState, projects)
         }
-    }   catch(e){console.log(e)}
+    } catch (e) { console.log(e) }
     return true
 }
 
 export async function downloadProject(address) {
     await getProvider()
-    const progetto = await db.get("projects", ["address"], [ "address", "==", address ])
+    const progetto = await db.get("projects", ["address"], ["address", "==", address])
     console.dir(progetto)
     return progetto
 }
@@ -192,7 +196,7 @@ export async function getNftImage(tokenId) {
     const result = await dopotReward.uri(tokenId);
     const response = await fetch(result.replace("ar://", "https://arweave.net/"));
     const data = await response.json();
-    return {image: data.image, addressDopotReward};
+    return { image: data.image, addressDopotReward };
 }
 
 export async function retriveInvestment(t) {
@@ -203,8 +207,8 @@ export async function retriveInvestment(t) {
     let projects = getRecoil(progettiState)
     console.dir(projects)
     let progettiInvested = [];
-    for(const project of projects){
-        progettiInvested.push(await dopotReward.uri(project.investors[address][0]-1))
+    for (const project of projects) {
+        progettiInvested.push(await dopotReward.uri(project.investors[address][0] - 1))
     }
     console.dir(progettiInvested);
 
@@ -214,21 +218,21 @@ export async function retriveInvestment(t) {
 export async function retriveFavorites() {
     await getProvider()
     const db_local = await init()
-    let addressLogged=getRecoil(addressState);
+    let addressLogged = getRecoil(addressState);
     console.log(addressLogged);
-    const progettiFavourites =  await db_local.get("users", ["addressUser"], ["addressUser", "==", addressLogged.toString().toLowerCase()]);
+    const progettiFavourites = await db_local?.get("users", ["addressUser"], ["addressUser", "==", addressLogged.toString().toLowerCase()]);
     return (progettiFavourites && progettiFavourites.length > 0) ? progettiFavourites[0].addressProjects : [];
 }
 
 export async function retriveProjectStakes(projectAddress) {
     await getProvider()
     //await init()
-    let addressLogged=getRecoil(addressState)    
-    const progettiStakes =  await db.get("users", ["addressUser"], ["addressUser", "==", addressLogged.toString().toLowerCase()]);
+    let addressLogged = getRecoil(addressState)
+    const progettiStakes = await db.get("users", ["addressUser"], ["addressUser", "==", addressLogged?.toString().toLowerCase()]);
     return (progettiStakes && progettiStakes.length > 0) ? progettiStakes[0].projectStakes?.filter(e => e.address === projectAddress) : [];
 }
 
-export function RetriveProjectTypes(tipoKey){
+export function RetriveProjectTypes(tipoKey) {
     const { t } = useTranslation();
     const types = {
         tipo1: t("socialcare"),
@@ -297,6 +301,6 @@ export function RetriveProjectTypes(tipoKey){
         tipo66: t("agriculturaltecno"),
         tipo67: t("aerospace"),
         tipo68: t("hitech"),
-      };
-      return types[tipoKey];
+    };
+    return types[tipoKey];
 }
