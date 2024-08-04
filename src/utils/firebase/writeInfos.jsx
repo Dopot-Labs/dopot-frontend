@@ -167,10 +167,13 @@ export async function refundNft(project, tokenId, t) {
   console.log(project, tokenId);
   const provider = getRecoil(providerState);
   const projectContract = new ethers.Contract(project, abiProject, provider);
-  const signer = provider.getSigner()
+  const signer = provider.getSigner();
   const pWithSigner = projectContract.connect(signer);
+
   try {
-    const tx = await pWithSigner.refund(tokenId);
+    const tx = await pWithSigner.refund(tokenId, {
+      gasLimit: 1000000 // Adjust the gas limit as needed
+    });
     await tx.wait(1);
     setRecoil(progettiState, null);
     if (typeof window !== "undefined") window.location.href = "/";
@@ -178,6 +181,7 @@ export async function refundNft(project, tokenId, t) {
     console.error(e);
   }
 }
+
 
 async function allowDptPay(signer, projectContract, project, amount){
   const address = await getProvider();
