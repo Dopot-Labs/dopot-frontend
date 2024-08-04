@@ -40,7 +40,6 @@ export async function init ()  {
     if (typeof window !== "undefined") window.Buffer = Buffer
     if(!db){
       db = new WeaveDB({ contractTxId, nocache: true, remoteStateSyncEnabled: true, remoteStateSyncSource: "https://dre-1.warp.cc/contract" });
-      console.log("🚀 ~ init ~ db:", db)
       await db.init();
     }
 
@@ -50,7 +49,7 @@ export async function init ()  {
       await set("pushUser", true);
       console.dir(pushUser)
     }
-    console.log("🚀 ~ init ~ db:", db)
+
     return db;
   } catch (e) { console.log(e)}
   
