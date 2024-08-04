@@ -115,7 +115,7 @@ const Card = (props) => {
             />
             <IconInfoCard
               img={"/assets/img/pc-person-icon.png"}
-              text={`${progetto.investorsNumber} ${t("investors")}`}
+              text={`${progetto.investorsNumber || 0} ${t("investors")}`}
             />
             {
               <IconInfoCard

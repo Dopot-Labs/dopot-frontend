@@ -6,11 +6,13 @@ import addressProjectFactory from '../../abi/projectFactory/address.js';
 import addressFundingToken from '../../abi/fundingToken/address.js';
 import addressDopotReward from '../../abi/dopotReward/address.js';
 import { useTranslation } from "../../i18n/client.js";
+import Web3 from 'web3'
 const { ethers, Contract } = require("ethers");
 const abiProject = require('../../abi/project/1.json');
 const abiProjectFactory = require('../../abi/projectFactory/1.json');
 const abiFundingToken = require('../../abi/fundingToken/1.json');
 const abiDopotReward = require('../../abi/dopotReward/1.json');
+let investorsLenght;
 
 export async function getProvider() {
     if (!window.ethereum) return;
@@ -29,7 +31,9 @@ export async function getProvider() {
                     method: 'wallet_addEthereumChain',
                     params: [{
                         chainId: "0xa4b1",
-                        rpcUrls: ["https://endpoints.omniatech.io/v1/arbitrum/one/public"],
+                        // rpcUrls: ["https://arbitrum-mainnet.infura.io/v3/cdb16b02bd2d4b5e8e402a07d9bc2bb5"],
+                        rpcUrls: ["https://arbitrum.drpc.org"],
+                        // rpcUrls: ["https://endpoints.omniatech.io/v1/arbitrum/one/public"],
                         chainName: "Arbitrum One",
                         nativeCurrency: {
                             name: "ETH",
@@ -76,32 +80,93 @@ export async function getAddr(setState, dontAutoConnect, t) {
 }
 
 async function getInvestors(projdb, dopotReward) {
-    const provider = getRecoil(providerState);
-    const blockHeight = getRecoil(blockHeightState);
+    // console.log("🚀 ~ getInvestors ~ projdb:", projdb)
+    console.log("🚀 ~ getInvestors ~ projdb:", projdb.address)
 
-    const contract = new ethers.Contract(addressProjectFactory, abiProjectFactory, provider);
-    let currentBlock = await provider.getBlockNumber();
-    const endBlock = currentBlock;
-    currentBlock = currentBlock - (337510 * 120); // Arbitrum blocks per day * 120 days
-    const batchSize = 5000; // 5k public rpc - 20k private rpc
-    if (blockHeight > currentBlock) currentBlock = blockHeight;
+    try {
 
-    while (currentBlock <= endBlock) {
-        const nextBlock = Math.min(currentBlock + batchSize - 1, endBlock);
-        const filterInvest = contract.filters.ProjectInvested(projdb.address);
-        const eventsInvest = await contract.queryFilter(filterInvest, 0);
-        for (const event of eventsInvest) {
-            const tokenId = event.args.tokenId;
-            const rewardBalance = (await dopotReward.balanceOf(event.args.investor, tokenId)).toNumber();
-            if (rewardBalance > 0) {
-                if (!projdb.investors[event.args.investor]) projdb.investors[event.args.investor] = {};
-                projdb.investors[event.args.investor][tokenId] = rewardBalance;
+        const web3 = new Web3("https://arbitrum-mainnet.infura.io/v3/cdb16b02bd2d4b5e8e402a07d9bc2bb5")
+        // const instance = new web3.eth.Contract(abiProject,addressProjectFactory)
+        const instance = new web3.eth.Contract(abiProjectFactory, addressProjectFactory)
+        const events = await instance.getPastEvents('ProjectInvested', {
+            filter: { projectAddress: projdb.address },
+            fromBlock: 0,
+            toBlock: 'latest'
+        });
+        let counter = 0
+        let investor;
+        let projectAddress;
+        let rewardBalance;
+
+
+        events.forEach(async (event) => {
+            counter += 1
+            investor = event.returnValues.investor;
+            projectAddress = event.returnValues.project;
+            const tokenId = event.returnValues.tokenId;
+            try {
+                rewardBalance = (await dopotReward.balanceOf(investor, tokenId)).toNumber();
+
+
+            } catch (error) {
+                console.log("🚀 ~ events.forEach ~ error:", error)
+
             }
+            if (rewardBalance > 0 && projectAddress == projdb.address) {
+                if (!projdb.investors[investor]) projdb.investors[investor] = {};
+                projdb.investors[investor][tokenId] = rewardBalance;
+            }
+        });
+        console.log(counter)
+        if (projectAddress == projdb.address) {
+
+
+            projdb.investorsNumber = counter > 0 ? counter : 0;
         }
-        currentBlock = nextBlock + 1;
-        console.log(currentBlock)
+
+
+        // const contract = instance.methods
+        // const provider = getRecoil(providerState);
+        // const blockHeight = getRecoil(blockHeightState);
+
+        // const contract = new Contract(addressProjectFactory, abiProjectFactory, provider);
+        // let currentBlock = await provider.getBlockNumber();
+        // const endBlock = currentBlock;
+        // currentBlock = 235359709  // Arbitrum blocks per day * 120 days
+        // currentBlock = currentBlock - (337510 * 120); // Arbitrum blocks per day * 120 days
+        // const batchSize = 5000; // 5k public rpc - 20k private rpc
+        // const batchSize = 5000; // 5k public rpc - 20k private rpc
+        // if (blockHeight > currentBlock) currentBlock = blockHeight;
+
+
+        // while (currentBlock <= endBlock) {
+        // const nextBlock = Math.min(currentBlock + batchSize - 1, endBlock);
+        // console.log("🚀 ~ getInvestors ~ projdb.address:", projdb.address)
+        // console.log("🚀 ~ getInvestors ~ contract.filters.ProjectInvested:", await contract.filters.ProjectInvested(projdb.address))
+        // const filterInvest = await contract.filters.ProjectInvested(projdb.address) ;
+        // console.log("🚀 ~ getInvestors ~ filterInvest:", filterInvest)
+        // const eventsInvest = await contract.queryFilter(filterInvest, 0, 'latest');
+        // console.log("🚀 ~ getInvestors ~ eventsInvest:", eventsInvest)
+
+
+
+        // for (const event of eventsInvest) {
+        // const tokenId = events.args.tokenId;
+        // const rewardBalance = (await dopotReward.balanceOf(events.args.investor, tokenId)).toNumber();
+        // if (rewardBalance > 0) {
+        //     if (!projdb.investors[events.args.investor]) projdb.investors[events.args.investor] = {};
+        //     projdb.investors[events.args.investor][tokenId] = rewardBalance;
+        // }
+        // }
+        // currentBlock = nextBlock + 1;
+        // console.log(currentBlock)
+        // }
+        setRecoil(blockHeightState);
+
+    } catch (error) {
+        console.log("🚀 ~ getInvestors ~ error:", error)
+
     }
-    setRecoil(blockHeightState, endBlock);
 }
 
 async function getProjectFunds(addressProject) {
@@ -118,7 +183,7 @@ export async function getInsuranceFunds() {
 
 export async function downloadProjects(t) {
     // console.log('inside here----')
-
+    const web3 = new Web3("https://arbitrum-mainnet.infura.io/v3/cdb16b02bd2d4b5e8e402a07d9bc2bb5")
     const address = await getProvider()
     setRecoil(addressState, address)
     await init()
@@ -126,18 +191,32 @@ export async function downloadProjects(t) {
         const dopotReward = new Contract(addressDopotReward, abiDopotReward, getRecoil(providerState));
         // console.log("🚀 ~ downloadProjects ~ dopotReward:", dopotReward)
         let projects = await db.get("projects"/*, identity*/);
+        console.log("🚀 ~ downloadProjects ~ project from database s:----", projects)
         // console.log("🚀 ~ downloadProjects ~ projects:", projects)
-        console.dir(projects)
+        // console.dir(projects)
         for (let projdb of projects) {
+            const instance = new web3.eth.Contract(abiProject, projdb.address)
             if (!projdb.address) continue;
             const project = new Contract(projdb.address, abiProject, getRecoil(providerState));
+            // const tiersLenghts = 3
             const tiersLenghts = await project.getTiersLength();
+
             for (let t = 0; t < tiersLenghts; t++) {
-                projdb.imageNftDefListFiles[t].currentSupply = (await dopotReward.currentSupplyByProjectAndURI(projdb.address, projdb.imageNftDefListFiles[t].uri)).toNumber()
+                try {
+                    // projdb.imageNftDefListFiles[t].currentSupply = 2
+                    projdb.imageNftDefListFiles[t].currentSupply = 0
+                    // projdb.imageNftDefListFiles[t].currentSupply = (await dopotReward.currentSupplyByProjectAndURI(projdb.address, projdb.imageNftDefListFiles[t]?.uri)).toNumber()
+
+                } catch (error) {
+                    console.log("🚀 ~ downloadProjects ~ error:--", error)
+                }
             }
+
             projdb.investors = {};
             await getInvestors(projdb, dopotReward);
-            projdb.investorsNumber = Object.keys(projdb.investors).length;
+            console.log("🚀 ~ downloadProjects ~ projdb:-------object", Object.keys(projdb.investors))
+            // projdb.investorsNumber = Object.keys(projdb.investors).length;
+            console.log("🚀 ~ downloadProjects ~ projdb.investors:------2", projdb.investors)
             const projectFunds = Math.round(Number(ethers.utils.formatEther(await getProjectFunds(projdb.address))));
             projdb.funds = projectFunds || 0;
             const deadline = await project.fundRaisingDeadline();
@@ -175,10 +254,9 @@ export async function downloadProjects(t) {
                     break;
                 default: break;
             }
-
             setRecoil(progettiState, projects)
         }
-    } catch (e) { console.log(e) }
+    } catch (e) { console.log(e, '-----') }
     return true
 }
 

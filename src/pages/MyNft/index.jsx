@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { getRecoil } from "recoil-nexus";
 import { addressState, progettiState } from "../../recoilState";
 import { useTranslation } from "../../i18n/client";
-import { getNftImage } from "../../utils/firebase/retriveInfo";
+import { downloadProjects, getNftImage } from "../../utils/firebase/retriveInfo";
 import { addShippingDetailsNft, refundNft } from "../../utils/firebase/writeInfos";
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,7 +12,9 @@ import Image from 'next/image';
 const Profile = () => {
   const { t } = useTranslation();
   const [investedCard, setinvestedCard] = useState([]);
+  console.log("🚀 ~ Profile ~ investedCard:", investedCard)
   let projects = getRecoil(progettiState);
+  console.log("🚀 ~ Profile ~ projects:", projects)
 
   const address = getRecoil(addressState);
   const [isActive2, setActive2] = useState(true);
@@ -44,7 +46,12 @@ const Profile = () => {
                     addressDopotReward: obj.addressDopotReward,
                     title: project.imageNftDefListFiles[tokenId]?.name,
                   });
-                  setinvestedCard([...tempCard]); // Assuming setinvestedCard is a state updater function
+                  const uniqueInvestedCard = tempCard.filter((item, index, self) =>
+                    index === self.findIndex((t) => (
+                      t.address === item.address
+                    ))
+                  );
+                  setinvestedCard([...uniqueInvestedCard]); // Assuming setinvestedCard is a state updater function
                 }
               };
             } catch (error) {
