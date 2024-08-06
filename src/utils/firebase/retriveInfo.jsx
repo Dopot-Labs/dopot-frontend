@@ -91,11 +91,11 @@ async function getInvestors(projdb, dopotReward) {
         });
 
         let counter = 0;
-
+        let projectAddress
         for (const event of events) {
             counter += 1;
             const investor = event.returnValues.investor;
-            const projectAddress = event.returnValues.project;
+            projectAddress = event.returnValues.project;
             const tokenId = event.returnValues.tokenId;
 
             try {
@@ -111,8 +111,9 @@ async function getInvestors(projdb, dopotReward) {
                 console.log("🚀 ~ events.forEach ~ error retrieving balance:", error);
             }
         }
-
-        projdb.investorsNumber = counter > 0 ? counter : 0;
+        if(projectAddress === projdb.address){
+            projdb.investorsNumber = counter > 0 ? counter : 0;
+        }
 
         console.log("🚀 ~ getInvestors ~ investors count:", counter);
     } catch (error) {
