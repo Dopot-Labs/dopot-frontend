@@ -13,7 +13,6 @@ const abiProjectFactory = require('../../abi/projectFactory/1.json');
 const abiFundingToken = require('../../abi/fundingToken/1.json');
 const abiDopotReward = require('../../abi/dopotReward/1.json');
 let investorsLenght;
-
 export async function getProvider() {
     if (!window.ethereum) return;
     let signer;
@@ -32,8 +31,7 @@ export async function getProvider() {
                     params: [{
                         chainId: "0xa4b1",
                         // rpcUrls: ["https://arbitrum-mainnet.infura.io/v3/cdb16b02bd2d4b5e8e402a07d9bc2bb5"],
-                        rpcUrls: ["https://arbitrum.drpc.org"],
-                        // rpcUrls: ["https://endpoints.omniatech.io/v1/arbitrum/one/public"],
+                        rpcUrls: ["https://arb1.arbitrum.io/rpc"],
                         chainName: "Arbitrum One",
                         nativeCurrency: {
                             name: "ETH",
@@ -45,6 +43,7 @@ export async function getProvider() {
                 });
             } catch (addError) {
                 // handle "add" error
+                console.log(addError)
             }
         }
     }
@@ -81,7 +80,7 @@ export async function getAddr(setState, dontAutoConnect, t) {
 
 async function getInvestors(projdb, dopotReward) {
     try {
-        const web3 = new Web3("https://arbitrum-mainnet.infura.io/v3/cdb16b02bd2d4b5e8e402a07d9bc2bb5");
+        const web3 = new Web3("https://arb1.arbitrum.io/rpc");
         const instance = new web3.eth.Contract(abiProjectFactory, addressProjectFactory);
 
         const events = await instance.getPastEvents('ProjectInvested', {
@@ -135,7 +134,7 @@ export async function getInsuranceFunds() {
 
 export async function downloadProjects(t) {
     // console.log('inside here----')
-    const web3 = new Web3("https://arbitrum-mainnet.infura.io/v3/cdb16b02bd2d4b5e8e402a07d9bc2bb5")
+    const web3 = new Web3("https://arbitrum.drpc.org")
     const address = await getProvider()
     setRecoil(addressState, address)
     await init()
