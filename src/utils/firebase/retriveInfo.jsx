@@ -13,85 +13,16 @@ const abiProjectFactory = require('../../abi/projectFactory/1.json');
 const abiFundingToken = require('../../abi/fundingToken/1.json');
 const abiDopotReward = require('../../abi/dopotReward/1.json');
 let investorsLenght;
-
-// export async function getProvider() {
-//     if (!window.ethereum) return;
-//     let signer;
-//     try {
-//         if (typeof window !== "undefined") {
-//             await window.ethereum.request({
-//                 method: 'wallet_switchEthereumChain',
-//                 params: [{ chainId: '0xa4b1' }],
-//             });
-//         }
-//     } catch (switchError) {
-//         if (switchError.code === 4902 && typeof window !== "undefined") {
-//             try {
-//                 await window.ethereum.request({
-//                     method: 'wallet_addEthereumChain',
-//                     params: [{
-//                         chainId: "0xa4b1",
-//                         // rpcUrls: ["https://arbitrum-mainnet.infura.io/v3/cdb16b02bd2d4b5e8e402a07d9bc2bb5"],
-//                         // rpcUrls: ["https://arbitrum.drpc.org"],
-//                         rpcUrls: ["https://clean-withered-mound.arbitrum-mainnet.quiknode.pro/4b4532d149ce3958cf7ea1d5d154a2f9027109e6/"],
-//                         chainName: "Arbitrum One",
-//                         nativeCurrency: {
-//                             name: "ETH",
-//                             symbol: "ETH",
-//                             decimals: 18
-//                         },
-//                         blockExplorerUrls: ["https://arbiscan.io"]
-//                     }]
-//                 });
-//             } catch (addError) {
-//                 // handle "add" error
-//             }
-//         }
-//     }
-//     try {
-//         const provider = new ethers.providers.Web3Provider(window.ethereum);
-//         await provider.send("eth_requestAccounts", [])
-//         signer = provider.getSigner();
-//         setRecoil(providerState, provider);
-//     } catch (e) { console.log(e) }
-//     return await signer.getAddress();
-// }
-
-
 export async function getProvider() {
-    if (!window.ethereum) {
-        console.error('Ethereum provider not found');
-        return;
-    }
+    if (!window.ethereum) return;
     let signer;
     try {
         if (typeof window !== "undefined") {
-            await switchToArbitrumChain();
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0xa4b1' }],
+            });
         }
-    } catch (switchError) {
-        console.error('Failed to switch Ethereum chain:', switchError);
-        return;
-    }
-
-    try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send("eth_requestAccounts", []);
-        signer = provider.getSigner();
-        setRecoil(providerState, provider);
-
-        return await callWithRetry(() => signer.getAddress());
-    } catch (e) {
-        console.error('Failed to get provider or signer:', e);
-        return;
-    }
-}
-
-async function switchToArbitrumChain() {
-    try {
-        await window.ethereum.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: '0xa4b1' }],
-        });
     } catch (switchError) {
         if (switchError.code === 4902 && typeof window !== "undefined") {
             try {
@@ -99,7 +30,8 @@ async function switchToArbitrumChain() {
                     method: 'wallet_addEthereumChain',
                     params: [{
                         chainId: "0xa4b1",
-                        rpcUrls: ["https://arbitrum.drpc.org"],
+                        // rpcUrls: ["https://arbitrum-mainnet.infura.io/v3/cdb16b02bd2d4b5e8e402a07d9bc2bb5"],
+                        rpcUrls: ["https://arb1.arbitrum.io/rpc"],
                         chainName: "Arbitrum One",
                         nativeCurrency: {
                             name: "ETH",
@@ -110,35 +42,18 @@ async function switchToArbitrumChain() {
                     }]
                 });
             } catch (addError) {
-                console.error('Failed to add Ethereum chain:', addError);
-                throw addError;
-            }
-        } else {
-            console.error('Failed to switch Ethereum chain:', switchError);
-            throw switchError;
-        }
-    }
-}
-
-// Retry logic for handling rate limiting
-async function callWithRetry(callFunction, maxRetries = 5, delay = 10000) {
-    let retries = 0;
-    while (retries < maxRetries) {
-        try {
-            console.log('Attempt number:', retries + 1);
-            return await callFunction();
-        } catch (error) {
-            if (error.code === -32603 && error.message.includes('Too many requests')) {
-                retries++;
-                console.warn(`Too many requests. Retrying after ${delay * retries}ms...`);
-                await new Promise(resolve => setTimeout(resolve, delay * retries)); // Exponential backoff
-            } else {
-                console.error('Unexpected error:', error);
-                throw error;
+                // handle "add" error
+                console.log(addError)
             }
         }
     }
-    throw new Error('Max retries exceeded');
+    try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts", [])
+        signer = provider.getSigner();
+        setRecoil(providerState, provider);
+    } catch (e) { console.log(e) }
+    return await signer.getAddress();
 }
 
 export async function getAddr(setState, dontAutoConnect, t) {
@@ -165,7 +80,7 @@ export async function getAddr(setState, dontAutoConnect, t) {
 
 async function getInvestors(projdb, dopotReward) {
     try {
-        const web3 = new Web3("https://arbitrum-mainnet.infura.io/v3/cdb16b02bd2d4b5e8e402a07d9bc2bb5");
+        const web3 = new Web3("https://arb1.arbitrum.io/rpc");
         const instance = new web3.eth.Contract(abiProjectFactory, addressProjectFactory);
 
         const events = await instance.getPastEvents('ProjectInvested', {
@@ -219,7 +134,7 @@ export async function getInsuranceFunds() {
 
 export async function downloadProjects(t) {
     // console.log('inside here----')
-    const web3 = new Web3("https://arbitrum-mainnet.infura.io/v3/cdb16b02bd2d4b5e8e402a07d9bc2bb5")
+    const web3 = new Web3("https://arbitrum.drpc.org")
     const address = await getProvider()
     setRecoil(addressState, address)
     await init()

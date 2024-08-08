@@ -183,7 +183,6 @@ export async function refundNft(project, tokenId, t) {
   }
 }
 
-
 async function allowDptPay(signer, projectContract, project, amount){
   const address = await getProvider();
   if(await projectContract.dptAddressesSet()){
