@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { getRecoil } from "recoil-nexus";
 import { addressState, progettiState } from "../../recoilState";
 import { useTranslation } from "../../i18n/client";
-import { downloadProjects, getNftImage } from "../../utils/firebase/retriveInfo";
+import { getNftImage } from "../../utils/firebase/retriveInfo";
 import { addShippingDetailsNft, refundNft } from "../../utils/firebase/writeInfos";
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,16 +12,13 @@ import Image from 'next/image';
 const Profile = () => {
   const { t } = useTranslation();
   const [investedCard, setinvestedCard] = useState([]);
-  console.log("🚀 ~ Profile ~ investedCard:", investedCard)
   let projects = getRecoil(progettiState);
-  console.log("🚀 ~ Profile ~ projects:", projects)
-
   const address = getRecoil(addressState);
   const [isActive2, setActive2] = useState(true);
 
   useEffect(() => {
     let isMounted = true; // Flag to check if the component is mounted
-
+  
     async function fetchData() {
       let tempCard = [];
       for (const project of projects) {
@@ -46,12 +43,7 @@ const Profile = () => {
                     addressDopotReward: obj.addressDopotReward,
                     title: project.imageNftDefListFiles[tokenId]?.name,
                   });
-                  const uniqueInvestedCard = tempCard.filter((item, index, self) =>
-                    index === self.findIndex((t) => (
-                      t.address === item.address
-                    ))
-                  );
-                  setinvestedCard([...uniqueInvestedCard]); // Assuming setinvestedCard is a state updater function
+                  setinvestedCard([...tempCard]); // Assuming setinvestedCard is a state updater function
                 }
               };
             } catch (error) {
@@ -63,7 +55,7 @@ const Profile = () => {
         }
       }
     }
-    if (projects)
+    if(projects)
       fetchData();
   }, [address, projects]);
 
@@ -213,7 +205,6 @@ const Profile = () => {
                         <div className="three-dots box-bk-over-logo"></div>
                         <div className="dropdown">
                           <Link
-
                             onClick={() =>
                               setShippingDetails(
                                 card.project,
@@ -221,20 +212,17 @@ const Profile = () => {
                                 card.title
                               )
                             }
-                            href={""}
                           >
                             <div>{t("setshipping")}</div>
                           </Link>
                           <Link
-                            href={`https://app.push.org/chat/${card?.addressCreator}`}
+                            href={`https://app.push.org/chat/${card.addressCreator}`}
                             target="_blank"
                             rel="noreferrer"
                           >
                             <div>{t("contactcreator")}</div>
                           </Link>
                           <Link
-                            href={""}
-
                             onClick={() => refundNft(card.project, card.tokenId, t)}
                           >
                             <div>{t("getrefund")}</div>

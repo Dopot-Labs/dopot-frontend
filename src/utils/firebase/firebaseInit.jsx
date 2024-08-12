@@ -49,7 +49,6 @@ export async function init ()  {
       await set("pushUser", true);
       console.dir(pushUser)
     }
-
     return db;
   } catch (e) { console.log(e)}
   

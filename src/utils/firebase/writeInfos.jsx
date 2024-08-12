@@ -10,7 +10,6 @@ const abiProject = require('../../abi/project/1.json');
 const abiFundingToken = require('../../abi/fundingToken/1.json');
 const abiDpt = require('../../abi/dpt/1.json');
 const { ethers } = require("ethers");
-import Web3 from 'web3'
 
 const pushChannelAddress = "0x63381e4b8fe26cb1f55cc38e8369990594e017b1";
 const env = "prod";
@@ -168,13 +167,10 @@ export async function refundNft(project, tokenId, t) {
   console.log(project, tokenId);
   const provider = getRecoil(providerState);
   const projectContract = new ethers.Contract(project, abiProject, provider);
-  const signer = provider.getSigner();
+  const signer = provider.getSigner()
   const pWithSigner = projectContract.connect(signer);
-
   try {
-    const tx = await pWithSigner.refund(tokenId, {
-      gasLimit: 1000000 // Adjust the gas limit as needed
-    });
+    const tx = await pWithSigner.refund(tokenId);
     await tx.wait(1);
     setRecoil(progettiState, null);
     if (typeof window !== "undefined") window.location.href = "/";
@@ -275,21 +271,17 @@ export async function addInvestment(pAddress, numTier, price, title, t) {
   try {
     const address = await getProvider();
     const provider = getRecoil(providerState);
-    const signer = await provider.getSigner();
-    const projectContract = new ethers.Contract(pAddress, abiProject, provider);
-    const pWithSigner =  projectContract.connect(signer);
-    const fundingTokenContract = new ethers.Contract(addressFundingToken, abiFundingToken, provider);
-    const fWithSigner =  fundingTokenContract.connect(signer);
+    const signer = provider.getSigner();
+    const projectContract = new ethers.Contract(pAddress, abiProject, signer);
+    const pWithSigner = projectContract.connect(signer);
+    const fundingTokenContract = new ethers.Contract(addressFundingToken, abiFundingToken, signer);
+    const fWithSigner = fundingTokenContract.connect(signer);
     const allowance = await fundingTokenContract.allowance(address, pAddress);
     if (!allowance.gte(price)){
-      const tx = await fWithSigner.approve(pAddress, amount, {
-        gasLimit: 1000000 // Adjust the gas limit as needed
-      });
+      const tx = await fWithSigner.approve(pAddress, amount);
       await tx.wait(1);
     }
-    const tx = await pWithSigner.invest(numTier, {
-      gasLimit: 1000000 // Adjust the gas limit as needed
-    });
+    const tx = await pWithSigner.invest(numTier);
     await tx.wait(1);
     const shippingDetails = typeof window !== "undefined" ? window.prompt(t("shippingDetails")): "";
     await addShippingDetailsNft(pAddress, title, shippingDetails, title);

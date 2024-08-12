@@ -26,7 +26,7 @@ const Home = () => {
   
   const load = useCallback(async () => {
     const cardsTemp = [];
-    // await downloadProjects(t);
+    await downloadProjects(t);
     const newData = await retriveFavorites();
     let insuranceFunds = await getInsuranceFunds();
     insuranceFunds = ethers.utils.formatEther(insuranceFunds.toString());
