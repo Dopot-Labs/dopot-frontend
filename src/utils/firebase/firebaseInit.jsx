@@ -8,7 +8,7 @@ import { PushAPI } from '@pushprotocol/restapi';
 import { getRecoil  } from 'recoil-nexus';
 import { providerState } from "../../recoilState";
 
-const contractTxId = "NkYdataKkg9KYtjbopSyjqeFTfBGEa6h66zHSdB33W8";
+const contractTxId = "hdnrB5USC2aiqBr48jJfQ4W9EO1Kbm4-uSWe15f_F1k";
 export let db;
 
 async function addDptToken() {
