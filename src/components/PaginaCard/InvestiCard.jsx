@@ -1,26 +1,27 @@
-"use client"
-import React, { useEffect, useState } from 'react';
+"use client";
+import React, { useEffect, useState } from "react";
 import { addInvestment } from "../../utils/firebase/writeInfos";
-import addressDopotReward from '../../abi/dopotReward/address.js';
+import addressDopotReward from "../../abi/dopotReward/address.js";
 import { ToastContainer, toast } from "react-toastify";
 import { useTranslation } from "../../i18n/client";
-
 
 const InvestiCard = (props) => {
   const { state, titolo, price, spec, currentSupply, supply } = props;
   let { img } = props;
   const { t } = useTranslation();
-  async function invest(){
+  async function invest() {
     try {
-      await toast.promise(addInvestment(props.address, props.numTier, price, titolo, t), {
-        pending: t("confirm"),
-        success: t("invested"),
-        error: t("error"),
-      });
+      await toast.promise(
+        addInvestment(props.address, props.numTier, price, titolo, t),
+        {
+          pending: t("confirm"),
+          success: t("invested"),
+          error: t("error"),
+        }
+      );
     } catch (error) {
       console.log(error);
     }
-    
   }
   const [imageSrc, setImageSrc] = useState(null);
   const binaryString = img;
@@ -30,55 +31,87 @@ const InvestiCard = (props) => {
       return;
     }
     var reader = new FileReader();
-    reader.readAsDataURL(binaryString); 
-    reader.onloadend = function() {
-      var base64data = reader.result;                
+    reader.readAsDataURL(binaryString);
+    reader.onloadend = function () {
+      var base64data = reader.result;
       setImageSrc(base64data);
-    }    
+    };
   }, [binaryString]);
-  
 
   return (
     <div className="investi-card">
       <input type="checkbox" id="click-invest" />
-      <label htmlFor="click-invest" style={{ cursor: "pointer", display: "block" }}>
-      {imageSrc && <img src={imageSrc} alt="" />}
+      <label
+        htmlFor="click-invest"
+        style={{ cursor: "pointer", display: "block" }}
+      >
+        {/* {imageSrc && <img src={imageSrc} alt="" />} */}
 
         <div className="investi-card-box">
-          <h3 className="box-bk-over-logo">{titolo}</h3>
-          <p className="box-bk-over-logo">{spec}</p>
-          <br />
-          <p className="box-bk-over-logo">{currentSupply}/{supply} supply</p>
+          <div className="box-main-invest">
+            <div>
+              <h3 className="">Invest</h3>
+              <p className="">{spec}</p>
+            </div>
+            <div
+              style={{ backgroundImage: `url(${imageSrc})` }}
+              className="bg-img-main-invest"
+            ></div>
+          </div>
+          <div className="box-supply">
+            <p>Supply</p>
+            <p className="">
+              {currentSupply}/{supply}
+            </p>
+          </div>
 
-          <h5>{"DAI " + price}</h5>
           <button
-            onClick={() => (state === "Ongoing" ? invest() : window.location.href = (`https://opensea.io/assets/arbitrum/${addressDopotReward}`))}
+            onClick={() =>
+              state === "Ongoing"
+                ? invest()
+                : (window.location.href = `https://opensea.io/assets/arbitrum/${addressDopotReward}`)
+            }
             className="grd-btn dopot-btn-sm"
           >
             {state === "Ongoing" ? "Invest" : "Buy NFT"}
+            {" " + "DAI " + price}
           </button>
+          {/* <h5>{"DAI " + price}</h5> */}
         </div>
       </label>
 
-      <div className="content-invest ">
-        <img src={imageSrc} alt="BlogImg" />
-        <div className="text-invest">
-          <h3 className="box-bk-over-logo">{titolo}</h3>
-          <p className="box-bk-over-logo">{spec}</p>
-          <br />
-          <p className="box-bk-over-logo">{currentSupply}/{supply} supply</p>
+      <div className="content-invest">
+        <div className="content-invest-box">
+          <img src={imageSrc} alt="BlogImg" />
+          <div className="text-invest">
+            <h3 className="">Invest</h3>
+            <p className="">{spec}</p>
 
-          <h5>{"DAI " + price}</h5>
-          <button
-            onClick={() => (state === "Ongoing" ? invest() : window.location.href = (`https://opensea.io/assets/arbitrum/${addressDopotReward}`))}
-            className="grd-btn dopot-btn-sm"
-          >
-            {state === "Ongoing" ? "Invest" : "Buy NFT"}
-          </button>
+            <div className="box-supply">
+              <p>Supply</p>
+              <p className="">
+                {currentSupply}/{supply}
+              </p>
+            </div>
+
+            <button
+              onClick={() =>
+                state === "Ongoing"
+                  ? invest()
+                  : (window.location.href = `https://opensea.io/assets/arbitrum/${addressDopotReward}`)
+              }
+              className="grd-btn dopot-btn-sm"
+            >
+              {state === "Ongoing" ? "Invest" : "Buy NFT"}
+              {" " + "DAI " + price}
+            </button>
+            <button className="grd-btn dopot-btn-sm cancel">
+              <label for="click-invest" id="temp-invest">
+                Cancel
+              </label>
+            </button>
+          </div>
         </div>
-        <label for="click-invest" id="temp-invest">
-          x
-        </label>
       </div>
       <ToastContainer />
     </div>

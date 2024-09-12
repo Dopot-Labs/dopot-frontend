@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import IconInfoCard from "./IconInfoCard";
 import IconInfoDai from "./IconInfoDai";
@@ -20,7 +20,11 @@ const Card = (props) => {
   const router = useRouter(); // Initialize useRouter
 
   useEffect(() => {
-    setToggleHeart(progettiFavourites && Array.isArray(progettiFavourites) ? progettiFavourites.includes(address) : false)
+    setToggleHeart(
+      progettiFavourites && Array.isArray(progettiFavourites)
+        ? progettiFavourites.includes(address)
+        : false
+    );
   }, [progettiFavourites, address]);
   function handleRedirect(e) {
     router.push(`/Card/${address}`);
@@ -29,7 +33,12 @@ const Card = (props) => {
   let desc = String(progetto.descProgetto);
   return (
     <div className="profile-box-dash">
-      <div className="pmg-right-card" style={{backgroundImage: `url(https://arweave.net/${progetto.logoAziendaListFiles[0]})`}}>
+      <div
+        className="pmg-right-card"
+        style={{
+          backgroundImage: `url(https://arweave.net/${progetto.logoAziendaListFiles[0]})`,
+        }}
+      >
         <div className="pmg-rc-left-card" style={{ width: "100%" }}>
           <div
             style={{
@@ -41,9 +50,7 @@ const Card = (props) => {
               {/* <span className="box-bk-over-logo">{progetto.settore}</span> */}
             </div>
             <div style={{ marginBottom: "1rem" }} className="settore">
-              <span className="box-bk-over-logo">
-                {progetto.tipoCampagna}
-              </span>
+              <span className="box-bk-over-logo">{progetto.tipoCampagna}</span>
             </div>
           </div>
           <h3 className="box-bk-over-logo">{progetto.nomeAzienda}</h3>
@@ -78,17 +85,14 @@ const Card = (props) => {
         <div className="pmg-rc-right">
           <div className="pc-hero-icon-grid">
             <IconInfoDai
-              img={"/assets/img/pc-dollar-icon.png"}
               text={progetto.funds}
               text2={`${t("of")} ${progetto.quota}`}
             />
             <IconInfoCard
-              img={"/assets/img/pc-person-icon.png"}
               text={`${progetto.investorsNumber} ${t("investors")}`}
             />
             {
               <IconInfoCard
-                img={"/assets/img/pc-calendar-icon.png"}
                 text={
                   isMyProject
                     ? progetto.stateText
@@ -111,28 +115,27 @@ const Card = (props) => {
           </div>
         </div>
         <div className="pmg-btn-box">
-        
-            <button
-              onClick={() => {
-                addFavorites(address, t);
-                toggleHeart
-                  ? progettiFavourites.splice(
-                      progettiFavourites.indexOf(address),
-                      1
-                    )
-                  : progettiFavourites.push(address);
-                setToggleHeart(!toggleHeart);
-              }}
-              // className="grd-btn dopot-btn-lg"
-              style={{ background: "none", width: "10%" }}
-            >
-              {toggleHeart ? (
-                <img alt="Unfavourite" src={"/assets/img/heart-fav-active.svg"} />
-              ) : (
-                <img alt="Favourite" src={"/assets/img/heart-fav.svg"} />
-              )}
-            </button>
-          
+          <button
+            onClick={() => {
+              addFavorites(address, t);
+              toggleHeart
+                ? progettiFavourites.splice(
+                    progettiFavourites.indexOf(address),
+                    1
+                  )
+                : progettiFavourites.push(address);
+              setToggleHeart(!toggleHeart);
+            }}
+            // className="grd-btn dopot-btn-lg"
+            style={{ background: "none", width: "10%" }}
+          >
+            {toggleHeart ? (
+              <img alt="Unfavourite" src={"/assets/img/heart-fav-active.svg"} />
+            ) : (
+              <img alt="Favourite" src={"/assets/img/heart-fav.svg"} />
+            )}
+          </button>
+
           <button onClick={handleRedirect} className="grd-btn dopot-btn-lg">
             {t("findoutmore")}
           </button>

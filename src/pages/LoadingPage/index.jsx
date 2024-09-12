@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { /*useState,*/ useEffect } from "react";
 import { downloadProjects } from "../../utils/firebase/retriveInfo";
 import { useTranslation } from "../../i18n/client";
@@ -21,7 +21,6 @@ const LoadingPage = () => {
       }
     };
     asyncFn();
-
   }, [t]);
 
   /*useEffect(() => {
@@ -41,9 +40,12 @@ const LoadingPage = () => {
   return (
     <div className="loadingDiv">
       <img src={"/assets/img/3yZR-unscreen.gif"} alt="Loading" srcSet="" />
-      <h2>{t("loading1")}</h2>
+      <h5 style={{ color: "#111111" }}>Loading projects... </h5>
+      <h2 style={{ color: "#111111" }}>
+        This might take a few minutes the first time
+      </h2>
     </div>
   );
-}
+};
 
 export default LoadingPage;

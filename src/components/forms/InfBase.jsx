@@ -1,10 +1,16 @@
 /* eslint-disable react/jsx-key */
-"use client"
+"use client";
 import React, { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import { useTranslation } from "../../i18n/client";
 
-const InfBase = ({inputs, handleChange, handleCountryChange, handleChangeArray, setState, }) => {
+const InfBase = ({
+  inputs,
+  handleChange,
+  handleCountryChange,
+  handleChangeArray,
+  setState,
+}) => {
   const { t, i18n } = useTranslation();
   const [val, setVal] = useState([]);
   const handleAdd = (e) => {
@@ -39,21 +45,48 @@ const InfBase = ({inputs, handleChange, handleCountryChange, handleChangeArray, 
     setVal2(deletVal2);
   };
 
+  const [files, setFiles] = useState([]);
+
+  // Funzione per gestire il caricamento dei file
+  const handleFileUpload = (event) => {
+    const selectedFiles = Array.from(event.target.files);
+    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+  };
+
+  // Funzione per rimuovere un file
+  const handleRemoveFile = (fileName) => {
+    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+  };
+
+  // Funzione per gestire il caricamento dei file
+  const handleFileUpload2 = (event) => {
+    const selectedFiles = Array.from(event.target.files);
+    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+  };
+
+  // Funzione per rimuovere un file
+  const handleRemoveFile2 = (fileName) => {
+    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+  };
+
   return (
     <>
+      <h1>Basic information</h1>
+      <h3 style={{ color: "#646A69" }}>
+        Update your photo and personal details here.
+      </h3>
       <div className="ins-input-box">
-        <h1>{t("infbaseh1")}</h1>
-        <h4>{t("infbasename")}</h4>
+        <h4>Company name</h4>
         <input
           type="text"
           name="nomeAzienda"
           value={inputs.nomeAzienda}
           onChange={handleChange}
-          placeholder={t("infbasenamep")}
+          placeholder="Insert Company Name"
         />
       </div>
       <div className="ins-input-box">
-        <h4>{t("infbasenation")}</h4>
+        <h4>Company country</h4>
         <ReactFlagsSelect
           className="nazioneAziendaSelect"
           selected={inputs.nazioneAzienda}
@@ -63,10 +96,10 @@ const InfBase = ({inputs, handleChange, handleCountryChange, handleChangeArray, 
         ;
       </div>
       <div className="ins-input-box">
-        <h4>{t("infbasesector")}</h4>
+        <h4>Corporate sector</h4>
         <select name="settore" onChange={handleChange}>
           <option disabled selected value>
-            {t("selectcateg")}
+            Select Category
           </option>
           <option disabled value>
             {t("social")}
@@ -147,154 +180,207 @@ const InfBase = ({inputs, handleChange, handleCountryChange, handleChangeArray, 
         </select>
       </div>
       <div className="ins-input-box">
-        <h4>Logo</h4>
-        <input
-          key="logoAzienda"
-          name="logoAzienda"
-          value={inputs.logoAzienda}
-          onChange={handleChange}
-          type="file"
-          accept=".png,.jpg,.jpeg"
-        />
+        <div>
+          <h4>Logo</h4>
+          <h3>This will be displayed on your profile.</h3>
+        </div>
+
+        <div class="file-upload">
+          <input
+            key="logoAzienda"
+            name="logoAzienda"
+            value={inputs.logoAzienda}
+            onChange={handleFileUpload}
+            type="file"
+            id="file"
+            accept=".png,.jpg,.jpeg"
+            class="file-input"
+          />
+          <label for="file">
+            <div style={{ width: "100%" }} class="upload-icon">
+              <img src="/assets/img/logo-upload.svg" alt="Upload Icon" />
+            </div>
+            <p>Click to upload</p>
+            <span>SVG, PNG, JPG or GIF (max. 800x400px)</span>
+          </label>
+          {/* Lista dei file caricati */}
+          <div className="file-list">
+            {files.map((file, index) => (
+              <div key={index} className="file-item">
+                <div className="file-details">
+                  <div className="file-name">{file.name}</div>
+                  <div className="file-size">
+                    {(file.size / 1024).toFixed(2)} KB
+                  </div>
+                </div>
+                <button
+                  className="delete-btn"
+                  onClick={() => handleRemoveFile(file.name)}
+                >
+                  &times;
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
       <div className="ins-input-box">
-        <h4>{t("projectdesc")}</h4>
+        <div>
+          <h4>Project description</h4>
+          <h3>Write a short note.</h3>
+        </div>
         <textarea
           name="descrizione"
           value={inputs.descrizione}
           onChange={handleChange}
           type="textarea"
-          placeholder={t("projectdescp")}
+          placeholder="Type here"
         />
       </div>
       <div className="ins-input-box">
-        <h4>{t("vatnumber")}</h4>
+        <h4>VAT number (optional)</h4>
         <input
           name="pIva"
           value={inputs.pIva}
           onChange={handleChange}
           type="text"
-          placeholder={t("vatnumberp")}
+          placeholder="Enter Number"
         />
       </div>
       <div className="ins-input-box">
-        <h4>{t("website")}</h4>
+        <h4>Website</h4>
         <input
           name="sito"
           value={inputs.sito || ""}
           onChange={handleChange}
           type="text"
-          placeholder={t("websitep")}
+          placeholder="www.yourwebsite.com"
         />
       </div>
       <div className="ins-input-box ">
-        <h4>Social Media </h4>
-        <div className="container-plus">
-          <input
-            name="socialMedia"
-            type="text"
-            onChange={(e) => handleChangeArray(e, 0)}
-            placeholder={t("socialmediap")}
-          />
+        <h4>Social Media hnadles</h4>
+        <div className="box-link-cont">
+          <div className="container-plus">
+            <input
+              name="socialMedia"
+              type="text"
+              onChange={(e) => handleChangeArray(e, 0)}
+              placeholder="Insert link"
+            />
 
-          <button className="btn-plus-minus" onClick={(e) => handleAdd(e)}>
-            +
-          </button>
+            <button className="btn-plus-minus" onClick={(e) => handleAdd(e)}>
+              +
+            </button>
+          </div>
+          {val.map((data, i) => {
+            return (
+              <div className="container-plus">
+                <input
+                  name={"socialMedia"}
+                  type="text"
+                  placeholder="Insert link"
+                  onChange={(e) => handleChangeArray(e, i + 1)}
+                />
+                <button
+                  className="btn-plus-minus"
+                  name={"socialMedia"}
+                  onClick={(e) => handleDelete(e, i + 1)}
+                >
+                  x
+                </button>
+              </div>
+            );
+          })}
         </div>
-        {val.map((data, i) => {
-          return (
-            <div className="container-plus">
-              <input
-                name={"socialMedia"}
-                type="text"
-                placeholder={t("socialmediap")}
-                onChange={(e) => handleChangeArray(e, i + 1)}
-              />
-              <button
-                className="btn-plus-minus"
-                name={"socialMedia"}
-                onClick={(e) => handleDelete(e, i + 1)}
-              >
-                x
-              </button>
-            </div>
-          );
-        })}
       </div>
       <div className="ins-input-box">
-        <h4>{t("companydocumentation")}</h4>
-        <div className="container-plus">
+        <div>
+          <h4>Company Documentation </h4>
+          <h3>(pitch, business plan, relationships with partners)</h3>
+        </div>
+
+        <div class="file-upload">
           <input
             name="documentazione"
-            accept=".pdf"
+            onChange={handleFileUpload2}
             type="file"
-            onChange={handleChange}
+            id="file2"
             multiple
-            placeholder="trascina il o
-                clicca per inserirlo
-                (.pdf)"
+            accept=".pdf"
+            class="file-input"
           />
+          <label for="file2">
+            <div style={{ width: "100%" }} class="upload-icon">
+              <img src="/assets/img/logo-upload.svg" alt="Upload Icon" />
+            </div>
+            <p>Click to upload</p>
+            <span>PDF, DOC, PPT or TXT</span>
+          </label>
+          {/* Lista dei file caricati */}
+          <div className="file-list">
+            {files.map((file, index) => (
+              <div key={index} className="file-item">
+                <div className="file-details">
+                  <div className="file-name">{file.name}</div>
+                  <div className="file-size">
+                    {(file.size / 1024).toFixed(2)} KB
+                  </div>
+                </div>
+                <button
+                  className="delete-btn"
+                  onClick={() => handleRemoveFile2(file.name)}
+                >
+                  &times;
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="ins-input-box">
-        <h4>{t("introduction")}</h4>
+      <div className="ins-input-box ">
+        <div>
+          <h4>Introduction</h4>
+          <h3>Write a short note.</h3>
+        </div>
         <textarea
           value={inputs.introduzione}
           onChange={handleChange}
           name="introduzione"
-          placeholder={t("introductionp")}
+          placeholder="Type here"
         />
-        {/* <div className="ins-input-box">
-          <h4>Immagine Introduzione </h4>
-          <input
-            name="fotoIntro"
-            value={inputs.fotoIntro}
-            onChange={handleChange}
-            type="file"
-          />
-        </div> */}
-        <h4>{t("story")}</h4>
+      </div>
+      <div className="ins-input-box ">
+        <div>
+          <h4>History</h4>
+          <h3>Company history</h3>
+        </div>
         <textarea
           value={inputs.storia}
           onChange={handleChange}
           name="storia"
-          placeholder={t("storyp")}
+          placeholder="Type here"
         />
-        {/* <div className="ins-input-box">
-          <h4>Immagine Introduzione </h4>
-          <input
-            name="fotoStoria"
-            value={inputs.fotoStoria}
-            onChange={handleChange}
-            type="file"
-          />
-        </div> */}
+      </div>
+      <div className="ins-input-box ">
+        <div>
+          <h4>Vision</h4>
+          <h3>Company vision</h3>
+        </div>
 
-        <h4>{t("vision")}</h4>
         <textarea
           value={inputs.vision}
           onChange={handleChange}
           name="vision"
-          placeholder={t("visionp")}
+          placeholder="Type here"
         />
-        {/* <div className="ins-input-box">
-          <h4>Immagine Introduzione </h4>
-          <input
-            name="fotoVision"
-            value={inputs.fotoVision}
-            onChange={handleChange}
-            type="file"
-          />
-        </div> */}
       </div>
+
       {(() => {
         if (setState != null) {
           return (
             <div className="add-btn-box">
-              <a onClick={setState}>
-                <img src={"/assets/img/plus-grd-icon.png"} alt="PlusGrdIcon" />
-              </a>
+              <a onClick={setState}>Save</a>
             </div>
           );
         }
@@ -309,26 +395,31 @@ const InfBaseHeader = (props) => {
     <>
       <div className="ins-progress">
         <div className="ins-circle ins-circle-active">
-          <p>{t("infobase")}</p>
+          <img src="/assets/img/info-base1.svg" alt="" />
+          <p>Basic Info</p>
         </div>
         <div className="ins-line ins-line-pending"></div>
         <div className="ins-circle ins-circle-pending">
-          <p>{t("survey")}</p>
+          <img src="/assets/img/info-base2.svg" alt="" />
+          <p>Survey</p>
         </div>
         <div className="ins-line ins-line-pending"></div>
         <div className="ins-circle ins-circle-pending">
-          <p>{t("project")}</p>
+          <img src="/assets/img/info-base3.svg" alt="" />
+          <p>Project</p>
         </div>
         <div className="ins-line ins-line-pending"></div>
         <div className="ins-circle ins-circle-pending">
-          <p>{t("product")}</p>
+          <img src="/assets/img/info-base4.svg" alt="" />
+          <p>Product & NFTs Mint</p>
         </div>
-        <div className="ins-line ins-line-pending"></div>
+        {/* <div className="ins-line ins-line-pending"></div>
         <div className="ins-circle ins-circle-pending">
           <p>NFTs Mint</p>
-        </div>
+        </div> */}
         <div className="ins-line ins-line-pending"></div>
         <div className="ins-circle ins-circle-pending">
+          <img src="/assets/img/info-base5.svg" alt="" />
           <p>FAQ</p>
         </div>
       </div>

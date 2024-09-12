@@ -1,13 +1,17 @@
-"use client"
+"use client";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import IconInfoCard from "../../components/PaginaCard/IconInfoCard";
 import IconInfoDai from "../../components/PaginaCard/IconInfoDai";
-import { CircularProgressbar } from "react-circular-progressbar";
+// import { CircularProgressbar } from "react-circular-progressbar";
+import { Line } from "rc-progress";
 import Flag from "react-world-flags";
 import { addFavorites, postpone } from "../../utils/firebase/writeInfos";
 import { useTranslation } from "../../i18n/client";
-import { getWithdrawalFees, getPWithSigner } from "../../utils/firebase/writeInfos";
+import {
+  getWithdrawalFees,
+  getPWithSigner,
+} from "../../utils/firebase/writeInfos";
 const { ethers } = require("ethers");
 import { useRouter } from "next/router"; // Import useRouter
 
@@ -37,14 +41,14 @@ const Card = (props) => {
     const fetchFees = async () => {
       try {
         const result = await getWithdrawalFees(await getPWithSigner(address));
-        setFees(ethers.utils.formatUnits(result.toString(), 18)); 
+        setFees(ethers.utils.formatUnits(result.toString(), 18));
       } catch (error) {
-        console.error('Error fetching fees:', error);
+        console.error("Error fetching fees:", error);
         setFees(0);
       }
     };
-    if(loadFees) fetchFees();
-  }, []); 
+    if (loadFees) fetchFees();
+  }, []);
 
   function handleRedirect(e) {
     router.push(`/Card/${address}`);
@@ -55,34 +59,87 @@ const Card = (props) => {
     <div className="profile-box-dash">
       <div
         className="pmg-right-card"
-        style={{
-          backgroundImage: `url(https://arweave.net/${progetto.logoAziendaListFiles[0]})`,
-        }}
+        // style={{
+        //   backgroundImage: `url(https://arweave.net/${progetto.logoAziendaListFiles[0]})`,
+        // }}
       >
         <div className="pmg-rc-left-card" style={{ width: "100%" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-          {progetto.totalStaked !== "0" && (
-          <div style={{ marginBottom: "1rem" }} className="settore">
-              <span className="box-bk-over-logo">{progetto.totalStaked} DPT staked</span>
-          </div>
-          )}
-            <div className="settore">
-              {/* <span className="box-bk-over-logo">{props.progetto.settore}</span> */}
-            </div>
-            <div style={{ marginBottom: "1rem" }} className="settore">
+          <div>
+            {progetto.totalStaked !== "0" && (
+              <div style={{ marginBottom: "1rem" }} className="settore">
+                <span className="box-bk-over-logo">
+                  {progetto.totalStaked} DPT staked
+                </span>
+              </div>
+            )}
+            {/* <div className="settore">
+              { <span className="box-bk-over-logo">{props.progetto.settore}</span> }
+            </div> */}
+            <div
+              style={{ marginBottom: "1rem" }}
+              className="settore card-header"
+            >
               <span className="box-bk-over-logo">{progetto.tipoCampagna}</span>
+              <div>
+                {isMyProject ? (
+                  <div className="menu-nav">
+                    <div className="dropdown-container d-flex " tabindex="-1">
+                      <div className="three-dots "></div>
+                      <div className="dropdown">
+                        <a onClick={() => props.withdraw(address)}>
+                          <div>
+                            {t("withdrawfunds")} {fees} DPT)
+                          </div>
+                        </a>
+                        <a onClick={() => postpone(address)}>
+                          <div>{t("postponedeadline")}</div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      addFavorites(address, t);
+                      toggleHeart
+                        ? progettiFavourites.splice(
+                            progettiFavourites.indexOf(address),
+                            1
+                          )
+                        : progettiFavourites.push(address);
+                      setToggleHeart(!toggleHeart);
+                    }}
+                    // className="grd-btn dopot-btn-lg"
+                    style={{
+                      background: "none",
+                      margin: "0",
+                    }}
+                  >
+                    {toggleHeart ? (
+                      <img src={"/assets/img/cuore-dis.svg"} />
+                    ) : (
+                      <img src={"/assets/img/cuore-able.svg"} />
+                    )}
+                  </button>
+                )}
+              </div>
             </div>
           </div>
-          <h3 className="box-bk-over-logo">{progetto.nomeAzienda}</h3>
-          <h3 style={{ marginBottom: "2rem" }}>
+          <div onClick={handleRedirect} className="box-card-logo">
+            <div
+              className="logo"
+              style={{
+                backgroundImage: `url(https://arweave.net/${progetto.logoAziendaListFiles[0]})`,
+              }}
+            ></div>
+          </div>
+          <h3 onClick={handleRedirect} className="nome-azienda">
+            {progetto.nomeAzienda}
+          </h3>
+          <h3 className="link-azienda">
             <span>
               <a
-                className="link-social-new  box-bk-over-logo"
+                className="link-social-new"
                 href={props.progetto.sito}
                 target="_blank"
               >
@@ -96,7 +153,7 @@ const Card = (props) => {
             className="read-more-state"
             id="post-{props.progetto.nomeAzienda}"
           />
-          <p className="read-more-target box-bk-over-logo">{desc}</p>
+          <p className="read-more-target ">{desc}</p>
 
           {desc.length > 200 ? (
             <label
@@ -109,82 +166,50 @@ const Card = (props) => {
         <div className="pmg-rc-right">
           <div className="pc-hero-icon-grid">
             <IconInfoDai
-              img={"/assets/img/pc-dollar-icon.png"}
               text={progetto.funds}
               text2={`${t("of")} ${progetto.quota}`}
             />
             <IconInfoCard
-              img={"/assets/img/pc-person-icon.png"}
-              text={`${progetto.investorsNumber || 0} ${t("investors")}`}
+              text={`${progetto.investorsNumber || 0}`}
+              text2={`Investors`}
             />
             {
               <IconInfoCard
-                img={"/assets/img/pc-calendar-icon.png"}
                 text={
-                  isMyProject
-                    ? progetto.stateText
-                    : `${fundRaisingDeadline} ${t("daysremaining")}`
+                  isMyProject ? progetto.stateText : `${fundRaisingDeadline}`
                 }
+                text2={`Remaining`}
               />
             }
           </div>
-          <div className="pc-70-box box-bk-over-logo">
-            <p>
-              {t("investmentcard")} <br /> {t("completedat")}
-            </p>
+          <div className="pmg-btn-box">
+            {/* <button onClick={handleRedirect} className="grd-btn dopot-btn-lg">
+              {t("findoutmore")}
+            </button> */}
+            <div>Country</div>
+            <div style={{ bottom: 0, right: 0 }}>
+              <Flag code={progetto.nazioneAzienda} height="20" />
+            </div>
+          </div>
+          <div className="pc-70-box">
+            <div className="percent-box">
+              <p>Investment Progress</p>
+              <p>{`${Math.round(percentage)}%`}</p>
+            </div>
             <div className="graph-box">
-              <CircularProgressbar
+              {/* <CircularProgressbar
                 value={percentage}
                 text={`${Math.round(percentage)}%`}
                 strokeWidth={15}
+              /> */}
+              <Line
+                percent={percentage}
+                strokeWidth={4}
+                trailWidth={4}
+                strokeColor="#E85556"
+                trailColor="#D9D9D9"
               />
             </div>
-          </div>
-        </div>
-        
-        <div className="pmg-btn-box">
-          {isMyProject ? (
-            <div className="menu-nav">
-              <div className="dropdown-container d-flex " tabindex="-1">
-                <div className="three-dots box-bk-over-logo"></div>
-                <div className="dropdown">
-                  <a onClick={() => props.withdraw(address)}>
-                    <div>{t("withdrawfunds")} {fees} DPT)</div>
-                  </a>
-                  <a onClick={() => postpone(address)}>
-                    <div>{t("postponedeadline")}</div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <button
-              onClick={() => {
-                addFavorites(address, t);
-                toggleHeart
-                  ? progettiFavourites.splice(
-                      progettiFavourites.indexOf(address),
-                      1
-                    )
-                  : progettiFavourites.push(address);
-                setToggleHeart(!toggleHeart);
-              }}
-              // className="grd-btn dopot-btn-lg"
-              style={{ background: "none", width: "10%" }}
-            >
-              {toggleHeart ? (
-                <img src={"/assets/img/heart-fav-active.svg"} />
-              ) : (
-                <img src={"/assets/img/heart-fav.svg"} />
-              )}
-            </button>
-          )}
-          
-          <button onClick={handleRedirect} className="grd-btn dopot-btn-lg">
-            {t("findoutmore")}
-          </button>
-          <div style={{ bottom: 0, right: 0 }}>
-            <Flag code={progetto.nazioneAzienda} height="16" />
           </div>
         </div>
       </div>

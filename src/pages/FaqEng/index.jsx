@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Header from "../../components/Header.jsx";
 import Footer from "../../components/Footer.jsx";
@@ -13,34 +13,18 @@ const DopotShare = () => {
         <div className="dashboard-header">
           <Header></Header>
         </div>
-        <div className="box" style={{textAlign: "center", maxWidth: "750px"}}>
+        <div className="box">
           <div className="dopot-power">
-            <h1>Tutorials</h1>
-
-            <div className="p-btn-box">
-              <button
-                style={{
-                  border: "2px solid rgb(186, 178, 178)",
-                  borderRadius: "10px 10px 0 0",
-                  padding: "8px 15px",
-                  boxShadow: "none",
-                }}
-                onClick={(e) => router.push("/FaqIta")}
-                className="purple-border-btn dopot-btn-lg"
-              >
-                Ita
-              </button>
-              <button
-                style={{
-                  border: "2px solid rgb(186, 178, 178)",
-                  borderRadius: "10px 10px 0 0",
-                  padding: "8px 15px",
-                }}
-                className="grd-btn dopot-btn-lg"
-              >
-                Eng
-              </button>
-            </div>
+            <h5>
+              <img
+                style={{ marginRight: "0.7rem", marginBottom: "0.35rem" }}
+                src="\assets\img\Icon.png"
+                alt=""
+              />
+              Tutorials
+            </h5>
+            <h1>Learn Everyday New</h1>
+            <h5>Watch our highly finetune tutorials in multi language</h5>
           </div>
           {/* 
           <p>
@@ -74,6 +58,47 @@ const DopotShare = () => {
         </div>
         {/* <img className="dopot-power-img" src={PBottom} alt="PBottom" /> */}
       </main>
+      <div className="p-btn-box">
+        <div className="box-cont">
+          <button className="grd-btn dopot-btn-lg">English</button>
+          <button
+            onClick={(e) => router.push("/FaqIta")}
+            className="purple-border-btn dopot-btn-lg"
+          >
+            Italian
+          </button>
+        </div>
+      </div>
+      <div className="box-video-tutorials">
+        <div className="row">
+          <div className="col-lg">
+            <img src="/assets/img/vetrina-video1.svg" alt="" />
+            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+          </div>
+          <div className="col-lg">
+            <img src="/assets/img/vetrina-video2.svg" alt="" />
+            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+          </div>
+          <div className="col-lg">
+            <img src="/assets/img/vetrina-video3.svg" alt="" />
+            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg">
+            <img src="/assets/img/vetrina-video4.svg" alt="" />
+            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+          </div>
+          <div className="col-lg">
+            <img src="/assets/img/vetrina-video5.svg" alt="" />
+            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+          </div>
+          <div className="col-lg">
+            <img src="/assets/img/vetrina-video6.svg" alt="" />
+            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

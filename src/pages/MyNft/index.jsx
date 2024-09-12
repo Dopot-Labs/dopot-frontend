@@ -1,20 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import { getRecoil } from "recoil-nexus";
 import { addressState, progettiState } from "../../recoilState";
 import { useTranslation } from "../../i18n/client";
-import { downloadProjects, getNftImage } from "../../utils/firebase/retriveInfo";
-import { addShippingDetailsNft, refundNft } from "../../utils/firebase/writeInfos";
-import Link from 'next/link';
-import Image from 'next/image';
+import Header from "../../components/Header.jsx";
+import {
+  downloadProjects,
+  getNftImage,
+} from "../../utils/firebase/retriveInfo";
+import {
+  addShippingDetailsNft,
+  refundNft,
+} from "../../utils/firebase/writeInfos";
+import Link from "next/link";
+import Image from "next/image";
 
 const Profile = () => {
   const { t } = useTranslation();
   const [investedCard, setinvestedCard] = useState([]);
-  console.log("🚀 ~ Profile ~ investedCard:", investedCard)
+  console.log("🚀 ~ Profile ~ investedCard:", investedCard);
   let projects = getRecoil(progettiState);
-  console.log("🚀 ~ Profile ~ projects:", projects)
+  console.log("🚀 ~ Profile ~ projects:", projects);
 
   const address = getRecoil(addressState);
   const [isActive2, setActive2] = useState(true);
@@ -31,7 +38,9 @@ const Profile = () => {
           if (tiers.hasOwnProperty(tokenId)) {
             try {
               let obj = await getNftImage(tokenId);
-              const response = await fetch(obj.image.replace("ar://", "https://arweave.net/"));
+              const response = await fetch(
+                obj.image.replace("ar://", "https://arweave.net/")
+              );
               const data = await response.blob();
               let reader = new FileReader();
               reader.readAsDataURL(data);
@@ -46,10 +55,10 @@ const Profile = () => {
                     addressDopotReward: obj.addressDopotReward,
                     title: project.imageNftDefListFiles[tokenId]?.name,
                   });
-                  const uniqueInvestedCard = tempCard.filter((item, index, self) =>
-                    index === self.findIndex((t) => (
-                      t.address === item.address
-                    ))
+                  const uniqueInvestedCard = tempCard.filter(
+                    (item, index, self) =>
+                      index ===
+                      self.findIndex((t) => t.address === item.address)
                   );
                   setinvestedCard([...uniqueInvestedCard]); // Assuming setinvestedCard is a state updater function
                 }
@@ -63,8 +72,7 @@ const Profile = () => {
         }
       }
     }
-    if (projects)
-      fetchData();
+    if (projects) fetchData();
   }, [address, projects]);
 
   async function setShippingDetails(project, tokenId, title) {
@@ -75,93 +83,76 @@ const Profile = () => {
 
   return (
     <div className="app">
-      <main className="profile-page">
-        <section className="profile-top-section">
-          <div className="box">
-            <div className="pts-content">
-              <div className="pts-left">
-                <Link href="/">
-                  <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
-                </Link>
-                <div className="profile-img-box">
-                  <h3>
-                    {t("profileof")}{" "}
-                    {address &&
-                      address.toString().substring(0, 5) + "..." + address &&
+      <main className="dashboard small">
+        <div className="dashboard-header">
+          <Header />
+        </div>
+      </main>
+      <div className=" box back">
+        <a href="/Dashboard">Back</a>
+      </div>
+      <main className="box profile-page row">
+        <section className="profile-top-section col-lg-3">
+          {/* <img className="profile-hero" src={ProfileHero} alt="ProfileHero" /> */}
+
+          <div className="pts-content">
+            <div className="pts-left">
+              <div className="profile-img-box">
+                <img src="/assets/img/img-profile-pred.svg" alt="" />
+                <h3>
+                  {address &&
+                    address.toString().substring(0, 5) +
+                      "..." +
                       address.toString().substring(38, 42)}
-                  </h3>
-                </div>
+                </h3>
               </div>
-              <div className="pts-right">
-                <div className="pts-right-grid">
-                  <div className="pts-right-grid-card">
-                    <Link href="/Profile">
-                      <img src={"/assets/img/profile-icon-1.png"} alt="ProfileIcon" />
-                    </Link>
-                    <Link href="/Profile">
-                      <p>{t("overview")}</p>
-                    </Link>
-                  </div>
-                  <div className="pts-right-grid-card">
-                    <Link href="/InsProgetto">
-                      <img src={"/assets/img/ins-project-def.png"} alt="ProfileIcon" />
-                    </Link>
-                    <Link href="/InsProgetto">
-                      <p>{t("createcampaign")}</p>
-                    </Link>
-                  </div>
-                  <div className="pts-right-grid-card">
-                    <Link href="/MyNft">
-                      <img
-                        className="nft-img"
-                        src={"/assets/img/profile-icon-3.png"}
-                        alt="ProfileIcon"
-                      />
-                    </Link>
-                    <Link href="/MyNft">
-                      <p>{t("mynft")}</p>
-                    </Link>
-                  </div>
-                  <div className="pts-right-grid-card">
-                    <Link href="/MyProjects">
-                      <img src={"/assets/img/profile-icon-4.png"} alt="ProfileIcon" />
-                    </Link>
-                    <Link href="/MyProjects">
-                      <p>{t("myprojects")}</p>
-                    </Link>
-                  </div>
-                  <div className="pts-right-grid-card">
-                    <Link
-                      href="https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <img src={"/assets/img/widget.png"} alt="ProfileIcon" />
-                    </Link>
-                    <Link
-                      href="https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <p>DAO</p>
-                    </Link>
-                  </div>
-                  <div className="pts-right-grid-card">
-                    <Link
-                      href="https://app.proofofhumanity.id"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <img src={"/assets/img/identity.png"} alt="ProfileIcon" />
-                    </Link>
-                    <Link
-                      href="https://app.proofofhumanity.id"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <p>{t("identity")}</p>
-                    </Link>
-                  </div>
+            </div>
+            <div className="pts-right">
+              <div className="pts-right-grid">
+                <div className="pts-right-grid-card ">
+                  <Link href={"/Profile"}>
+                    <p>My Investment</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card">
+                  <Link href={"/Favourites"}>
+                    <p>My Favourite</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card">
+                  <Link href={"/InsProgetto"}>
+                    <p>Create Campaign</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card active">
+                  <Link href={"/MyNft"}>
+                    <p>My NFTs</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card">
+                  <Link href={"/MyProjects"}>
+                    <p>My Projects</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card">
+                  <Link
+                    href={
+                      "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <p>DAO</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card">
+                  <Link
+                    href={"https://app.proofofhumanity.id"}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <p>Verify Identity</p>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -173,28 +164,12 @@ const Profile = () => {
             <p>I Miei NFT</p>
           </div>
         </div> */}
-        <div className="box0">
-          <div className="sec-inv-desk-flex">
-            <img src={"/assets/img/profile-icon-grd-2.png"} alt="ProfileIconGrd" />
-            <p>{t("myinvestments")}</p>
-          </div>
-        </div>
 
-        <div className="box1">
-          <div className="sec-inv-mob">
-            <button>
-              <img
-                className={isActive2 ? "shadow-inv" : null}
-                src={"/assets/img/profile-icon-grd-2.png"}
-                alt="ProfileIconGrd"
-              />
-              <p>I miei Investimenti</p>
-            </button>
-          </div>
-        </div>
-
-        <section className="profile-bottom">
+        <section className="profile-bottom col-lg-9">
           <div className="box">
+            <div className="ins-head">
+              <h2>My NFTs</h2>
+            </div>
             <div className="profile-main-grid">
               {investedCard &&
                 investedCard.map((card, index) => (
@@ -213,7 +188,6 @@ const Profile = () => {
                         <div className="three-dots box-bk-over-logo"></div>
                         <div className="dropdown">
                           <Link
-
                             onClick={() =>
                               setShippingDetails(
                                 card.project,
@@ -234,13 +208,14 @@ const Profile = () => {
                           </Link>
                           <Link
                             href={""}
-
-                            onClick={() => refundNft(card.project, card.tokenId, t)}
+                            onClick={() =>
+                              refundNft(card.project, card.tokenId, t)
+                            }
                           >
                             <div>{t("getrefund")}</div>
                           </Link>
                           <Link
-                            href='https://resolve.kleros.io/create/' // update for kleros 2.0 if needed
+                            href="https://resolve.kleros.io/create/" // update for kleros 2.0 if needed
                             target="_blank"
                             rel="noreferrer"
                           >
@@ -274,7 +249,10 @@ const Profile = () => {
                 ))}
               <div className="pts-icons-box-1">
                 <div className="pts-icons-card-1">
-                  <img src={"/assets/img/profile-icon-grd-1.png"} alt="ProfileIconGrd" />
+                  <img
+                    src={"/assets/img/profile-icon-grd-1.png"}
+                    alt="ProfileIconGrd"
+                  />
                   <p>I miei Investimenti</p>
                 </div>
                 {/* <div className="pts-icons-card">
