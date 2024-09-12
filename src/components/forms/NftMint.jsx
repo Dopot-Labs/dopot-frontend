@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { useTranslation } from "../../i18n/client";
 
@@ -21,18 +21,61 @@ const NftMint = (props) => {
     deletVal.splice(i, 1);
     setVal(deletVal);
   };
+  const [files, setFiles] = useState([]);
+
+  // Funzione per gestire il caricamento dei file
+  const handleFileUpload = (event) => {
+    const selectedFiles = Array.from(event.target.files);
+    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+  };
+
+  // Funzione per rimuovere un file
+  const handleRemoveFile = (fileName) => {
+    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+  };
   return (
     <div className="ins-input-box">
-      <h1>{t("nftmintimagetitle")}</h1>
       <div>
-        <div className="container-plus">
-          <input
-            name="imageNftDef"
-            onChange={(e) => props.handleChangeNft(e, props.nProdotto - 1)}
-            type="file"
-            placeholder="Scrivi la prima domanda"
-            accept=".png,.jpg,.jpeg"
-          />
+        <h4>NFT photo</h4>
+        <h3>This will be displayed on product.</h3>
+      </div>
+
+      <div class="file-upload">
+        <input
+          name="imageNftDef"
+          // onChange={(e) => props.handleChangeNft(e, props.nProdotto - 1)}
+          onChange={handleFileUpload}
+          type="file"
+          id="file4"
+          multiple
+          accept=".png,.jpg,.jpeg"
+          class="file-input"
+        />
+        <label for="file4">
+          <div style={{ width: "100%" }} class="upload-icon">
+            <img src="/assets/img/logo-upload.svg" alt="Upload Icon" />
+          </div>
+          <p>Click to upload</p>
+          <span>SVG, PNG, JPG or GIF (max. 800x400px)</span>
+        </label>
+        {/* Lista dei file caricati */}
+        <div className="file-list">
+          {files.map((file, index) => (
+            <div key={index} className="file-item">
+              <div className="file-details">
+                <div className="file-name">{file.name}</div>
+                <div className="file-size">
+                  {(file.size / 1024).toFixed(2)} KB
+                </div>
+              </div>
+              <button
+                className="delete-btn"
+                onClick={() => handleRemoveFile(file.name)}
+              >
+                &times;
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>

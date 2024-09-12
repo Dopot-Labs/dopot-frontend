@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import IconInfoDai from "../../../components/PaginaCard/IconInfoDai";
-import Link from 'next/link';
-import ImageIcon from 'react';
+import Header from "../../../components/Header.jsx";
+import Link from "next/link";
+import ImageIcon from "react";
 import IconInfoCard from "../../../components/PaginaCard/IconInfoCard";
 import InvestiCard from "../../../components/PaginaCard/InvestiCard";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -15,12 +16,13 @@ import TabFaq from "../../../components/TabFaq";
 import TabSocial from "../../../components/TabSocial";
 import TabQuestionario from "../../../components/TabQuestionario";
 import TabDocumenti from "../../../components/TabDocumenti";
+import { Line } from "rc-progress";
 import { addFavorites } from "../../../utils/firebase/writeInfos";
 import {
   downloadProjects,
   retriveFavorites,
   RetriveProjectTypes,
-  retriveProjectStakes
+  retriveProjectStakes,
 } from "../../../utils/firebase/retriveInfo";
 
 import { useTranslation } from "../../../i18n/client";
@@ -32,22 +34,26 @@ const PaginaCard = () => {
 
   //let { address } = useParams();
   const currentURL = typeof window !== "undefined" ? window.location.href : "";
-  const urlWithoutTrailingSlash = currentURL.endsWith('/') ? currentURL.slice(0, -1) : currentURL;
-  const address = urlWithoutTrailingSlash.split('/').pop();
-  const [progetto, setProgetto] = useState({logoAziendaListFiles:[]});
+  const urlWithoutTrailingSlash = currentURL.endsWith("/")
+    ? currentURL.slice(0, -1)
+    : currentURL;
+  const address = urlWithoutTrailingSlash.split("/").pop();
+  const [progetto, setProgetto] = useState({ logoAziendaListFiles: [] });
   const [base64Data, setBase64Data] = useState([]);
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
     const fetchBase64Data = async () => {
       await downloadProjects(t);
-      const fetchedProgetto = getRecoil(progettiState).find((x) => x.address === address);
+      const fetchedProgetto = getRecoil(progettiState).find(
+        (x) => x.address === address
+      );
 
       setProgetto(fetchedProgetto);
       const fav = await retriveFavorites();
       setToggleHeart(fav ? fav.includes(address) : false);
       setProgettiStakes(await retriveProjectStakes(address));
-  
+
       if (fetchedProgetto) {
         const base64DataArray = [];
         if (fetchedProgetto.imageNftDefListFiles) {
@@ -60,7 +66,7 @@ const PaginaCard = () => {
           }
         }
         setBase64Data(base64DataArray);
-  
+
         const localCards = [];
         for (let i = 1; i < parseInt(fetchedProgetto.numeroProdotti) + 1; i++) {
           localCards.push(
@@ -73,7 +79,9 @@ const PaginaCard = () => {
               price={fetchedProgetto["price" + i]}
               img={base64DataArray[i - 1]}
               titolo={fetchedProgetto["name" + i]}
-              currentSupply={fetchedProgetto.imageNftDefListFiles[i - 1]["currentSupply"]}
+              currentSupply={
+                fetchedProgetto.imageNftDefListFiles[i - 1]["currentSupply"]
+              }
               state={fetchedProgetto.stateText}
             />
           );
@@ -82,13 +90,11 @@ const PaginaCard = () => {
         setPercentage((fetchedProgetto.funds / fetchedProgetto.quota) * 100);
       }
     };
-  
+
     fetchBase64Data();
   }, [address, t]);
 
-  
   let i = 1;
-
 
   const [tab, setTab] = useState(0);
 
@@ -98,176 +104,205 @@ const PaginaCard = () => {
 
   return (
     <div className="app">
+      <main className="dashboard small">
+        <div className="dashboard-header">
+          <Header />
+        </div>
+      </main>
       <main className="pagina-card">
+        <div className="back">
+          <a href="/Dashboard">Back</a>
+        </div>
         <section className="pc-hero-section">
           {/*<img
             className="pagina-card-hero-img"
             src={ImageBackLogo}
             alt="PaginaCardHero"
           />*/}
+
           <div className="box-main-header">
             {/* <img className="image-icon" src={"/assets/img/pc-img-icon.png"} alt="ImageIcon" /> */}
             <div className="pc-hero-grid">
               <div className="pc-hero-grid-left">
-                <div className="settore box-bk-over-logo">
-                  <span>{RetriveProjectTypes(progetto.settore)}</span>
-                </div>
-
-                <h1 className="box-bk-over-logo">{progetto.nomeAzienda}</h1>
-                <h3
-                  style={{ marginBottom: "2rem" }}
-                  className="box-bk-over-logo"
-                >
-                  <span>
-                    <a
-                      className="link-social-new "
-                      href={progetto.sito}
-                      target="_blank" rel="noreferrer"
-                    >
-                      {progetto.sito}
-                    </a>
-                  </span>
-                </h3>
-
-                <p
-                  style={{ lineBreak: "anywhere" }}
-                  className="box-bk-over-logo"
-                >
-                  {progetto.descProgetto}
-                </p>
-
-                <div className="pc-btn-box">
-                  <button
-                    onClick={() => {
-                      addFavorites(address, t);
-                      setToggleHeart(!toggleHeart);
-                    }}
-                    // className="grd-btn dopot-btn-lg"
-                    style={{ background: "none", width: "10%" }}
-                  >
-                    {!toggleHeart ? (
-                      <img alt="Favourite" src={"/assets/img/heart-fav.svg"} />
-                    ) : (
-                      <img alt="Unfavourite" src={"/assets/img/heart-fav-active.svg"} />
-                    )}
-                  </button>
-                  {/* <button className="grd-btn dopot-btn-lg">
-                    <img src={IconPlane} alt="IconPlane" /> Scopri di più
-                  </button> */}
-                </div>
-                <div className="span-card">
-                      <span>
-                        <strong>{t("creatoraddress")}:</strong> <Link style={{textDecoration: "underline", cursor: "pointer"}} target="_blank" href={`https://app.proofofhumanity.id/profile/${progetto.addressCreator}`} rel="noreferrer">{progetto.addressCreator}</Link>
-                      </span>
-                  </div>
+                <div
+                  className="logo-card-ins"
+                  style={{
+                    backgroundImage: `url(https://arweave.net/${progetto.logoAziendaListFiles[0]})`,
+                  }}
+                ></div>
               </div>
               <div className="pc-hero-grid-right">
-                <div className="box-bk-over-logo settore right ">
-                  <span>{progetto.tipoCampagna}</span>
+                <div
+                  style={{ marginBottom: "2rem" }}
+                  className="settore card-header"
+                >
+                  <div className="box-bk-over-logo right">
+                    <span>{progetto.tipoCampagna}</span>
+                  </div>
+                  <div className="pc-btn-box">
+                    <button
+                      onClick={() => {
+                        addFavorites(address, t);
+                        setToggleHeart(!toggleHeart);
+                      }}
+                      // className="grd-btn dopot-btn-lg"
+                      style={{ background: "none" }}
+                    >
+                      {!toggleHeart ? (
+                        <img
+                          alt="Favourite"
+                          src={"/assets/img/cuore-able.svg"}
+                        />
+                      ) : (
+                        <img
+                          alt="Unfavourite"
+                          src={"/assets/img/cuore-dis.svg"}
+                        />
+                      )}
+                    </button>
+                    {/* <button className="grd-btn dopot-btn-lg">
+                    <img src={IconPlane} alt="IconPlane" /> Scopri di più
+                  </button> */}
+                  </div>
                 </div>
+                <h1 className="nome-azienda">{progetto.nomeAzienda}</h1>
 
-                <div className="pc-hero-icon-grid ">
-                  <IconInfoDai
-                    img={"/assets/img/pc-dollar-icon.png"}
-                    text={`${progetto.funds}`}
-                    text2={`${t("of")} ${progetto.quota}`}
-                  />
+                <p className="desc">{progetto.descProgetto}</p>
 
-                  <IconInfoCard
-                    img={"/assets/img/pc-person-icon.png"}
-                    text={`${progetto.investorsNumber} ${t("investors")}`}
-                    investors={progetto.investors}
-                  />
-                  {progetto.fundRaisingDeadline > 0 && (
+                <div className="box-link">
+                  <div className="row-link">
+                    <p>Website</p>
+                    <h3>
+                      <span>
+                        <a
+                          className="link"
+                          href={progetto.sito}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {progetto.sito}
+                        </a>
+                      </span>
+                    </h3>
+                  </div>
+                  <div className="row-link">
+                    <p>Creator</p>
+                    <div className="span-card">
+                      <span>
+                        <Link
+                          style={{
+                            textDecoration: "underline",
+                            cursor: "pointer",
+                          }}
+                          target="_blank"
+                          href={`https://app.proofofhumanity.id/profile/${progetto.addressCreator}`}
+                          rel="noreferrer"
+                        >
+                          {progetto.addressCreator}
+                        </Link>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="box-white">
+                  <div className="pc-hero-icon-grid white">
+                    <IconInfoDai
+                      text={`${progetto.funds}`}
+                      text2={`${t("of")} ${progetto.quota}`}
+                    />
+
                     <IconInfoCard
-                      img={"/assets/img/pc-calendar-icon.png"}
-                      text={`${progetto.fundRaisingDeadline} ${t(
-                        "daysremaining"
-                      )}`}
+                      text={`${progetto.investorsNumber}`}
+                      text2={`Investors`}
+                      investors={progetto.investors}
                     />
-                  )}
+                    <IconInfoCard
+                      text={`${progetto.team}`}
+                      text2={`Team Members`}
+                    />
+                    {progetto.fundRaisingDeadline > 0 && (
+                      <IconInfoCard
+                        text={`${progetto.fundRaisingDeadline} Days`}
+                        text2={`Remaining`}
+                      />
+                    )}
+                  </div>
                 </div>
-                <div className="pc-70-box box-bk-over-logo">
-                  <p>
-                    {t("investmentcard")} <br /> {t("completedat")}
-                  </p>
+
+                <div className="pc-70-box">
+                  <div className="percent-box">
+                    <p>Investment Progress</p>
+                    <p>{`${Math.round(percentage)}%`}</p>
+                  </div>
                   <div className="graph-box">
-                    <CircularProgressbar
-                      value={percentage}
-                      text={`${Math.round(percentage)}%`}
-                      strokeWidth={15}
+                    <Line
+                      percent={percentage}
+                      strokeWidth={3}
+                      trailWidth={3}
+                      strokeColor="#E85556"
+                      trailColor="#D9D9D9"
                     />
-                    ;
+                  </div>
+                  <div style={{ marginTop: "3rem" }} className="percent-box">
+                    <p>VAT Number</p>
+                    <p style={{ textTransform: "uppercase" }}>
+                      {progetto.pIva}
+                    </p>
                   </div>
                 </div>
-                <div className="grid-info">
-                  <div className="span-card">
-                    <span>
-                      <strong> {t("teammember")}:</strong> {progetto.team}
-                    </span>
-                  </div>
-                  <div className="span-card">
-                    <span>
-                      <strong>{t("piva")}:</strong> {progetto.pIva}
-                    </span>
-                  </div>          
-                </div>
-                
               </div>
-              
             </div>
-            
           </div>
         </section>
-        <section style={{ background: "rgba(57, 57, 66, 255)" }}>
-          <section className="anchor-links-box">
-            <div className="box">
-              <div className="alb-content">
-                <a
-                  onClick={() => setTab(0)}
-                  className={isCurrentState(0) ? "pc-active-link" : ""}
-                >
-                  {t("campaignpagecard")}
-                </a>
-                <a
-                  onClick={() => setTab(1)}
-                  className={isCurrentState(1) ? "pc-active-link" : ""}
-                >
-                  Roadmap
-                </a>
-                <a
-                  onClick={() => setTab(2)}
-                  className={isCurrentState(2) ? "pc-active-link" : ""}
-                >
-                  Reward
-                </a>
-                <a
-                  onClick={() => setTab(3)}
-                  className={isCurrentState(3) ? "pc-active-link" : ""}
-                >
-                  Community
-                </a>
-                <a
-                  onClick={() => setTab(4)}
-                  className={isCurrentState(4) ? "pc-active-link" : ""}
-                >
-                  Tutorials
-                </a>
-                <a
-                  onClick={() => setTab(5)}
-                  className={isCurrentState(5) ? "pc-active-link" : ""}
-                >
-                  {t("survey")}
-                </a>
-                <a
-                  onClick={() => setTab(6)}
-                  className={isCurrentState(6) ? "pc-active-link" : ""}
-                >
-                  {t("documentpagecard")}
-                </a>
-              </div>
+        <section className="anchor-links-box">
+          <div className="box">
+            <div className="alb-content">
+              <a
+                onClick={() => setTab(0)}
+                className={isCurrentState(0) ? "pc-active-link" : ""}
+              >
+                Campaign
+              </a>
+              <a
+                onClick={() => setTab(1)}
+                className={isCurrentState(1) ? "pc-active-link" : ""}
+              >
+                Roadmap
+              </a>
+              <a
+                onClick={() => setTab(2)}
+                className={isCurrentState(2) ? "pc-active-link" : ""}
+              >
+                Reward
+              </a>
+              <a
+                onClick={() => setTab(3)}
+                className={isCurrentState(3) ? "pc-active-link" : ""}
+              >
+                Community
+              </a>
+              <a
+                onClick={() => setTab(4)}
+                className={isCurrentState(4) ? "pc-active-link" : ""}
+              >
+                Tutorials
+              </a>
+              <a
+                onClick={() => setTab(5)}
+                className={isCurrentState(5) ? "pc-active-link" : ""}
+              >
+                Survey
+              </a>
+              <a
+                onClick={() => setTab(6)}
+                className={isCurrentState(6) ? "pc-active-link" : ""}
+              >
+                Documents
+              </a>
             </div>
-          </section>
+          </div>
+        </section>
+        <section>
           <section className="pc-main-content">
             <div className="box">
               <div className="pc-content-grid">
@@ -313,8 +348,8 @@ const PaginaCard = () => {
                 })()}
                 <div className="pc-content-grid-right">
                   <div className="basic-info-box">
-                    <div className="pmg-btn-box-nft">
-                      <input type="checkbox" id="click" />
+                    {/* <div className="pmg-btn-box-nft">
+                      { <input type="checkbox" id="click" />
                       <label htmlFor="click" style={{ cursor: "pointer" }}>
                         <img
                           src={(() => {
@@ -327,7 +362,7 @@ const PaginaCard = () => {
                           })()}
                           alt="ImageIcon"
                         />
-                      </label>
+                      </label> }
                       <div className="content logo-center">
                         <img
                           src={(() => {
@@ -345,9 +380,9 @@ const PaginaCard = () => {
                           x
                         </label>
                       </div>
-                    </div>
-                    <h3 className="box-bk-over-logo">{progetto.nomeAzienda}</h3>
-                    <h4 className="box-bk-over-logo">
+                    </div> */}
+                    {/* <h3 className="box-bk-over-logo">{progetto.nomeAzienda}</h3> */}
+                    {/* <h4 className="box-bk-over-logo">
                       {t("website")}:{" "}
                       <span>
                         {" "}
@@ -360,18 +395,18 @@ const PaginaCard = () => {
                           {progetto.sito}
                         </a>{" "}
                       </span>{" "}
-                    </h4>
+                    </h4> */}
                     {/* <p>
                     Campagna di {progetto.tipoCampagna}. <br />
                     Team composta da {progetto.team}.<br />
                     Nel settore della {RetriveProjectTypes(progetto.settore)}.<br />
                     Sito Web {progetto.sito}
                     P.iva {progetto.pIva}
-                  </p> */}
+                  </p> }
                   </div>
-                  <h5>{t("investpagecard")}</h5>
-
-                  {cards}
+                  {/* <h5>{t("investpagecard")}</h5> */}
+                    {cards}
+                  </div>
                 </div>
               </div>
             </div>

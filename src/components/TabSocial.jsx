@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import React from "react";
-import Link from 'next/link';
+import Link from "next/link";
 
 const TabSocial = (props) => {
   var socialList = [];

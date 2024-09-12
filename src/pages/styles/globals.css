@@ -1,9 +1,13 @@
 /* Global Styles throughout the app */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
+
 :root {
   font-size: 9px;
-  --white: #fff;
-  --black: #000;
+  --white: #ffffff;
+  --whitetr: rgba(255, 255, 255, 0.717);
+  --black: #1d1f1e;
   --main-yellow: #ffe425;
   --main-purple: #ff43a0;
   --trns1: 0.25s;
@@ -13,9 +17,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Figtree", sans-serif, "Poppins", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", "Helvetica Neue", sans-serif;
 }
 .box {
   width: 100%;
@@ -24,10 +28,30 @@
   padding: 0 5rem;
 }
 .dashboard {
-  background: rgba(57, 57, 66, 255);
+  width: 100%;
+  position: relative;
+  height: 55vh;
+  background-image: url("/assets/img/header-bgg.svg"),
+    linear-gradient(#f26e50, #e85556);
+  background-blend-mode: luminosity;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 0 0 100px 100px;
+}
+.dashboard.small {
+  width: 100%;
+  position: relative;
+  height: 16vh;
+  background-image: url("/assets/img/header-bgg.svg"),
+    linear-gradient(#f26e50, #e85556);
+  background-blend-mode: luminosity;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 0 0 40px 40px;
 }
 
-p, h3{
+p,
+h3 {
   color: white;
 }
 
@@ -62,33 +86,30 @@ body {
   color: #fca040;
 }
 .grd-btn {
-  font-size: 1.85rem;
-  color: var(--white);
-  background: linear-gradient(30deg, #fca040, #c22e80);
-  border: 2px solid var(--white);
+  font-size: 1.5rem !important;
+  font-weight: 400;
+  border: 1px solid var(--white);
   outline: 0;
-  border-radius: 1rem;
-  box-shadow: 0 0 15px 10px rgba(255, 67, 161, 0.35);
+  background-color: transparent;
+  color: var(--white);
   transition: var(--trns1);
-  z-index: 100;
-  position: relative;
-  border-radius: 1000px;
+  border-radius: 50px;
   width: fit-content;
   cursor: pointer;
+  padding: 10px 20px !important;
 }
 .purple-border-btn {
-  font-size: 1.85rem;
-  color: var(--white);
-  border: 2px solid var(--main-purple);
+  font-size: 1.5rem !important;
+  font-weight: 400;
+  border: 1px solid var(--white);
   outline: 0;
-  background-color: #ffe425;
-  color: #ff43a0;
-  border-radius: 1000px;
-  box-shadow: 0 0 15px 5px rgba(255, 67, 161, 0.5);
+  background-color: var(--white);
+  color: var(--black);
   transition: var(--trns1);
-  border-radius: 1000px;
+  border-radius: 50px;
   width: fit-content;
   cursor: pointer;
+  padding: 10px 20px !important;
 }
 .purple-border-transparent-btn {
   font-size: 1.85rem;
@@ -105,19 +126,21 @@ body {
   cursor: pointer;
 }
 .react-tabs__tab--selected {
-  background: linear-gradient(30deg, #fca040, #c22e80) !important;
-  border-color: #fff !important;
-  color: #fff !important;
-  border-radius: 5px 5px 0 0;
-  font-size: 1.5rem !important;
+  background: transparent !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  border-bottom: 2px solid #ed6154 !important;
+  color: #ed6154 !important;
+  font-size: 1.8rem !important;
 }
+
 .react-tabs__tab {
-  font-size: 1.6rem !important;
+  font-size: 1.8rem;
+  color: #646a69;
 }
 .grd-btn:hover,
-.purple-border-btn:hover
-.purple-border-transparent-btn:hover
-{
+.purple-border-btn:hover .purple-border-transparent-btn:hover {
   box-shadow: 0 0 15px 5px rgba(255, 67, 161, 0.4);
 }
 .purple-border-btn img,
@@ -145,11 +168,19 @@ body {
   text-align: center;
   font-size: 5rem;
   font-weight: 500;
-  color: var(--white);
+  text-transform: none;
+  color: var(--black);
   z-index: 100;
   position: relative;
 }
 @media screen and (max-width: 650px) {
+  .dashboard.small {
+    height: 16vh !important;
+  }
+
+  .dashboard {
+    height: 40vh !important;
+  }
   .section-heading {
     font-size: 3.5rem;
   }
@@ -157,7 +188,6 @@ body {
     padding: 0 2rem;
   }
 }
-
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -167,6 +197,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }

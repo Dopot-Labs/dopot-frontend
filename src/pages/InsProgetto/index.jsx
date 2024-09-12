@@ -1,8 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
+"use client";
 import React, { useState } from "react";
 import { InfBase, InfBaseHeader } from "../../components/forms/InfBase.jsx";
-import { Questionario, QuestionarioHeader } from "../../components/forms/Questionario.jsx";
+import {
+  Questionario,
+  QuestionarioHeader,
+} from "../../components/forms/Questionario.jsx";
 import { Progetto, ProgettoHeader } from "../../components/forms/Progetto.jsx";
 import { Prodotto, ProdottoHeader } from "../../components/forms/Prodotto.jsx";
 import { Faq, FaqHeader } from "../../components/forms/Faq.jsx";
@@ -12,12 +15,13 @@ import { getRecoil } from "recoil-nexus";
 import { addressState } from "../../recoilState.js";
 import { ToastContainer, toast } from "react-toastify";
 import { useTranslation } from "../../i18n/client.js";
-import Link from 'next/link';
-import Image from 'next/image';
+import Header from "../../components/Header.jsx";
+import Link from "next/link";
+import Image from "next/image";
 
 function getFileExtension(filename) {
   // Find the last occurrence of a dot (.) in the filename
-  const dotIndex = filename.lastIndexOf('.');
+  const dotIndex = filename.lastIndexOf(".");
 
   // Check if a dot was found and ensure it is not the last character
   if (dotIndex !== -1 && dotIndex < filename.length - 1) {
@@ -68,7 +72,10 @@ const InsProgetto = () => {
           const buff = Buffer.from(reader.result);
           setInputs((prevState) => ({
             ...prevState,
-            [propName]: [...prevState[propName], fileExtension ? {buff, fileExtension} : buff],
+            [propName]: [
+              ...prevState[propName],
+              fileExtension ? { buff, fileExtension } : buff,
+            ],
           }));
           console.dir(inputs);
         };
@@ -110,9 +117,9 @@ const InsProgetto = () => {
     reader.onload = () => {
       const base64 = reader.result;
       setInputs((prevState) => {
-        const fileExtension = getFileExtension(file.name)
+        const fileExtension = getFileExtension(file.name);
         const updatedInputs = [...prevState.imageNftDefListFiles];
-        updatedInputs[nProdotto] = {base64, fileExtension};
+        updatedInputs[nProdotto] = { base64, fileExtension };
         return { ...prevState, imageNftDefListFiles: updatedInputs };
       });
     };
@@ -273,106 +280,87 @@ const InsProgetto = () => {
 
   return (
     <div className="app">
-      <main className="ins-progetto-page">
-        <section style={{ zIndex: 100000 }} className="profile-top-section">
-          <div className="box">
-            <div className="pts-content">
-              <div className="pts-left">
-                <Link href="/">
-                  <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
-                </Link>
-                <div className="profile-img-box">
-                  <h3>
-                    {t("profileof")}{" "}
-                    {address &&
-                      address.toString().substring(0, 5) + "..." + address &&
+      <main className="dashboard small">
+        <div className="dashboard-header">
+          <Header />
+        </div>
+      </main>
+      <div className=" box back">
+        <a href="/Dashboard">Back</a>
+      </div>
+      <main className="box ins-progetto-page row">
+        <section className="profile-top-section col-lg-3">
+          <div className="pts-content">
+            <div className="pts-left">
+              <div className="profile-img-box">
+                <img src="/assets/img/img-profile-pred.svg" alt="" />
+                <h3>
+                  {address &&
+                    address.toString().substring(0, 5) +
+                      "..." +
                       address.toString().substring(38, 42)}
-                  </h3>
-                </div>
+                </h3>
               </div>
-              <div className="pts-right">
-                <div className="pts-right-grid">
-                  <div className="pts-right-grid-card">
-                    <Link href="/Profile">
-                      <img src={"/assets/img/profile-icon-1.png"} alt="ProfileIcon" />
-                    </Link>
-                    <Link href="/Profile">
-                      <p>{t("overview")}</p>
-                    </Link>
-                  </div>
-                  <div className="pts-right-grid-card">
-                    <Link href="/InsProgetto">
-                      <img
-                        className="camp-img"
-                        src={"/assets/img/ins-project-def.png"}
-                        alt="ProfileIcon"
-                      />
-                    </Link>
-                    <Link href="/InsProgetto">
-                      <p>{t("createcampaign")}</p>
-                    </Link>
-                  </div>
-                  <div className="pts-right-grid-card">
-                    <Link href="/MyNft">
-                      <img src={"/assets/img/profile-icon-3.png"} alt="ProfileIcon" />
-                    </Link>
-                    <Link href="/MyNft">
-                      <p>{t("mynft")}</p>
-                    </Link>
-                  </div>
-                  <div className="pts-right-grid-card">
-                    <Link href="/MyProjects">
-                      <img src={"/assets/img/profile-icon-4.png"} alt="ProfileIcon" />
-                    </Link>
-                    <Link href="/MyProjects">
-                      <p>{t("myprojects")}</p>
-                    </Link>
-                  </div>
-                  <div className="pts-right-grid-card">
-                    <Link
-                      href="https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <img src={"/assets/img/widget.png"} alt="ProfileIcon" />
-                    </Link>
-                    <Link
-                      href="https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <p>DAO</p>
-                    </Link>
-                  </div>
-                  <div className="pts-right-grid-card">
-                    <Link
-                      href="https://app.proofofhumanity.id"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <img src={"/assets/img/identity.png"} alt="ProfileIcon" />
-                    </Link>
-                    <Link
-                      href="https://app.proofofhumanity.id"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <p>{t("identity")}</p>
-                    </Link>
-                  </div>
+            </div>
+            <div className="pts-right">
+              <div className="pts-right-grid">
+                <div className="pts-right-grid-card">
+                  <Link href={"/Profile"}>
+                    <p>My Investment</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card">
+                  <Link href={"/Profile"}>
+                    <p>My Favourite</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card active">
+                  <Link href={"/InsProgetto"}>
+                    <p>Create Campaign</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card">
+                  <Link href={"/MyNft"}>
+                    <p>My NFTs</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card">
+                  <Link href={"/MyProjects"}>
+                    <p>My Projects</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card">
+                  <Link
+                    href={
+                      "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <p>DAO</p>
+                  </Link>
+                </div>
+                <div className="pts-right-grid-card">
+                  <Link
+                    href={"https://app.proofofhumanity.id"}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <p>Verify Identity</p>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="ins-progetto-content">
+        <section className="ins-progetto-content col-lg-9">
           <div className="box">
             <div className="ins-head">
               {/* <Link href="/">
                 <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
               </Link> */}
-              <h2>{t("enterproject")}</h2>
+              <h2>Create campaign</h2>
             </div>
             {renderCurrentSelectionHeader()}
             <form id="submit" onSubmit={handleSubmit}>

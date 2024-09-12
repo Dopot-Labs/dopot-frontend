@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import BlogPost from "./PaginaCard/BlogPost";
 import { useTranslation } from "../i18n/client";
@@ -7,8 +7,8 @@ const TabQuestionario = (props) => {
   const { t, i18n } = useTranslation();
   return (
     <div className="pc-content-grid-left">
-      <h1>{t("tabsurveyh1")}</h1>
-      <div className="div-sep"></div>
+      <h1>Questionnaire questions</h1>
+
       <BlogPost heading={t("survey1")} text={props.progetto.domanda[0]} />
       <BlogPost heading={t("survey2")} text={props.progetto.domanda[1]} />
       <BlogPost heading={t("survey3")} text={props.progetto.domanda[2]} />
