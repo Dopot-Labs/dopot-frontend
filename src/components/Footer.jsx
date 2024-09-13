@@ -21,7 +21,7 @@ const Footer = () => {
             <Link href="/DopotToken">Dpt Token</Link>
           </div>
           <div className="footer-grid-box social">
-            <Link target="_blank" href="href=https://x.com/Dopot_fi">
+            <Link target="_blank" href="https://x.com/Dopot_fi">
               <img
                 style={{ marginTop: "0.3rem" }}
                 src="/assets/img/social-x.svg"
