@@ -80,7 +80,7 @@ const Header = (props) => {
           <div className="header-right">
             <Link href="/">Home</Link>
             <Link href="/FaqEng">Tutorials</Link>
-            <Link href="/DopotToken">Dpt Token</Link>
+            <Link href="/DopotToken">Dopot Token</Link>
 
             {/* <div style={{ marginRight: "1.5rem" }} className="dropdown_menu">
               <button className="dropbtn">
@@ -229,7 +229,7 @@ const Header = (props) => {
             <div className="header-mob-box">
               <Link href="/">Home</Link>
               <Link href="/FaqEng">Tutorials</Link>
-              <Link href="/DopotToken">DPT Token</Link>
+              <Link href="/DopotToken">Dopot Token</Link>
               {/* <div style={{ marginRight: "1.5rem" }} className="dropdown_menu">
                 <button className="dropbtn">
                   Community{" "}
