@@ -168,7 +168,7 @@ a div {
 .dropdown {
   position: absolute !important;
   left: 65px;
-  background: linear-gradient(30deg, #fca040, #c22e80);
+  background: #ffffff;
   padding: 10px;
   border-radius: 8px;
   outline: none;
@@ -176,7 +176,7 @@ a div {
   z-index: -1;
   max-height: 0;
   transition: opacity 0.1s, z-index 0.1s, max-height 5s;
-  box-shadow: 0 0 15px 5px rgba(255, 67, 161, 0.4);
+  box-shadow: none;
   border: 2px solid white;
 }
 

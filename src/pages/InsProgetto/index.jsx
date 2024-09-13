@@ -285,91 +285,93 @@ const InsProgetto = () => {
           <Header />
         </div>
       </main>
-      <div className=" box back">
-        <a href="/Dashboard">Back</a>
-      </div>
-      <main className="box ins-progetto-page row">
-        <section className="profile-top-section col-lg-3">
-          <div className="pts-content">
-            <div className="pts-left">
-              <div className="profile-img-box">
-                <img src="/assets/img/img-profile-pred.svg" alt="" />
-                <h3>
-                  {address &&
-                    address.toString().substring(0, 5) +
-                      "..." +
-                      address.toString().substring(38, 42)}
-                </h3>
-              </div>
-            </div>
-            <div className="pts-right">
-              <div className="pts-right-grid">
-                <div className="pts-right-grid-card">
-                  <Link href={"/Profile"}>
-                    <p>My Investment</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card">
-                  <Link href={"/Profile"}>
-                    <p>My Favourite</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card active">
-                  <Link href={"/InsProgetto"}>
-                    <p>Create Campaign</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card">
-                  <Link href={"/MyNft"}>
-                    <p>My NFTs</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card">
-                  <Link href={"/MyProjects"}>
-                    <p>My Projects</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card">
-                  <Link
-                    href={
-                      "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
-                    }
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <p>DAO</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card">
-                  <Link
-                    href={"https://app.proofofhumanity.id"}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <p>Verify Identity</p>
-                  </Link>
+      <div className="box">
+        <div className=" box back">
+          <a href="/Dashboard">Back</a>
+        </div>
+        <main className="box ins-progetto-page row">
+          <section className="profile-top-section col-lg-3">
+            <div className="pts-content">
+              <div className="pts-left">
+                <div className="profile-img-box">
+                  <img src="/assets/img/img-profile-pred.svg" alt="" />
+                  <h3>
+                    {address &&
+                      address.toString().substring(0, 5) +
+                        "..." +
+                        address.toString().substring(38, 42)}
+                  </h3>
                 </div>
               </div>
+              <div className="pts-right">
+                <div className="pts-right-grid">
+                  <div className="pts-right-grid-card">
+                    <Link href={"/Profile"}>
+                      <p>My Investment</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card">
+                    <Link href={"/Profile"}>
+                      <p>My Favourite</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card active">
+                    <Link href={"/InsProgetto"}>
+                      <p>Create Campaign</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card">
+                    <Link href={"/MyNft"}>
+                      <p>My NFTs</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card">
+                    <Link href={"/MyProjects"}>
+                      <p>My Projects</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card">
+                    <Link
+                      href={
+                        "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
+                      }
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <p>DAO</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card">
+                    <Link
+                      href={"https://app.proofofhumanity.id"}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <p>Verify Identity</p>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="ins-progetto-content col-lg-9">
-          <div className="box">
-            <div className="ins-head">
-              {/* <Link href="/">
+          <section className="ins-progetto-content col-lg-9">
+            <div className="box">
+              <div className="ins-head">
+                {/* <Link href="/">
                 <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
               </Link> */}
-              <h2>Create campaign</h2>
+                <h2>Create campaign</h2>
+              </div>
+              {renderCurrentSelectionHeader()}
+              <form id="submit" onSubmit={handleSubmit}>
+                {renderCurrentSelection()}
+              </form>
             </div>
-            {renderCurrentSelectionHeader()}
-            <form id="submit" onSubmit={handleSubmit}>
-              {renderCurrentSelection()}
-            </form>
-          </div>
-        </section>
-        <ToastContainer />
-      </main>
+          </section>
+          <ToastContainer />
+        </main>
+      </div>
     </div>
   );
 };

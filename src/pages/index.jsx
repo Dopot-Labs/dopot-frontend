@@ -187,7 +187,6 @@ className="scorpi-grid-card"
                 contract without intermediaries and in a totally secure way
                 thanks to encryption.
               </p>
-              <span>Read more</span>
             </div>
 
             <div className="ill-text-info-box">
@@ -200,7 +199,6 @@ className="scorpi-grid-card"
                 a crowdfunding, regardless of economic possibilities; and at the
                 same time secure investors' money.
               </p>
-              <span>Read more</span>
             </div>
           </div>
         </div>
@@ -357,6 +355,8 @@ className="scorpi-grid-card"
                 supported by over 200 exchanges.
               </p>
             </div>
+          </div>
+          <div className="container-dai-grid">
             <div className="dai-grid-box">
               <img src="/assets/img/frame.svg" alt="" />
               <h4>Value</h4>
@@ -365,21 +365,10 @@ className="scorpi-grid-card"
                 decentralized services.
               </p>
             </div>
-          </div>
-          <div className="container-dai-grid">
             <div className="dai-grid-box">
               <img src="/assets/img/frame.svg" alt="" />
               <h4>Mercury phase</h4>
               <p>Mainnet Launch & Private Sale: Q2 2024.</p>
-            </div>
-            <div className="dai-grid-box">
-              <img src="/assets/img/frame.svg" alt="" />
-              <h4>Holding</h4>
-              <p>
-                Users can keep DAI in their wallets, hedging their bets against
-                the volatility of accumulated digital assets, or they can trade
-                it on the market.
-              </p>
             </div>
           </div>
         </div>
