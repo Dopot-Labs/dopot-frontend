@@ -223,7 +223,7 @@ className="scorpi-grid-card"
               </p>
             </div>
             <img
-              src={"/assets/img/left-side1.svg"}
+              src={"/assets/img/left-side2.svg"}
               alt="ScelgonoImg1"
               data-aos="zoom-out-left"
               data-aos-delay="750"
@@ -266,7 +266,7 @@ className="scorpi-grid-card"
               </p>
             </div>
             <img
-              src={"/assets/img/left-side3.svg"}
+              src={"/assets/img/left-side2.svg"}
               alt="ScelgonoImg3"
               data-aos="zoom-out-left"
               data-aos-delay="750"
@@ -367,8 +367,12 @@ className="scorpi-grid-card"
             </div>
             <div className="dai-grid-box">
               <img src="/assets/img/frame.svg" alt="" />
-              <h4>Mercury phase</h4>
-              <p>Mainnet Launch & Private Sale: Q2 2024.</p>
+              <h4>Holding</h4>
+              <p>
+                Users can keep DAI in their wallets, hedging their bets against
+                the volatility of accumulated digital assets, or they can trade
+                it on the market.
+              </p>
             </div>
           </div>
         </div>

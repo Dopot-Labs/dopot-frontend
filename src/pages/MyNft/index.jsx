@@ -112,12 +112,12 @@ const Profile = () => {
                 <div className="pts-right-grid">
                   <div className="pts-right-grid-card ">
                     <Link href={"/Profile"}>
-                      <p>My Investment</p>
+                      <p>My Investments</p>
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
                     <Link href={"/Favourites"}>
-                      <p>My Favourite</p>
+                      <p>My Favourites</p>
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
@@ -240,7 +240,8 @@ const Profile = () => {
                               boxShadow: "none",
                               border: "none",
                               borderRadius: "8px",
-                              background: "#ed6154",
+                              background: "#ed6154 !important",
+                              color: "black !important",
                             }}
                           >
                             Swap

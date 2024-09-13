@@ -72,30 +72,30 @@ const DopotShare = () => {
       <div className="box-video-tutorials">
         <div className="row">
           <div className="col-lg">
-            <img src="/assets/img/vetrina-video1.svg" alt="" />
-            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+            <img src="/assets/img/img-vetrina.svg" alt="" />
+            <h3>Coming soon...</h3>
           </div>
           <div className="col-lg">
-            <img src="/assets/img/vetrina-video2.svg" alt="" />
-            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+            <img src="/assets/img/img-vetrina.svg" alt="" />
+            <h3>Coming soon...</h3>
           </div>
           <div className="col-lg">
-            <img src="/assets/img/vetrina-video3.svg" alt="" />
-            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+            <img src="/assets/img/img-vetrina.svg" alt="" />
+            <h3>Coming soon...</h3>
           </div>
         </div>
         <div className="row">
           <div className="col-lg">
-            <img src="/assets/img/vetrina-video4.svg" alt="" />
-            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+            <img src="/assets/img/img-vetrina.svg" alt="" />
+            <h3>Coming soon...</h3>
           </div>
           <div className="col-lg">
-            <img src="/assets/img/vetrina-video5.svg" alt="" />
-            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+            <img src="/assets/img/img-vetrina.svg" alt="" />
+            <h3>Coming soon...</h3>
           </div>
           <div className="col-lg">
-            <img src="/assets/img/vetrina-video6.svg" alt="" />
-            <h3>11 Best YouTube Automation AI Tools For All Your Needs</h3>
+            <img src="/assets/img/img-vetrina.svg" alt="" />
+            <h3>Coming soon...</h3>
           </div>
         </div>
       </div>
