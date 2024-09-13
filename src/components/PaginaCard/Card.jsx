@@ -87,12 +87,10 @@ const Card = (props) => {
                       <div className="three-dots "></div>
                       <div className="dropdown">
                         <a onClick={() => props.withdraw(address)}>
-                          <div>
-                            {t("withdrawfunds")} {fees} DPT)
-                          </div>
+                          <div>Withdraw funds {fees} DPT)</div>
                         </a>
                         <a onClick={() => postpone(address)}>
-                          <div>{t("postponedeadline")}</div>
+                          <div>Postpone the deadline</div>
                         </a>
                       </div>
                     </div>
