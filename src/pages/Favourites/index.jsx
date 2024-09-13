@@ -84,77 +84,78 @@ const Favourites = () => {
           <Header />
         </div>
       </main>
-      <div className=" box back">
-        <a href="/Dashboard">Back</a>
-      </div>
-      <main className="box profile-page row">
-        <section className="profile-top-section col-lg-3">
-          {/* <img className="profile-hero" src={ProfileHero} alt="ProfileHero" /> */}
+      <div className="box">
+        <div className=" box back">
+          <a href="/Dashboard">Back</a>
+        </div>
+        <main className="box profile-page row">
+          <section className="profile-top-section col-lg-3">
+            {/* <img className="profile-hero" src={ProfileHero} alt="ProfileHero" /> */}
 
-          <div className="pts-content">
-            <div className="pts-left">
-              <div className="profile-img-box">
-                <img src="/assets/img/img-profile-pred.svg" alt="" />
-                <h3>
-                  {address &&
-                    address.toString().substring(0, 5) +
-                      "..." +
-                      address.toString().substring(38, 42)}
-                </h3>
-              </div>
-            </div>
-            <div className="pts-right">
-              <div className="pts-right-grid">
-                <div className="pts-right-grid-card ">
-                  <Link href={"/Profile"}>
-                    <p>My Investment</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card active">
-                  <Link href={"/Favourites"}>
-                    <p>My Favourite</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card">
-                  <Link href={"/InsProgetto"}>
-                    <p>Create Campaign</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card">
-                  <Link href={"/MyNft"}>
-                    <p>My NFTs</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card">
-                  <Link href={"/MyProjects"}>
-                    <p>My Projects</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card">
-                  <Link
-                    href={
-                      "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
-                    }
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <p>DAO</p>
-                  </Link>
-                </div>
-                <div className="pts-right-grid-card">
-                  <Link
-                    href={"https://app.proofofhumanity.id"}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <p>Verify Identity</p>
-                  </Link>
+            <div className="pts-content">
+              <div className="pts-left">
+                <div className="profile-img-box">
+                  <img src="/assets/img/img-profile-pred.svg" alt="" />
+                  <h3>
+                    {address &&
+                      address.toString().substring(0, 5) +
+                        "..." +
+                        address.toString().substring(38, 42)}
+                  </h3>
                 </div>
               </div>
+              <div className="pts-right">
+                <div className="pts-right-grid">
+                  <div className="pts-right-grid-card ">
+                    <Link href={"/Profile"}>
+                      <p>My Investment</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card active">
+                    <Link href={"/Favourites"}>
+                      <p>My Favourite</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card">
+                    <Link href={"/InsProgetto"}>
+                      <p>Create Campaign</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card">
+                    <Link href={"/MyNft"}>
+                      <p>My NFTs</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card">
+                    <Link href={"/MyProjects"}>
+                      <p>My Projects</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card">
+                    <Link
+                      href={
+                        "https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"
+                      }
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <p>DAO</p>
+                    </Link>
+                  </div>
+                  <div className="pts-right-grid-card">
+                    <Link
+                      href={"https://app.proofofhumanity.id"}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <p>Verify Identity</p>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
-        {/* <div className="box0">
+          </section>
+          {/* <div className="box0">
           <div className="sec-inv-desk-flex">
             <img
               src={"/assets/img/profile-icon-grd-1.png"}
@@ -171,7 +172,7 @@ const Favourites = () => {
           </div>
         </div> */}
 
-        {/* <div className="box1">
+          {/* <div className="box1">
           <div className="sec-inv-mob">
             <button onClick={ToggleSec2}>
               <img
@@ -194,24 +195,25 @@ const Favourites = () => {
           </div>
         </div> */}
 
-        <section className="profile-bottom col-lg-9">
-          <div className="box">
-            <div className="ins-head">
-              {/* <Link href="/">
+          <section className="profile-bottom col-lg-9">
+            <div className="box">
+              <div className="ins-head">
+                {/* <Link href="/">
                 <img src={"/assets/img/profile-icon-arrow-left.png"} alt="ProfileIconArrowLeft" />
               </Link> */}
-              <h2>My Favourites</h2>
-            </div>
-            <div className="profile-main-grid">
-              <div>{favoriteCard}</div>
+                <h2>My Favourites</h2>
+              </div>
+              <div className="profile-main-grid">
+                <div>{favoriteCard}</div>
 
-              {/* <div className={isActive ? "pmg-right" : "sec-display-none-pref"}>
+                {/* <div className={isActive ? "pmg-right" : "sec-display-none-pref"}>
                 {favoriteCard}
               </div> */}
+              </div>
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </main>
+      </div>
     </div>
   );
 };
