@@ -269,7 +269,7 @@ const Header = (props) => {
 
               <div style={{ marginRight: "3.5rem" }} className="dropdown_menu">
                 <button className="dropbtn" style={{ margin: "0" }}>
-                  {t("document")}{" "}
+                  Documents{" "}
                   <span>
                     <img
                       style={{ width: "7%" }}
