@@ -696,6 +696,13 @@ a {
   justify-content: center;
   margin: 0 auto;
 }
+.pmg-btn-box-nft .grd-btn {
+  margin: 0 !important;
+  color: #000000 !important;
+  background: white !important;
+  border: 2px solid black !important;
+  box-shadow: none !important;
+}
 .pmg-rc-right .pc-hero-icon-grid-card img {
   height: 4rem;
   margin: 0 0 1.5rem 0;
