@@ -102,81 +102,83 @@ const InfBase = ({
             Select Category
           </option>
           <option disabled value>
-            {t("social")}
+            SOCIAL
           </option>
-          <option value="tipo1"> {t("socialcare")}</option>
-          <option value="tipo2"> {t("healthcare")}</option>
-          <option value="tipo3"> {t("socialhealthass")}</option>
-          <option value="tipo4"> {t("educationtraining")}</option>
-          <option value="tipo5"> {t("environmental")}</option>
-          <option value="tipo6"> {t("enhancementcultural")}</option>
-          <option value="tipo7"> {t("socialtourism")}</option>
-          <option value="tipo8">{t("universitypost")}</option>
-          <option value="tipo9"> {t("extracurricular")}</option>
-          <option value="tipo10">{t("socialenterprises")}</option>
+          <option value="tipo1"> Social care</option>
+          <option value="tipo2"> Health Care</option>
+          <option value="tipo3"> Social health assistance</option>
+          <option value="tipo4"> Education-education-training</option>
+          <option value="tipo5">Environmental and ecosystem protection</option>
+          <option value="tipo6"> Enhancement of cultural heritage</option>
+          <option value="tipo7">Social tourism</option>
+          <option value="tipo8">University-post-graduate training</option>
+          <option value="tipo9"> Extra-curricular training</option>
+          <option value="tipo10">
+            Instrumental services for social enterprises
+          </option>
           <option disabled value>
-            {t("blockchain")}
+            BLOCKCHAIN ​​AND WEB3 INNOVATION
           </option>
-          <option value="tipo11">{t("blockchainfinance")}</option>
-          <option value="tipo12">{t("blockchaininsurance")}</option>
-          <option value="tipo13">{t("blockchainpaydigital")}</option>
-          <option value="tipo14">{t("blockchainagrifood")}</option>
-          <option value="tipo15">{t("blockchain4.0")}</option>
-          <option value="tipo16">{t("blockchainiot")}</option>
-          <option value="tipo17">{t("blockchainhealthcare")}</option>
-          <option value="tipo18">{t("blockchainadministration")}</option>
-          <option value="tipo19">{t("blockchainretail")}</option>
-          <option value="tipo20">{t("blockchainmusic")}</option>
-          <option value="tipo21">{t("blockchainsmartenergy")}</option>
-          <option value="tipo22">{t("blockchainunbanked")}</option>
-          <option value="tipo23">{t("cryptostartup")}</option>
-          <option value="tipo24">{t("decentralizedstartup")}</option>
-          <option value="tipo25">{t("decentralizedproject")}</option>
+          <option value="tipo11">Blockchain in finance and banking</option>
+          <option value="tipo12">Blockchain in insurance</option>
+          <option value="tipo13">Blockchain in digital payments</option>
+          <option value="tipo14">Blockchain in agrifood</option>
+          <option value="tipo15">Blockchain in industry 4.0</option>
+          <option value="tipo16">Blockchain in the IoT</option>
+          <option value="tipo17">Blockchain in healthcare</option>
+          <option value="tipo18">Blockchain in public administration</option>
+          <option value="tipo19">Blockchain in retail</option>
+          <option value="tipo20">Blockchain in music</option>
+          <option value="tipo21">Blockchain in smart energy</option>
+          <option value="tipo22">Blockchain for unbanked</option>
+          <option value="tipo23">Crypto-Startup</option>
+          <option value="tipo24">Decentralized Startup</option>
+          <option value="tipo25">Decentralized Project</option>
           <option disabled value>
-            {t("traditional")}
+            TRADITIONAL CATEGORIES
           </option>
-          <option value="tipo26"> {t("foodstartup")}</option>
-          <option value="tipo27"> {t("fashionstartup")}</option>
-          <option value="tipo28"> {t("wearstartup")}</option>
-          <option value="tipo29"> {t("travelstartup")}</option>
-          <option value="tipo30"> {t("bigdata")}</option>
-          <option value="tipo31"> {t("biotechnology")}</option>
-          <option value="tipo32"> {t("ecosustainability")}</option>
-          <option value="tipo33"> {t("engineering")}</option>
-          <option value="tipo34"> {t("mobile")}</option>
-          <option value="tipo35"> {t("modelling")}</option>
-          <option value="tipo36"> {t("research")}</option>
-          <option value="tipo37"> {t("software")}</option>
-          <option value="tipo38"> {t("power")}</option>
-          <option value="tipo39"> {t("artificialintelligence")}</option>
-          <option value="tipo40"> {t("science")}</option>
-          <option value="tipo41"> {t("work")}</option>
-          <option value="tipo42"> {t("telecommunications")}</option>
-          <option value="tipo43"> {t("robot")}</option>
-          <option value="tipo44"> {t("pharmaceutical")}</option>
-          <option value="tipo45"> {t("foodandwater")}</option>
-          <option value="tipo46"> {t("education")}</option>
-          <option value="tipo47"> {t("humanlife")}</option>
-          <option value="tipo48"> {t("publicadministration")}</option>
-          <option value="tipo49"> {t("augmentedreality")}</option>
-          <option value="tipo50"> {t("programming")}</option>
-          <option value="tipo51"> {t("showbusiness")}</option>
-          <option value="tipo52"> {t("automation")}</option>
-          <option value="tipo53"> {t("tech")}</option>
-          <option value="tipo54"> {t("emergingcountries")}</option>
-          <option value="tipo55"> {t("businesssoftware")}</option>
-          <option value="tipo57"> {t("manufacturing")}</option>
-          <option value="tipo58"> {t("games")}</option>
-          <option value="tipo59"> {t("music")}</option>
-          <option value="tipo60"> {t("realestate")}</option>
-          <option value="tipo61"> {t("investment")}</option>
-          <option value="tipo62"> {t("educationaltechnology")}</option>
-          <option value="tipo63"> {t("ionnovation")}</option>
-          <option value="tipo64"> {t("credit")}</option>
-          <option value="tipo65"> {t("insurance")}</option>
-          <option value="tipo66"> {t("agriculturaltecno")}</option>
-          <option value="tipo67"> {t("aerospace")}</option>
-          <option value="tipo68"> {t("hitech")}</option>
+          <option value="tipo26">Food startup</option>
+          <option value="tipo27"> Fashion startup</option>
+          <option value="tipo28"> Wear startup</option>
+          <option value="tipo29"> Travel startup</option>
+          <option value="tipo30"> Big data and internet apps</option>
+          <option value="tipo31"> Biotechnology</option>
+          <option value="tipo32"> Eco-sustainability</option>
+          <option value="tipo33"> Engineering</option>
+          <option value="tipo34"> Mobile and smartphones</option>
+          <option value="tipo35"> 3D modeling</option>
+          <option value="tipo36"> Research and development</option>
+          <option value="tipo37"> Software and the internet of things</option>
+          <option value="tipo38"> Power</option>
+          <option value="tipo39"> Artificial intelligence</option>
+          <option value="tipo40"> Science and transport</option>
+          <option value="tipo41"> Work</option>
+          <option value="tipo42"> Telecommunications</option>
+          <option value="tipo43"> Robot</option>
+          <option value="tipo44"> Pharmaceutical</option>
+          <option value="tipo45"> Food and water</option>
+          <option value="tipo46"> Education</option>
+          <option value="tipo47"> Improvement of human life</option>
+          <option value="tipo48"> Public administration</option>
+          <option value="tipo49"> Augmented reality</option>
+          <option value="tipo50"> Programming</option>
+          <option value="tipo51"> Show business</option>
+          <option value="tipo52"> Automation</option>
+          <option value="tipo53"> Tech for all ages and peoples</option>
+          <option value="tipo54"> Emerging countries</option>
+          <option value="tipo55"> Business software</option>
+          <option value="tipo57"> Manufacturing</option>
+          <option value="tipo58"> Games</option>
+          <option value="tipo59"> Music</option>
+          <option value="tipo60"> Real estate</option>
+          <option value="tipo61"> Investment</option>
+          <option value="tipo62"> Educational technology</option>
+          <option value="tipo63"> Innovation</option>
+          <option value="tipo64"> Credit</option>
+          <option value="tipo65"> Insurance</option>
+          <option value="tipo66"> Agricultural technology</option>
+          <option value="tipo67"> Aerospace</option>
+          <option value="tipo68"> Hi-tech</option>
         </select>
       </div>
       <div className="ins-input-box">
