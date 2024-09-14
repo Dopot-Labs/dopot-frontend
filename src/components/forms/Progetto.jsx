@@ -177,7 +177,7 @@ const Progetto = (props) => {
               name="titoloRoadStep"
               onChange={(e) => props.handleChangeArray(e, 0)}
               type="text"
-              placeholder={t("projecttitlestep")}
+              placeholder="Step title"
             />
 
             <button
@@ -191,7 +191,7 @@ const Progetto = (props) => {
           <textarea
             name="descrRoadStep"
             onChange={(e) => props.handleChangeArray(e, 0)}
-            placeholder={t("projectdescstep")}
+            placeholder="Describe the roadmap"
           />
 
           {val.map((data, i) => {
@@ -203,7 +203,7 @@ const Progetto = (props) => {
                     name={"titoloRoadStep"}
                     type="text"
                     onChange={(e) => props.handleChangeArray(e, i + 1)}
-                    placeholder={t("projecttitlestep")}
+                    placeholder="Step title"
                   />
                   <button
                     key={"titoloRoadStepDel" + i}
@@ -218,7 +218,7 @@ const Progetto = (props) => {
                   key={"descrRoadStep" + i}
                   name={"descrRoadStep"}
                   onChange={(e) => props.handleChangeArray(e, i + 1)}
-                  placeholder={t("projectdescstep")}
+                  placeholder="Describe the roadmap"
                 />
               </div>
             );
