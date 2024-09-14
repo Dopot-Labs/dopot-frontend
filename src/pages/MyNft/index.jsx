@@ -232,17 +232,8 @@ const Profile = () => {
                           <Link
                             href={`https://opensea.io/assets/arbitrum/${card.addressDopotReward}/${card.tokenId}`}
                             target="_blank"
-                            className="grd-btn dopot-btn-lg"
+                            className="grd-btn"
                             rel="noreferrer"
-                            style={{
-                              margin: 0,
-                              width: "fit-content",
-                              boxShadow: "none",
-                              border: "none",
-                              borderRadius: "8px",
-                              background: "#ed6154 !important",
-                              color: "black !important",
-                            }}
                           >
                             Swap
                           </Link>
