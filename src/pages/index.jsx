@@ -54,7 +54,7 @@ const Home = ({ t }) => {
                       // data-aos-duration="750"
                       style={{}}
                     >
-                      See Our Project
+                      See Our Projects
                     </h4>
                   </Link>
                 </div>
