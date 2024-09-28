@@ -1,0 +1,210 @@
+.dopot-power {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding-bottom: 7rem !important;
+  height: 55vh;
+}
+
+.p-btn-box {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4rem auto;
+}
+.p-btn-box .box-cont {
+  margin-top: 3.5rem;
+  background-color: #f2f2f2;
+  padding: 0.8rem 1rem;
+  border-radius: 30px;
+}
+
+.p-btn-box .box-cont button {
+  margin: 0;
+}
+.p-btn-box .box-cont .grd-btn {
+  background-color: #ed6154;
+  color: white;
+  font-weight: 600;
+}
+.p-btn-box .box-cont .grd-btn:hover,
+.p-btn-box .purple-border-btn :hover {
+  box-shadow: none !important;
+}
+.p-btn-box .purple-border-btn {
+  background-color: #f2f2f2;
+  color: black;
+  font-weight: 600;
+  border: none;
+}
+.box-video-tutorials,
+.box-token {
+  width: 80%;
+  margin: 7rem auto;
+}
+.box-token h1 {
+  font-size: 5rem;
+  text-align: center;
+}
+.box-token h1 span {
+  color: #ed6154;
+}
+.box-video-tutorials .col-lg {
+  border-radius: 20px;
+  margin: 3rem;
+  background-color: #f2f2f2;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2rem;
+}
+.box-video-tutorials .col-lg h3 {
+  font-weight: 800;
+  margin-top: 2rem;
+}
+.box-video-tutorials .col-lg img {
+  cursor: pointer;
+}
+
+.dopot-power h1 {
+  font-size: 7rem;
+  text-align: center;
+  color: var(--white);
+  margin: 2rem 0;
+}
+.dopot-power h2 {
+  color: rgba(227, 62, 144, 0.8);
+  font-size: 3.5rem;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+.dopot-power h3 {
+  font-size: 2.25rem;
+  font-weight: 400;
+  color: var(--white);
+}
+.dopot-power h5 {
+  font-size: 1.55rem;
+  font-weight: 400;
+  color: var(--white);
+  text-align: center;
+}
+.p-cards-grid {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+.p-card {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 7rem 0;
+}
+.p-card img {
+  width: 7rem;
+  object-fit: contain;
+  margin: 0 0 2rem 0;
+}
+.p-card p {
+  font-size: 1.85rem;
+  text-align: center;
+  color: var(--black);
+  font-weight: 600;
+}
+.dopot-power ul {
+  padding: 2.5rem 0 2.5rem 5rem;
+}
+.dopot-power ul li {
+  font-size: 1.85rem;
+  margin: 0 0 3rem 0;
+  list-style-image: url("/assets/img/d-circle.jpg");
+  color: var(--white);
+}
+.dopot-power-img {
+  width: 100%;
+  object-fit: cover;
+  margin: 5rem 0 0 0;
+  height: 10rem;
+}
+.char-cont {
+  background: #f4f4f4;
+  padding: 3rem;
+  border-radius: 20px;
+}
+.char-cont h3 {
+  font-size: 3.5rem !important;
+  font-weight: 600;
+}
+.char-cont ul {
+  list-style: none; /* Rimuove il simbolo predefinito */
+}
+.char-cont ul li {
+  background-image: url("/assets/img/Star 1.svg");
+  background-size: 20px 20px; /* Dimensioni dell'immagine */
+  background-repeat: no-repeat;
+  padding-left: 30px; /* Aggiunge spazio per l'immagine */
+  background-position: 0 50%; /* Posiziona l'immagine verticalmente centrata */
+}
+
+.char-cont li {
+  font-size: 1.7rem !important;
+  font-weight: 400;
+  margin: 1.5rem 0;
+}
+.p-hand-img {
+  width: 100%;
+}
+@media screen and (max-width: 1000px) {
+  .dopot-power h1 {
+    font-size: 4rem;
+    text-align: center;
+    color: var(--white);
+    margin: 2rem 0;
+  }
+  .dopot-power {
+    height: 40vh !important;
+  }
+  .box-video-tutorials .row {
+    justify-content: center;
+  }
+  .dopot-power-img {
+    height: 7.5rem;
+  }
+  .dopot-power {
+    padding: 23rem 0 0rem 0;
+  }
+  .dopot-power h2 {
+    font-size: 3rem;
+  }
+  .p-btn-box {
+    flex-direction: column;
+  }
+  .p-btn-box button {
+    width: 100%;
+    margin: 0 0 5rem 0;
+  }
+  .p-btn-box button:nth-child(2) {
+    margin: 0;
+  }
+  .p-card {
+    width: 50%;
+    margin: 0;
+  }
+  .p-cards-grid {
+    flex-wrap: wrap;
+    margin: 7rem 0;
+  }
+  .p-card img {
+    width: 8.5rem;
+  }
+  .dopot-power ul {
+    padding: 2.5rem 0 2.5rem 2.5rem;
+  }
+}

@@ -1,0 +1,124 @@
+footer {
+  background-color: #000;
+  padding: 5rem 0;
+}
+footer .box {
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+.footer-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 5rem;
+  justify-content: space-between;
+}
+.footer-grid-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+  align-self: center !important;
+}
+.footer-grid-box.menu {
+  justify-content: center;
+}
+.footer-grid-box.logo {
+  justify-content: start;
+}
+.footer-grid-box.social {
+  justify-content: end;
+}
+
+.footer-grid-box h4 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--white);
+}
+.footer-grid-box a {
+  font-size: 1.65rem !important;
+  font-weight: 400;
+  margin: 0.5rem 0 0 0;
+  color: var(--white) !important;
+  transition: var(--trns1);
+  width: max-content;
+}
+.footer-grid-box a:hover {
+  text-decoration: underline;
+  color: var(--white);
+  opacity: 0.75;
+}
+.footer-bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 5rem 0 0 0;
+}
+.footer-bottom h6 {
+  font-size: 4rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 1.5rem 0;
+}
+.footer-bottom p {
+  font-size: 1.65rem;
+  font-weight: 400;
+  color: #fff;
+}
+.footer-social-div a {
+  height: 40px !important;
+  width: 40px !important;
+  margin-right: 10px;
+  float: left;
+}
+
+.link-social-new:hover {
+  color: #ff43a0 !important;
+}
+.link-social-new {
+  font-weight: bold;
+  color: rgb(183, 200, 255) !important;
+}
+
+@media screen and (max-width: 650px) {
+  .footer-grid-box.menu {
+    justify-content: center;
+  }
+  .footer-grid-box.logo {
+    justify-content: center;
+  }
+  .footer-grid-box.social {
+    justify-content: center;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stakeInput {
+  color: white;
+  font-size: 2em;
+  padding-left: 1em;
+  margin: 1em 0 1em 0;
+  width: 10em;
+  border-radius: 1em;
+}
+
+.stakes {
+  color: white;
+  padding-top: 2em;
+}
+
+.button-container {
+  display: flex; /* Use flexbox to make the buttons appear in the same line */
+}
+
+/* Optionally, add some spacing or styling for the buttons */
+.grd-btn {
+  margin-right: 10px; /* Adjust the margin as needed */
+}

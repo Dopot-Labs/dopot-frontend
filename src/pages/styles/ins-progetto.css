@@ -1,0 +1,471 @@
+/*plus*/
+.container-plus {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-self: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+.container-plus input {
+  width: 85% !important;
+  margin: 0;
+}
+
+.btn-plus-minus {
+  color: #646a69;
+  background: white;
+  border: 2px solid #646a69;
+  outline: 0;
+  border-radius: 50%;
+  margin: 0;
+  transition: var(--trns1);
+  z-index: 100;
+  position: relative;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+  width: 5% !important;
+  height: 5% !important;
+  font-size: 2rem !important;
+  padding: 0 !important;
+}
+
+.camp-img {
+  box-sizing: content-box;
+  box-shadow: 0 0 15px 5px rgb(255 255 255 / 52%);
+  border-radius: 10%;
+}
+
+.ins-progetto-content {
+  position: relative;
+  padding: 0;
+  background: white;
+}
+
+.ins-head a img {
+  width: 5rem;
+}
+.ins-head.projects a {
+  width: 20%;
+}
+.ins-head.projects {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.ins-head.projects button {
+  margin: 0;
+  width: fit-content !important;
+  box-shadow: none !important;
+  border: 2px solid #d0d5dd !important;
+  border-radius: 8px;
+}
+.ins-head h2 {
+  font-size: 3.5rem;
+  width: 100%;
+  text-align: left;
+  color: #0d0d0d;
+}
+.ins-progress {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1000px;
+  background: #f4f4f4;
+  padding: 2.5rem 1rem;
+  border-radius: 10px;
+  margin: 3rem 0;
+}
+
+.ins-circle {
+  display: flex;
+  position: relative;
+  background: transparent !important;
+  align-items: center;
+}
+.ins-circle p {
+  margin: 0 0 0 0.5rem;
+  font-size: 1.65rem;
+  font-weight: 600;
+  position: relative;
+  width: max-content;
+  color: #333333;
+}
+.ins-line {
+  width: 100%;
+  border: 2px dashed #b0bec5;
+  margin: 0 1rem;
+}
+.ins-line-complete {
+  width: 100%;
+  border: 2px solid #ed6154;
+  margin: 0 1rem;
+}
+.ins-circle-pending {
+  opacity: 1;
+}
+.ins-line-pending {
+  opacity: 1;
+}
+.ins-circle-active {
+  box-shadow: none !important;
+}
+.ins-input-box {
+  width: 100%;
+  margin: 2rem auto;
+  max-width: 1000px;
+  padding: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+.ins-input-box:nth-child(even) {
+  border-top: 1px solid #eaecf0;
+  border-bottom: 1px solid #eaecf0;
+}
+.ins-input-box h1 {
+  color: #0d0d0d;
+  margin-bottom: 0.5rem;
+}
+.ins-input-box h3 {
+  font-size: 1.6rem !important;
+  font-weight: 400;
+  margin: 0 0 1.5rem 0;
+  color: #646a69;
+}
+.ins-input-box h4 {
+  font-size: 1.8rem !important;
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+  color: #0d0d0d;
+  width: 40%;
+}
+.ins-input-box div {
+  width: 40%;
+}
+.box-link-cont {
+  width: 60% !important;
+}
+.ins-input-box .box-link-cont div {
+  width: 100%;
+}
+.ReactFlagsSelect-module_flagsSelect__2pfa2 {
+  width: 60% !important;
+}
+.ins-btn-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+}
+div.react-tabs,
+div.react-tabs__tab-panel,
+.react-tabs__tab-panel .ins-input-box {
+  width: 100% !important;
+}
+
+.ins-btn-box .radio-active {
+  background-color: #ed6154;
+  color: white;
+  border-radius: 10px;
+  font-size: 1.5rem;
+}
+.ins-btn-box .radio-no-active {
+  background-color: #e9e9e9;
+  color: #0d0d0d;
+  border-radius: 10px;
+  font-size: 1.5rem;
+}
+.ins-btn-box button {
+  margin: 0 5rem 0 0;
+}
+.ins-input-box input,
+.ins-input-box textarea,
+.ins-input-box select {
+  width: 60%;
+  border: 1px solid #d0d5dd;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  font-size: 1.75rem;
+  outline: 0;
+  color: #000;
+  transition: 0.5s;
+  font-weight: 400;
+  margin: 0;
+}
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  background-color: #fff;
+  width: 60% !important;
+  text-align: center;
+}
+
+.file-input {
+  display: none; /* Nasconde l'input reale */
+}
+.file-upload label {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #646a69;
+  font-weight: 400;
+  margin: 10px 0;
+}
+.file-upload label p {
+  font-size: 1.7rem;
+  color: #ed6154;
+  font-weight: 600;
+  margin: 2rem 0 0 0;
+}
+
+.upload-icon img {
+  width: 55px;
+  height: 55px;
+  margin: 0 auto;
+}
+
+.file-list {
+  width: 100%;
+  max-width: 600px;
+}
+
+.file-item {
+  width: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.file-details {
+  flex-grow: 1;
+}
+
+.file-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  width: 90% !important;
+}
+
+.file-size {
+  font-size: 12px;
+  color: #888;
+  width: 90% !important;
+}
+
+.delete-btn {
+  width: 5%;
+  background: none;
+  border: none;
+  color: #ff4a4a;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 !important;
+}
+
+.delete-btn:hover {
+  color: #d32f2f;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #f2f2f2;
+  height: 6px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.progress-bar div {
+  height: 100%;
+  background-color: #ff4a4a;
+  width: 0;
+  transition: width 0.4s ease;
+}
+
+.file-status {
+  font-size: 14px;
+  color: #ff4a4a;
+  text-align: right;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #ff4a4a;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.delete-btn:hover {
+  color: #d32f2f;
+}
+
+.ins-input-box input[type="file"] {
+  height: auto;
+}
+/* .ins-input-box input:focus,
+.ins-input-box textarea:focus {
+} */
+.ins-input-box input::placeholder,
+.ins-input-box textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+.ins-input-box textarea {
+  min-height: 15rem;
+  margin: 0;
+}
+.ins-btn-box button.purple-border-btn {
+  background-color: unset !important;
+}
+.ins-input-box h6 {
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5);
+  margin: 3.5rem 0 0 0;
+  color: white;
+}
+.add-btn-box {
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: end;
+}
+.add-btn-box a {
+  color: white !important;
+  font-size: 1.7rem !important;
+  background-color: #ed6154;
+  width: fit-content;
+  padding: 1rem 2rem;
+  border-radius: 7px;
+}
+
+.proceed-btn-box {
+  margin: 5rem 0;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.proceed-btn-box p {
+  color: #0d0d0d;
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.proceed-btn-box input {
+  color: white !important;
+  font-size: 1.7rem !important;
+  background-color: #ed6154;
+  width: fit-content;
+  padding: 1rem 2rem;
+  border-radius: 7px;
+  margin: 0 0 0 1.5rem;
+}
+@media screen and (max-width: 700px) {
+  .ins-head.projects {
+    flex-direction: column;
+  }
+  .ins-head.projects a {
+    width: 100%;
+  }
+  .box-link-cont {
+    width: 100% !important;
+  }
+  .file-upload {
+    width: 100% !important;
+  }
+
+  .ins-input-box div {
+    width: 100%;
+  }
+  .ins-input-box {
+    width: 100%;
+  }
+  .ins-input-box input,
+  .ins-input-box textarea,
+  .ins-input-box select {
+    width: 100%;
+  }
+  .ins-input-box {
+    width: 100%;
+    margin: 2rem auto;
+    max-width: 1000px;
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  .ReactFlagsSelect-module_flagsSelect__2pfa2 {
+    width: 100% !important;
+  }
+  .ins-progress {
+    justify-content: space-between;
+    align-items: center;
+    margin: 5rem auto;
+    width: 100%;
+  }
+  .ins-line {
+    width: 100% !important;
+  }
+  .ins-circle p {
+    display: none;
+  }
+  .ins-btn-box {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .ins-btn-box button {
+    width: 100%;
+    margin: 0 0 2.5rem 0;
+  }
+  .proceed-btn-box button {
+    width: 100%;
+  }
+  .ins-head a img {
+    width: 3rem;
+  }
+  .ins-head h2 {
+    font-size: 2.5rem;
+    margin-top: 4rem;
+  }
+  .ins-circle {
+    min-width: 4.5rem;
+    max-width: 5rem;
+    min-height: 3rem;
+    max-height: 3rem;
+    flex-direction: column;
+  }
+  .ins-line {
+    width: 0.5rem;
+  }
+  .ins-input-box h4 {
+    font-size: 1.85rem;
+    width: 100%;
+  }
+  .ins-input-box input,
+  .ins-input-box textarea {
+    font-size: 1.65rem;
+    padding: 1rem;
+    width: 100% !important;
+  }
+}
+/* .nazioneAziendaSelect {
+} */
+
+.nazioneAziendaSelect button {
+  margin: 0;
+}
