@@ -8,8 +8,8 @@ import {
   progettiImageState,
 } from "../../recoilState.js";
 import Link from "next/link";
-import Image from "next/image";
-import CardPref from "../../components/PaginaCard/CardPref.jsx";
+
+
 import Card from "../../components/PaginaCard/Card.jsx";
 import { useTranslation } from "../../i18n/client.js";
 
@@ -19,8 +19,7 @@ const Profile = () => {
   const { t } = useTranslation();
   const [investedCard, setinvestedCard] = useState([]);
   const [favoriteCard, setfavoriteCard] = useState([]);
-  const [isActive, setActive] = useState(true);
-  const [isActive2, setActive2] = useState(false);
+
   const address = getRecoil(addressState);
   let projects = getRecoil(progettiState);
 
@@ -68,14 +67,7 @@ const Profile = () => {
     fetchData();
   }, []);
 
-  const ToggleSec = () => {
-    setActive(!isActive);
-    setActive2(false);
-  };
-  const ToggleSec2 = () => {
-    setActive2(!isActive2);
-    setActive(false);
-  };
+
 
   return (
     <div className="app">

@@ -118,93 +118,93 @@ const Home = () => {
   };
 
 
-  const testRead = async () => {
-    let address = await getProvider();
-    console.log(address)
-    getData("projects", "0xe17286A2Def19E84E68e18d42DB4f367c75FC373")
-      .then(data => console.log('project Data:', data))
-      .catch(error => console.error(error));
+  // const testRead = async () => {
+  //   let address = await getProvider();
+  //   console.log(address)
+  //   getData("projects", "0xe17286A2Def19E84E68e18d42DB4f367c75FC373")
+  //     .then(data => console.log('project Data:', data))
+  //     .catch(error => console.error(error));
 
-  }
-  const testWrite = async () => {
+  // }
+  // const testWrite = async () => {
 
-    const updatedUserData = {
-      "pIva": "Test from brave",
-      "sito": "Test from brave",
-      "team": "Test brave",
-      "name1": "Test brave",
-      "quota": "100",
-      "price1": "2",
-      "specs1": "Test brave",
-      "storia": "Test from brave",
-      "vision": "Test from brave",
-      "address": "0xe17286A2Def19E84E68e18d42DB4f367c75FC373",
-      "domanda": [
-        [
-          "Test from brave",
-          "Test from brave",
-          "Test from brave",
-          "Test from brave",
-          "Test from brave",
-          "Test from brave",
-          "Test from brave",
-          "Test from brave",
-          "Test from brave",
-          "Test from brave"
-        ]
-      ],
-      "settore": "tipo17",
-      "supply1": "50",
-      "descrizione": "Test from brave",
-      "nomeAzienda": "Test from brave",
-      "obbProgetto": "Test brave",
-      "socialMedia": [
-        "Test from brave"
-      ],
-      "descProgetto": "Test brave",
-      "description1": "Test brave",
-      "introduzione": "Test from brave",
-      "tipoCampagna": "reward",
-      "descrRoadStep": [
-        "Test from brave"
-      ],
-      "titoloDomanda": [
-        "Test brave"
-      ],
-      "addressCreator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      "giorniCampagna": "45",
-      "nazioneAzienda": "CA",
-      "numeroProdotti": "1",
-      "titoloRoadStep": [
-        "ss"
-      ],
-      "rispostaDomanda": [
-        "Test from brave"
-      ],
-      "imageNftDefListFiles": [
-        {
-          "uri": "rivtCGb0AnlxnvA_exy5SLPJtQGKOHFWyDl4jKVGWFI",
-          "name": "Test brave",
-          "image": "ar://ZxeVu4NXtzhRoH7yG1-aaNsPA-avDgKi7j0K4elD9-8",
-          "price": "2",
-          "specs": "Test brave",
-          "supply": 50,
-          "description": "Test brave"
-        }
-      ],
-      "logoAziendaListFiles": [
-        "WacPLKDYRBLtNWUS2M_RCwE1I5B6YOhrY3JSREcawXQ"
-      ],
-      "fotoProdotto1ListFiles": [
-        "_tOntqIYVHokZp3cRb0I4SxvqTm491tDRCaFY6G3VBI"
-      ],
-      "documentazioneListFiles": [
-        "FsRtqfPSafFhI5tcR9eEqwxFtqNKX_Na35tDP17bR9k"
-      ]
-    }
+  //   const updatedUserData = {
+  //     "pIva": "Test from brave",
+  //     "sito": "Test from brave",
+  //     "team": "Test brave",
+  //     "name1": "Test brave",
+  //     "quota": "100",
+  //     "price1": "2",
+  //     "specs1": "Test brave",
+  //     "storia": "Test from brave",
+  //     "vision": "Test from brave",
+  //     "address": "0xe17286A2Def19E84E68e18d42DB4f367c75FC373",
+  //     "domanda": [
+  //       [
+  //         "Test from brave",
+  //         "Test from brave",
+  //         "Test from brave",
+  //         "Test from brave",
+  //         "Test from brave",
+  //         "Test from brave",
+  //         "Test from brave",
+  //         "Test from brave",
+  //         "Test from brave",
+  //         "Test from brave"
+  //       ]
+  //     ],
+  //     "settore": "tipo17",
+  //     "supply1": "50",
+  //     "descrizione": "Test from brave",
+  //     "nomeAzienda": "Test from brave",
+  //     "obbProgetto": "Test brave",
+  //     "socialMedia": [
+  //       "Test from brave"
+  //     ],
+  //     "descProgetto": "Test brave",
+  //     "description1": "Test brave",
+  //     "introduzione": "Test from brave",
+  //     "tipoCampagna": "reward",
+  //     "descrRoadStep": [
+  //       "Test from brave"
+  //     ],
+  //     "titoloDomanda": [
+  //       "Test brave"
+  //     ],
+  //     "addressCreator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  //     "giorniCampagna": "45",
+  //     "nazioneAzienda": "CA",
+  //     "numeroProdotti": "1",
+  //     "titoloRoadStep": [
+  //       "ss"
+  //     ],
+  //     "rispostaDomanda": [
+  //       "Test from brave"
+  //     ],
+  //     "imageNftDefListFiles": [
+  //       {
+  //         "uri": "rivtCGb0AnlxnvA_exy5SLPJtQGKOHFWyDl4jKVGWFI",
+  //         "name": "Test brave",
+  //         "image": "ar://ZxeVu4NXtzhRoH7yG1-aaNsPA-avDgKi7j0K4elD9-8",
+  //         "price": "2",
+  //         "specs": "Test brave",
+  //         "supply": 50,
+  //         "description": "Test brave"
+  //       }
+  //     ],
+  //     "logoAziendaListFiles": [
+  //       "WacPLKDYRBLtNWUS2M_RCwE1I5B6YOhrY3JSREcawXQ"
+  //     ],
+  //     "fotoProdotto1ListFiles": [
+  //       "_tOntqIYVHokZp3cRb0I4SxvqTm491tDRCaFY6G3VBI"
+  //     ],
+  //     "documentazioneListFiles": [
+  //       "FsRtqfPSafFhI5tcR9eEqwxFtqNKX_Na35tDP17bR9k"
+  //     ]
+  //   }
 
-    writeData("projects","0xe17286A2Def19E84E68e18d42DB4f367c75FC373",updatedUserData)
-  }
+  //   writeData("projects","0xe17286A2Def19E84E68e18d42DB4f367c75FC373",updatedUserData)
+  // }
 
   const [isHeaderOpen, setIsHeaderOpen] = useState(false);
   return (
@@ -362,8 +362,8 @@ const Home = () => {
           <h2 style={{ color: "black" }}>{cards.length} Results</h2>
         </div>
         <div className="profile-dash-cards">{cards}</div>
-        <button onClick={testWrite}>TEST WRITE</button>
-        <button onClick={testRead}>TEST READ</button>
+        {/* <button onClick={testWrite}>TEST WRITE</button>
+        <button onClick={testRead}>TEST READ</button> */}
         <label style={{ color: "black" }}>
           {"Insurance Founds" + ": " + insuranceState + " DAI"}
         </label>

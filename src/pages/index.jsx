@@ -47,7 +47,7 @@ const Home = ({ t }) => {
             <div className="main-btns-box">
               <div style={{ padding: 0 }} className="box">
                 <div className="mbb-content">
-                  <Link href={"/LoadingPage"}>
+                  <Link href={"/Dashboard"}>
                     <h4
                       // data-aos="fade-right"
                       // data-aos-delay="700"

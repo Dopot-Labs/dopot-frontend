@@ -2,7 +2,7 @@
 "";
 import React, { useState, useEffect } from "react";
 import { getRecoil } from "recoil-nexus";
-import { addressState, progettiState } from "../../recoilState";
+import { addressState } from "../../recoilState";
 import { useTranslation } from "../../i18n/client";
 import Header from "../../components/Header.jsx";
 import {
@@ -14,7 +14,7 @@ import {
   refundNft,
 } from "../../utils/firebase/writeInfos";
 import Link from "next/link";
-import Image from "next/image";
+
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -23,7 +23,7 @@ const Profile = () => {
   //console.log("🚀 ~ Profile ~ projects:", projects);
 
   const address = getRecoil(addressState);
-  const [isActive2, setActive2] = useState(true);
+  
 
   useEffect(() => {
     let isMounted = true; // Flag to check if the component is mounted
