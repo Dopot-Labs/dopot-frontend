@@ -44,11 +44,12 @@ const PaginaCard = () => {
 
   useEffect(() => {
     const fetchBase64Data = async () => {
-      await downloadProjects(t);
-      const fetchedProgetto = getRecoil(progettiState).find(
+      let prog = await downloadProjects(t);
+      
+      const fetchedProgetto = prog.find(
         (x) => x.address === address
       );
-
+      
       setProgetto(fetchedProgetto);
       const fav = await retriveFavorites();
       setToggleHeart(fav ? fav.includes(address) : false);
@@ -141,10 +142,10 @@ const PaginaCard = () => {
                   </div>
                   <div className="pc-btn-box">
                     <button
-                      onClick={() => {
-                        addFavorites(address, t);
-                        setToggleHeart(!toggleHeart);
-                      }}
+                      // onClick={() => {
+                      //   addFavorites(address, t);
+                      //   setToggleHeart(!toggleHeart);
+                      // }}
                       // className="grd-btn dopot-btn-lg"
                       style={{ background: "none" }}
                     >

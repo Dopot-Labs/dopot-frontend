@@ -4,7 +4,7 @@ import BlogPost from "./PaginaCard/BlogPost";
 import { useTranslation } from "../i18n/client";
 
 const TabFaq = (props) => {
-  console.dir(props);
+  //console.dir(props);
   const { t, i18n } = useTranslation();
   return (
     <div className="pc-content-grid-left">
@@ -12,6 +12,7 @@ const TabFaq = (props) => {
 
       {props.progetto.titoloDomanda.map((titoloDomanda, i) => (
         <BlogPost
+        key ={i}
           heading={titoloDomanda}
           text={props.progetto.rispostaDomanda[i]}
         />

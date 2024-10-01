@@ -26,12 +26,23 @@ const NftMint = (props) => {
   // Funzione per gestire il caricamento dei file
   const handleFileUpload = (event) => {
     const selectedFiles = Array.from(event.target.files);
-    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+ 
+
+      setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+   
+  props.handleChangeNft(event,props.nProdotto-1)
   };
 
   // Funzione per rimuovere un file
-  const handleRemoveFile = (fileName) => {
-    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+  const handleRemoveFile = (fileName,n) => {
+ 
+
+      setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+    
+      
+     
+    
+    
   };
   return (
     <div className="ins-input-box">
@@ -44,7 +55,7 @@ const NftMint = (props) => {
         <input
           name="imageNftDef"
           // onChange={(e) => props.handleChangeNft(e, props.nProdotto - 1)}
-          onChange={handleFileUpload}
+          onChange={(e)=>handleFileUpload(e)}
           type="file"
           id="file4"
           multiple

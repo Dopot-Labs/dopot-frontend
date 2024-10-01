@@ -87,7 +87,7 @@ const Faq = (props) => {
         </div>
       </div>
 
-      {(() => {
+      {/* {(() => {
         if (props.setState != null) {
           return (
             <div className="add-btn-box">
@@ -97,9 +97,15 @@ const Faq = (props) => {
             </div>
           );
         }
-      })()}
+      })()} */}
+<div className="add-btn-box">
+              <a onClick={(e)=>props.setState(e,-1)}>Back</a>
+              
+            </div>
 
       <div className="proceed-btn-box">
+    
+             
         <p>Min ~0.00037eth = 50MB</p>
         <input
           className="grd-btn dopot-btn-lg"

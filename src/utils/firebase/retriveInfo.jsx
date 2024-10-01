@@ -7,7 +7,7 @@ import addressFundingToken from '../../abi/fundingToken/address.js';
 import addressDopotReward from '../../abi/dopotReward/address.js';
 import { useTranslation } from "../../i18n/client.js";
 import Web3 from 'web3'
-import { getAllProjects, openIndexedDB } from './ipfs-db.jsx';
+import { getAllProjects, openIndexedDB, getData } from './ipfs-db.jsx';
 const { ethers, Contract } = require("ethers");
 const abiProject = require('../../abi/project/1.json');
 const abiProjectFactory = require('../../abi/projectFactory/1.json');
@@ -194,7 +194,7 @@ export async function downloadProjects(t) {
 // }
 
 export async function getNftImage(tokenId) {
-    getProvider()
+    const address = await getProvider()
     const provider = await getRecoil(providerState)
     const dopotReward = new Contract(addressDopotReward, abiDopotReward, provider);
     const result = await dopotReward.uri(tokenId);
@@ -206,9 +206,9 @@ export async function getNftImage(tokenId) {
 export async function retriveInvestment(t) {
     let address = await getProvider()
     const provider = await getRecoil(providerState)
-    await downloadProjects(t)
+    
     const dopotReward = new Contract(addressDopotReward, abiDopotReward, provider);
-    let projects = getRecoil(progettiState)
+    let projects = await downloadProjects(t)
     console.dir(projects)
     let progettiInvested = [];
     for (const project of projects) {
@@ -259,11 +259,11 @@ export async function retriveFavorites() {
 
 
 export async function retriveProjectStakes(projectAddress) {
-    await getProvider()
+    const address = await getProvider()
     //await init()
     let addressLogged = getRecoil(addressState)
-    const progettiStakes = await db.get("users", ["addressUser"], ["addressUser", "==", addressLogged?.toString().toLowerCase()]);
-    return (progettiStakes && progettiStakes.length > 0) ? progettiStakes[0].projectStakes?.filter(e => e.address === projectAddress) : [];
+    const user = await getData("users", addressLogged) //db.get("users", ["addressUser"], ["addressUser", "==", addressLogged?.toString().toLowerCase()]);
+    return (user.projectStakes ? user.projectStakes : [])
 }
 
 export function RetriveProjectTypes(tipoKey) {

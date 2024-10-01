@@ -121,13 +121,13 @@ const Home = () => {
   // const testRead = async () => {
   //   let address = await getProvider();
   //   console.log(address)
-  //   getData("projects", "0xe17286A2Def19E84E68e18d42DB4f367c75FC373")
-  //     .then(data => console.log('project Data:', data))
+  //   getData("users", address)
+  //     .then(data => console.log('project Data:', data.projectStakes ))
   //     .catch(error => console.error(error));
 
   // }
   // const testWrite = async () => {
-
+  //   let address = await getProvider();
   //   const updatedUserData = {
   //     "pIva": "Test from brave",
   //     "sito": "Test from brave",
@@ -203,7 +203,9 @@ const Home = () => {
   //     ]
   //   }
 
-  //   writeData("projects","0xe17286A2Def19E84E68e18d42DB4f367c75FC373",updatedUserData)
+  //   const newUserData  = { addressUser: address, shippingNft: {}, projectStakes: [] };
+
+  //   writeData("users",address,newUserData)
   // }
 
   const [isHeaderOpen, setIsHeaderOpen] = useState(false);

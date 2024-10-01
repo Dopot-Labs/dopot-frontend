@@ -46,28 +46,37 @@ const InfBase = ({
   };
 
   const [files, setFiles] = useState([]);
+  const [files2, setFiles2] = useState([]);
 
   // Funzione per gestire il caricamento dei file
-  const handleFileUpload = (event) => {
+  const handleFileUpload = (event,n) => {
     const selectedFiles = Array.from(event.target.files);
-    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+    if (n === 1){
+
+      setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+    }else if( n===2){
+      
+      setFiles2((prevFiles) => [...prevFiles, ...selectedFiles]);
+    }
+    handleChange(event)
   };
 
   // Funzione per rimuovere un file
-  const handleRemoveFile = (fileName) => {
-    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
-  };
+  const handleRemoveFile = (fileName,n) => {
+    if (n === 1){
 
-  // Funzione per gestire il caricamento dei file
-  const handleFileUpload2 = (event) => {
-    const selectedFiles = Array.from(event.target.files);
-    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+      setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+    }else if( n===2){
+      
+      setFiles2((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+    }
+    
   };
+ 
 
-  // Funzione per rimuovere un file
-  const handleRemoveFile2 = (fileName) => {
-    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
-  };
+
+
+  
 
   return (
     <>
@@ -192,7 +201,7 @@ const InfBase = ({
             key="logoAzienda"
             name="logoAzienda"
             value={inputs.logoAzienda}
-            onChange={handleFileUpload}
+            onChange={(e)=>handleFileUpload(e,1)}
             type="file"
             id="file"
             accept=".png,.jpg,.jpeg"
@@ -217,7 +226,7 @@ const InfBase = ({
                 </div>
                 <button
                   className="delete-btn"
-                  onClick={() => handleRemoveFile(file.name)}
+                  onClick={() => handleRemoveFile(file.name,1)}
                 >
                   &times;
                 </button>
@@ -304,7 +313,7 @@ const InfBase = ({
         <div class="file-upload">
           <input
             name="documentazione"
-            onChange={handleFileUpload2}
+            onChange={(e)=>handleFileUpload(e,2)}
             type="file"
             id="file2"
             multiple
@@ -320,7 +329,7 @@ const InfBase = ({
           </label>
           {/* Lista dei file caricati */}
           <div className="file-list">
-            {files.map((file, index) => (
+            {files2.map((file, index) => (
               <div key={index} className="file-item">
                 <div className="file-details">
                   <div className="file-name">{file.name}</div>
@@ -328,12 +337,12 @@ const InfBase = ({
                     {(file.size / 1024).toFixed(2)} KB
                   </div>
                 </div>
-                <button
+                {/* <button
                   className="delete-btn"
                   onClick={() => handleRemoveFile2(file.name)}
                 >
                   &times;
-                </button>
+                </button> */}
               </div>
             ))}
           </div>
@@ -378,15 +387,11 @@ const InfBase = ({
         />
       </div>
 
-      {(() => {
-        if (setState != null) {
-          return (
+      
             <div className="add-btn-box">
-              <a onClick={setState}>Save</a>
+              <a onClick={(e)=>setState(e,+1)}>Save</a>
             </div>
-          );
-        }
-      })()}
+        
     </>
   );
 };

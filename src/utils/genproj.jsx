@@ -57,18 +57,10 @@ async function contrattoprojectFactory(quota, giorniCampagna){
     }
   }
 
-  export async function bundlrAddFile(obj, contentType){ 
-    try{
-      const bundlrtx = await webIrys.upload(contentType.value === "application/json" ? JSON.stringify( obj ) : obj, [contentType]);
-      console.log(`Data uploaded ==> https://arweave.net/${bundlrtx.id}`);
-      return bundlrtx;
-    }
-    catch (e){
-      console.log(e, contentType);
-    }
-  }
+
   
   export async function contrattoProjectAddTier(inputs) {
+    //console.log("contratto project add tiers INPUTS:",inputs);
     const provider = getRecoil(providerState);
     const Contract = new ethers.Contract(inputs.address, abiProject, provider);
     const signer = provider.getSigner()
@@ -84,7 +76,7 @@ async function contrattoprojectFactory(quota, giorniCampagna){
       stream.push(buffer);
       stream.push(null);
 
-      const nftimgtx = await bundlrAddFile(stream, { name: "Content-Type", value: "image/"+imgObj.fileExtension });
+      const nftimgtx = await bundlrAdd(stream, { name: "Content-Type", value: "image/"+imgObj.fileExtension });
       const temp = {
         name: inputs["name"+i],
         description:  inputs["description"+i],
@@ -96,8 +88,10 @@ async function contrattoprojectFactory(quota, giorniCampagna){
         supply: parseInt( inputs["supply"+i])
       };
       objs.push(Object.assign({}, temp));
+
       const bundlrtx = await bundlrAdd(objs[i-1], { name: "Content-Type", value: "application/json" });
       await pWithSigner.addRewardTier(bundlrtx.id,  ethers.utils.parseUnits(inputs["price"+i].toString(), 18), parseInt( inputs["supply"+i]))
+     
       objs[objs.length-1].uri = bundlrtx.id;
       delete objs[objs.length-1].external_url;
       delete objs[objs.length-1].project;

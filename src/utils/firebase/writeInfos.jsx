@@ -44,71 +44,112 @@ async function pushChatSend(projectCreatorAddress, content) {
 }
 
 export async function addproj(inputs, t) {
-  const address = await getProvider();
-  //await init();
-  setRecoil(addressState, address);
-  !webIrys && await initialiseBundlr(getRecoil(providerState));
-  let domanda = [];
-  Object.keys(inputs).forEach(key => {
-    if (key.startsWith("domanda")) {
-      domanda.push(inputs[key]);
-      delete inputs[key];
-    }
-  });
-
-  inputs.domanda = domanda;
-
-  console.log("Adding project")
-  inputs.addressCreator = address
-  // let identity = await getIdentity(t, db)
-  // console.dir(identity)
-  //identity.linkedAccount = identity.address
-  await bundlrFund();
-  inputs.address = await genproj(inputs);
-  async function updateListFiles(listFiles, contentType) {
-    const updatedElements = await Promise.all(
-      listFiles.map(async (element) => {
-        if (element.buff) element = element.buff;
-        const { id } = await bundlrAdd(element, {
-          name: "Content-Type",
-          value: contentType
-        });
-        return id;
-      })
-    );
-    return updatedElements;
-  }
-
-  let inputKeys = [
-    { key: 'documentazioneListFiles', contentType: 'application/pdf' },
-    { key: 'fotoProdotto1ListFiles', contentType: 'image/' + inputs.fotoProdotto1ListFiles[0]?.fileExtension },
-    { key: 'logoAziendaListFiles', contentType: 'image/png' },
-  ];
-  inputs.fotoProdotto2ListFiles && inputKeys.push({ key: 'fotoProdotto2ListFiles', contentType: 'image/' + inputs.fotoProdotto2ListFiles[0].fileExtension });
-  inputs.fotoProdotto3ListFiles && inputKeys.push({ key: 'fotoProdotto3ListFiles', contentType: 'image/' + inputs.fotoProdotto3ListFiles[0].fileExtension });
-  inputs.fotoProdotto4ListFiles && inputKeys.push({ key: 'fotoProdotto4ListFiles', contentType: 'image/' + inputs.fotoProdotto4ListFiles[0].fileExtension });
-
-  for (const input of inputKeys) {
-    inputs[input.key] = await updateListFiles(inputs[input.key], input.contentType);
-  }
-  const inputsNoTiers = { ...inputs };
-  inputsNoTiers.imageNftDefListFiles = []
   try {
-    const tiers = await contrattoProjectAddTier(inputs);
-    inputsNoTiers.imageNftDefListFiles = tiers;
-    if (typeof inputsNoTiers.giorniCampagna === 'number') inputsNoTiers.giorniCampagna = inputsNoTiers.giorniCampagna.toString();
-    console.dir(inputsNoTiers);
+    const address = await getProvider();
+    setRecoil(addressState, address);
+    !webIrys && await initialiseBundlr(getRecoil(providerState));
 
-    const result = await writeData("projects",inputsNoTiers.address, inputsNoTiers) //db.set(inputsNoTiers, "projects", inputsNoTiers.address, identity);
+    let domanda = [];
+    Object.keys(inputs).forEach(key => {
+      if (key.startsWith("domanda")) {
+        domanda.push(inputs[key]);
+        delete inputs[key];
+      }
+    });
 
-    console.log(result);
+    inputs.domanda = domanda;
+    inputs.addressCreator = address;
+
+    console.log("Adding project");
+
+    try {
+      await bundlrFund();
+    } catch (err) {
+      console.error("Error funding Bundlr:", err);
+      throw new Error("Failed to fund Bundlr. Please check your balance or network status.");
+    }
+
+    try {
+      inputs.address = await genproj(inputs);
+    } catch (err) {
+      console.error("Error generating project:", err);
+      throw new Error("Failed to generate project. Please try again later.");
+    }
+
+    async function updateListFiles(listFiles, contentType) {
+      try {
+        const updatedElements = await Promise.all(
+          listFiles.map(async (element) => {
+            if (element.buff) element = element.buff;
+            const { id } = await bundlrAdd(element, {
+              name: "Content-Type",
+              value: contentType
+            });
+            return id;
+          })
+        );
+        return updatedElements;
+      } catch (err) {
+        console.error(`Error uploading files (${contentType}):`, err);
+        throw new Error(`Failed to upload ${contentType} files. Please check the files and try again.`);
+      }
+    }
+
+    let inputKeys = [
+      { key: 'documentazioneListFiles', contentType: 'application/pdf' },
+      { key: 'fotoProdotto1ListFiles', contentType: 'image/' + inputs.fotoProdotto1ListFiles[0]?.fileExtension },
+      { key: 'logoAziendaListFiles', contentType: 'image/png' },
+    ];
+
+    inputs.fotoProdotto2ListFiles && inputKeys.push({ key: 'fotoProdotto2ListFiles', contentType: 'image/' + inputs.fotoProdotto2ListFiles[0].fileExtension });
+    inputs.fotoProdotto3ListFiles && inputKeys.push({ key: 'fotoProdotto3ListFiles', contentType: 'image/' + inputs.fotoProdotto3ListFiles[0].fileExtension });
+    inputs.fotoProdotto4ListFiles && inputKeys.push({ key: 'fotoProdotto4ListFiles', contentType: 'image/' + inputs.fotoProdotto4ListFiles[0].fileExtension });
+
+    for (const input of inputKeys) {
+      try {
+        inputs[input.key] = await updateListFiles(inputs[input.key], input.contentType);
+      } catch (err) {
+        console.error(`Error processing files for key: ${input.key}`, err);
+        throw new Error(`Failed to process files for ${input.key}. Please verify the file type and try again.`);
+      }
+    }
+
+    const inputsNoTiers = { ...inputs };
+    inputsNoTiers.imageNftDefListFiles = [];
+
+    try {
+      const tiers = await contrattoProjectAddTier(inputs);
+      inputsNoTiers.imageNftDefListFiles = tiers;
+    } catch (err) {
+      console.error("Error adding project tiers:", err);
+      throw new Error("Failed to add project tiers. Please check your tiers configuration and try again.");
+    }
+
+    if (typeof inputsNoTiers.giorniCampagna === 'number') {
+      inputsNoTiers.giorniCampagna = inputsNoTiers.giorniCampagna.toString();
+    }
+
+    try {
+      const result = await writeData("projects", inputsNoTiers.address, inputsNoTiers);
+    } catch (err) {
+      console.error("Error writing project data to the database:", err);
+      throw new Error("Failed to save project data. Please try again later.");
+    }
+
+    
     await optInNotifications();
 
-    let projects = await downloadProjects(t);
-  } catch (e) {
-    console.log(e)
-  }
+    try {
+      let projects = await downloadProjects(t);
+    } catch (err) {
+      console.error("Error downloading projects:", err);
+      throw new Error("Failed to download projects. Please try again.");
+    }
 
+  } catch (e) {
+    console.error("An error occurred in addproj:", e);
+    throw new Error("Failed to add project. Please try again later.");
+  }
 }
 
 //modified to store favorites in local-db instead of writing it on remote db.

@@ -70,15 +70,15 @@ const Prodotto = (props) => {
           })()}
         </Tabs>
       </div>
-      {(() => {
-        if (props.setState != null) {
-          return (
-            <div className="add-btn-box">
-              <a onClick={props.setState}>Save</a>
+      
+            
+              <div className="add-btn-box">
+              <a onClick={(e)=>props.setState(e,-1)}>Back</a>
+              <a onClick={(e)=>props.setState(e,+1)}>Save</a>
             </div>
-          );
-        }
-      })()}
+            
+          
+      
     </>
   );
 };
@@ -86,16 +86,39 @@ const Prodotto = (props) => {
 const SchedaProdotto = (props) => {
   const { t, i18n } = useTranslation();
   const [files, setFiles] = useState([]);
+  const [files2, setFiles2] = useState([]);
+  const [files3, setFiles3] = useState([]);
 
-  // Funzione per gestire il caricamento dei file
-  const handleFileUpload = (event) => {
+  const handleFileUpload = (event,n) => {
     const selectedFiles = Array.from(event.target.files);
-    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+    if (n === 1){
+
+      setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+    }else if( n===2){
+      
+      setFiles2((prevFiles) => [...prevFiles, ...selectedFiles]);
+    }
+  else if( n===3){
+      
+    setFiles3((prevFiles) => [...prevFiles, ...selectedFiles]);
+  }
+  props.handleChange(event)
   };
 
   // Funzione per rimuovere un file
-  const handleRemoveFile = (fileName) => {
-    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+  const handleRemoveFile = (fileName,n) => {
+    if (n === 1){
+
+      setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+    }else if( n===2){
+      
+      setFiles2((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+    }
+    else if( n===3){
+      
+      setFiles3((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+    }
+    
   };
   return (
     <>
@@ -129,17 +152,17 @@ const SchedaProdotto = (props) => {
           placeholder="Type here"
         />
       </div>
-      {/* <div className="ins-input-box">
-        <h4>Supply </h4>
+      <div className="ins-input-box">
+        <h4>Price</h4>
         <input
           name={"price" + props.nProdotto}
           value={props.inputs["price" + props.nProdotto]}
           onChange={props.handleChange}
           type="number"
           onWheel={(e) => e.target.blur()}
-          placeholder="How many?"
+          placeholder="How much"
         />
-      </div> */}
+      </div>
       <div className="ins-input-box">
         <div>
           <h4>Supply</h4>
@@ -164,7 +187,7 @@ const SchedaProdotto = (props) => {
           <input
             name={"fotoProdotto" + props.nProdotto}
             value={props.inputs["fotoProdotto" + props.nProdotto]}
-            onChange={handleFileUpload}
+            onChange={(e)=>handleFileUpload(e,props.nProdotto)}
             type="file"
             id="file3"
             multiple
