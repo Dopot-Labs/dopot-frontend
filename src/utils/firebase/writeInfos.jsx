@@ -11,7 +11,7 @@ const abiFundingToken = require('../../abi/fundingToken/1.json');
 const abiDpt = require('../../abi/dpt/1.json');
 const { ethers } = require("ethers");
 import Web3 from 'web3'
-import { getData, openIndexedDB, writeData } from "./ipfs-db.jsx";
+import { getData, openIndexedDB, uploadFileToPinata, writeData } from "./ipfs-db.jsx";
 
 const pushChannelAddress = "0x63381e4b8fe26cb1f55cc38e8369990594e017b1";
 const env = "prod";
@@ -47,7 +47,7 @@ export async function addproj(inputs, t) {
   try {
     const address = await getProvider();
     setRecoil(addressState, address);
-    !webIrys && await initialiseBundlr(getRecoil(providerState));
+    //!webIrys && await initialiseBundlr(getRecoil(providerState));
 
     let domanda = [];
     Object.keys(inputs).forEach(key => {
@@ -62,12 +62,12 @@ export async function addproj(inputs, t) {
 
     console.log("Adding project");
 
-    try {
-      await bundlrFund();
-    } catch (err) {
-      console.error("Error funding Bundlr:", err);
-      throw new Error("Failed to fund Bundlr. Please check your balance or network status.");
-    }
+    // try {
+    //   await bundlrFund();
+    // } catch (err) {
+    //   console.error("Error funding Bundlr:", err);
+    //   throw new Error("Failed to fund Bundlr. Please check your balance or network status.");
+    // }
 
     try {
       inputs.address = await genproj(inputs);
@@ -76,18 +76,15 @@ export async function addproj(inputs, t) {
       throw new Error("Failed to generate project. Please try again later.");
     }
 
-    async function updateListFiles(listFiles, contentType) {
+    async function updateListFiles(listFiles) {
       try {
         const updatedElements = await Promise.all(
           listFiles.map(async (element) => {
-            if (element.buff) element = element.buff;
-            const { id } = await bundlrAdd(element, {
-              name: "Content-Type",
-              value: contentType
-            });
+            const { id } = await uploadFileToPinata(element)
             return id;
           })
         );
+        console.log(updatedElements)
         return updatedElements;
       } catch (err) {
         console.error(`Error uploading files (${contentType}):`, err);
@@ -96,18 +93,18 @@ export async function addproj(inputs, t) {
     }
 
     let inputKeys = [
-      { key: 'documentazioneListFiles', contentType: 'application/pdf' },
-      { key: 'fotoProdotto1ListFiles', contentType: 'image/' + inputs.fotoProdotto1ListFiles[0]?.fileExtension },
-      { key: 'logoAziendaListFiles', contentType: 'image/png' },
+      { key: 'documentazioneListFiles' },
+      { key: 'fotoProdotto1ListFiles'},
+      { key: 'logoAziendaListFiles'},
     ];
 
-    inputs.fotoProdotto2ListFiles && inputKeys.push({ key: 'fotoProdotto2ListFiles', contentType: 'image/' + inputs.fotoProdotto2ListFiles[0].fileExtension });
-    inputs.fotoProdotto3ListFiles && inputKeys.push({ key: 'fotoProdotto3ListFiles', contentType: 'image/' + inputs.fotoProdotto3ListFiles[0].fileExtension });
-    inputs.fotoProdotto4ListFiles && inputKeys.push({ key: 'fotoProdotto4ListFiles', contentType: 'image/' + inputs.fotoProdotto4ListFiles[0].fileExtension });
+    inputs.fotoProdotto2ListFiles && inputKeys.push({ key: 'fotoProdotto2ListFiles'});
+    inputs.fotoProdotto3ListFiles && inputKeys.push({ key: 'fotoProdotto3ListFiles'});
+    inputs.fotoProdotto4ListFiles && inputKeys.push({ key: 'fotoProdotto4ListFiles'});
 
     for (const input of inputKeys) {
       try {
-        inputs[input.key] = await updateListFiles(inputs[input.key], input.contentType);
+        inputs[input.key] = await updateListFiles(inputs[input.key]);
       } catch (err) {
         console.error(`Error processing files for key: ${input.key}`, err);
         throw new Error(`Failed to process files for ${input.key}. Please verify the file type and try again.`);

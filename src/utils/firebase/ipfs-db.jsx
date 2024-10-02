@@ -56,6 +56,32 @@ async function getFromCache(cid) {
     return null;
 }
 
+
+
+async function getFileFromCache(cid) {
+    const db = await openIndexedDB();
+    const transaction = db.transaction(["cache"], "readonly");
+    const store = transaction.objectStore("cache");
+
+    // Wrap the get request in a promise to handle the asynchronous nature
+    const cachedData = await new Promise((resolve, reject) => {
+        const request = store.get(cid);
+        request.onsuccess = () => {
+            resolve(request.result);
+        };
+        request.onerror = () => {
+            reject(request.error);
+        };
+    });
+
+    if (cachedData) {
+        return cachedData.data; 
+    }
+
+    // Return null if cache is invalid or expired
+    return null;
+}
+
 // Open the IndexedDB
 export async function openIndexedDB() {
     return new Promise((resolve, reject) => {
@@ -83,8 +109,44 @@ async function fetchFromIPFS(cid) {
     return await response.json();
 }
 
-// Save JSON data to IndexedDB cache
-async function saveToCache(cid, jsonData) {
+// Fetch binary data (image/document) from IPFS
+async function fetchBinaryFromIPFS(cid) {
+    const response = await fetch(`https://${process.env.NEXT_PUBLIC_PINATA_GATEWAY}/ipfs/${cid}?pinataGatewayToken=${process.env.NEXT_PUBLIC_PINATA_GATEWAY_TOKEN}`);
+    
+    if (!response.ok) {
+        throw new Error('Failed to fetch file from IPFS');
+    }
+
+    return await response.blob(); // Return the file as a Blob
+}
+
+// Main function to get image or document
+export async function getFileFromIPFS(cid) {
+    try {
+        // Step 1: Check if the file is cached
+        const cachedFile = await getFileFromCache(cid);
+        if (cachedFile) {
+            console.log('Returning file from cache');
+            return cachedFile; // Return cached file as Blob
+        }
+
+        // Step 2: If not cached, fetch from IPFS
+        const fileBlob = await fetchBinaryFromIPFS(cid);
+
+        // Step 3: Save the fetched file to cache
+        await saveToCache(cid, fileBlob);
+
+        console.log('Returning fresh file from IPFS');
+        return fileBlob; // Return the fresh file
+    } catch (error) {
+        console.error("Error fetching file: ", error);
+        throw error;
+    }
+}
+
+
+// Save data to IndexedDB cache
+async function saveToCache(cid, data) {
     const db = await openIndexedDB();
     const transaction = db.transaction(["cache"], "readwrite");
     const store = transaction.objectStore("cache");
@@ -92,18 +154,100 @@ async function saveToCache(cid, jsonData) {
     // Create a cache entry with the current timestamp
     const cacheEntry = {
         cid: cid,
-        data: jsonData,
+        data: data,
         timestamp: Date.now() // Store the current time
     };
 
     store.put(cacheEntry, cid); // Store data by CID
 }
 
-async function uploadJsonToPinata(jsonData) {
+// File size limits (example: 5MB for JSON, 2MB for images, etc.)
+const FILE_SIZE_LIMITS = {
+    json: 5 * 1024 * 1024, // 5 MB for JSON
+    image: 2 * 1024 * 1024, // 2 MB for images
+    default: 5 * 1024 * 1024 // 5 MB for other files
+};
+
+// Helper function to check file size
+function checkFileSize(file, fileType) {
+    const sizeLimit = FILE_SIZE_LIMITS[fileType] || FILE_SIZE_LIMITS.default;
+    if (file.size > sizeLimit) {
+        throw new Error(`File size exceeds the ${sizeLimit / 1024 / 1024} MB limit for ${fileType} files`);
+    }
+}
+
+// Helper function to compress images (reduces file size)
+async function compressImage(file) {
+    const img = document.createElement('img');
+    const canvas = document.createElement('canvas');
+    const reader = new FileReader();
+
+    return new Promise((resolve, reject) => {
+        reader.onload = (event) => {
+            img.src = event.target.result;
+            img.onload = () => {
+                const MAX_WIDTH = 800;
+                const MAX_HEIGHT = 800;
+
+                let width = img.width;
+                let height = img.height;
+
+                // Resize the image to fit within the maximum dimensions
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+
+                // Set canvas dimensions
+                canvas.width = width;
+                canvas.height = height;
+
+                // Draw the image onto the canvas
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // Convert the canvas to a Blob (compressed image)
+                canvas.toBlob((blob) => {
+                    resolve(blob);
+                }, file.type, 0.7); // 0.7 is the compression quality
+            };
+        };
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(file);
+    });
+}
+
+// Main function to handle file upload
+export async function uploadFileToPinata(file) {
     const formData = new FormData();
-    // Convert JSON data into a blob to upload via Pinata
-    const blob = new Blob([JSON.stringify(jsonData)], { type: "application/json" });
-    formData.append("file", blob);
+    let fileType = '';
+
+    // Determine the file type
+    if (file instanceof Blob && file.type === 'application/json') {
+        fileType = 'json';
+    } else if (file.type.startsWith('image/')) {
+        fileType = 'image';
+    } else {
+        fileType = 'other'; // Handle other file types like documents
+    }
+
+    // Check the file size
+    checkFileSize(file, fileType);
+
+    // Compress images if needed
+    if (fileType === 'image') {
+        file = await compressImage(file); // Compress the image before upload
+    }
+
+    // Append the file to FormData
+    formData.append("file", file);
 
     // Upload to Pinata
     const resFile = await fetch("https://api.pinata.cloud/pinning/pinFileToIPFS", {
@@ -116,13 +260,15 @@ async function uploadJsonToPinata(jsonData) {
     });
 
     if (!resFile.ok) {
-        throw new Error('Failed to upload JSON to IPFS via Pinata');
+        throw new Error('Failed to upload file to IPFS via Pinata');
     }
 
     const data = await resFile.json();
     // Return the IPFS hash (CID) of the uploaded file
     return data.IpfsHash;
 }
+
+
 async function updateCidInFirestore(type, id, newCid) {
     try {
         // Use the modular syntax to get the document reference
@@ -167,6 +313,18 @@ async function unpinOldCidFromPinata(oldCid) {
     console.log(`Successfully unpinned CID: ${oldCid}`);
 }
 
+async function createNewDocInFirestore(type, id, newCid) {
+    try {
+        const docRef = doc(collection(db, 'dopot', 'main', type), id);
+        await setDoc(docRef, { ipfs: newCid }); // Create new document with CID
+        console.log('Document created successfully');
+    } catch (error) {
+        console.error("Error creating new document in Firestore: ", error);
+        throw error;
+    }
+}
+
+
 // Get JSON data from Firestore, Cache, or IPFS
 export async function getData(type, id) {
     try {
@@ -196,20 +354,11 @@ export async function getData(type, id) {
             console.error("Error fetching data: ", error);
             throw error; // Handle the error
         }
-       
+
     }
 }
 
-async function createNewDocInFirestore(type, id, newCid) {
-    try {
-        const docRef = doc(collection(db, 'dopot', 'main', type), id);
-        await setDoc(docRef, { ipfs: newCid }); // Create new document with CID
-        console.log('Document created successfully');
-    } catch (error) {
-        console.error("Error creating new document in Firestore: ", error);
-        throw error;
-    }
-}
+
 
 
 export async function writeData(type, id, jsonData) {
@@ -230,7 +379,8 @@ export async function writeData(type, id, jsonData) {
         }
 
         // Step 2: Upload the JSON file to IPFS via Pinata
-        const newCid = await uploadJsonToPinata(jsonData);
+        const blob = new Blob([JSON.stringify(jsonData)], { type: "application/json" });
+        const newCid = await uploadFileToPinata(blob);
 
         if (isExistingDoc) {
             // Step 3a: If the document exists, update the CID in Firestore
@@ -286,7 +436,7 @@ export async function getAllProjects(dopotReward) {
         const db = await openIndexedDB(); // Open IndexedDB
         const transaction = db.transaction(['cache'], 'readonly');
         const store = transaction.objectStore('cache');
-      
+
 
 
         // Wrap the get request in a promise to handle the asynchronous nature

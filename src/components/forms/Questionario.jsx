@@ -112,10 +112,15 @@ const Questionario = (props) => {
 
       
 
-      <div className="add-btn-box">
-              <a onClick={(e)=>props.setState(e,-1)}>Back</a>
+      {(() => {
+        if (props.setState != null) {
+          return (
+            <div className="add-btn-box">
               <a onClick={(e)=>props.setState(e,+1)}>Save</a>
             </div>
+          );
+        }
+      })()}
       
     </>
   );

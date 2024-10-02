@@ -1,6 +1,6 @@
 ""
 import { getRecoil, setRecoil } from 'recoil-nexus';
-import { addressState, progettiState, blockHeightState, providerState } from '../../recoilState.js';
+import { addressState, providerState } from '../../recoilState.js';
 import { db, getIdentity, init } from './firebaseInit.jsx';
 import addressProjectFactory from '../../abi/projectFactory/address.js';
 import addressFundingToken from '../../abi/fundingToken/address.js';
@@ -14,8 +14,8 @@ const abiProjectFactory = require('../../abi/projectFactory/1.json');
 const abiFundingToken = require('../../abi/fundingToken/1.json');
 const abiDopotReward = require('../../abi/dopotReward/1.json');
 let investorsLenght;
-const chainId = /*'0x7a69'*/ '0xa4b1'
-const jsonRPC = /*"http://192.168.1.63:8545"*/ "https://arb1.arbitrum.io/rpc"
+const chainId = '0x7a69' //'0xa4b1'
+const jsonRPC = "http://192.168.1.63:8545" //"https://arb1.arbitrum.io/rpc"
 
 export async function getProvider() {
     if (!window.ethereum) return;

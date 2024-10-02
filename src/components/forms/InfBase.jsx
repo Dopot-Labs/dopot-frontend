@@ -196,7 +196,7 @@ const InfBase = ({
           <h3>This will be displayed on your profile.</h3>
         </div>
 
-        <div class="file-upload">
+        <div className="file-upload">
           <input
             key="logoAzienda"
             name="logoAzienda"
@@ -205,10 +205,10 @@ const InfBase = ({
             type="file"
             id="file"
             accept=".png,.jpg,.jpeg"
-            class="file-input"
+            className="file-input"
           />
-          <label for="file">
-            <div style={{ width: "100%" }} class="upload-icon">
+          <label htmlFor="file">
+            <div style={{ width: "100%" }} className="upload-icon">
               <img src="/assets/img/logo-upload.svg" alt="Upload Icon" />
             </div>
             <p>Click to upload</p>
@@ -269,7 +269,7 @@ const InfBase = ({
         />
       </div>
       <div className="ins-input-box ">
-        <h4>Social Media hnadles</h4>
+        <h4>Social Media handles</h4>
         <div className="box-link-cont">
           <div className="container-plus">
             <input
@@ -310,7 +310,7 @@ const InfBase = ({
           <h3>(pitch, business plan, relationships with partners)</h3>
         </div>
 
-        <div class="file-upload">
+        <div className="file-upload">
           <input
             name="documentazione"
             onChange={(e)=>handleFileUpload(e,2)}
@@ -318,10 +318,10 @@ const InfBase = ({
             id="file2"
             multiple
             accept=".pdf"
-            class="file-input"
+            className="file-input"
           />
-          <label for="file2">
-            <div style={{ width: "100%" }} class="upload-icon">
+          <label htmlFor="file2">
+            <div style={{ width: "100%" }} className="upload-icon">
               <img src="/assets/img/logo-upload.svg" alt="Upload Icon" />
             </div>
             <p>Click to upload</p>
@@ -386,11 +386,17 @@ const InfBase = ({
           placeholder="Type here"
         />
       </div>
-
-      
+      {(() => {
+        if (setState != null) {
+          return (
             <div className="add-btn-box">
               <a onClick={(e)=>setState(e,+1)}>Save</a>
             </div>
+          );
+        }
+      })()}
+      
+            
         
     </>
   );

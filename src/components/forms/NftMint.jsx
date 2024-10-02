@@ -30,7 +30,7 @@ const NftMint = (props) => {
 
       setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
    
-  props.handleChangeNft(event,props.nProdotto-1)
+  props.handleChange(event,props.nProdotto-1)
   };
 
   // Funzione per rimuovere un file

@@ -64,25 +64,13 @@ const InsProgetto = () => {
       const selectedFiles = [...e.target.files];
       const propName = name + "ListFiles";
       console.log(selectedFiles);
-      selectedFiles.forEach((file, i) => {
-        const fileExtension = getFileExtension(file.name);
-        const reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        reader.onload = () => {
-          const buff = Buffer.from(reader.result);
+     
           setInputs((prevState) => ({
             ...prevState,
-            [propName]: [
-              ...prevState[propName],
-              fileExtension ? { buff, fileExtension } : buff,
-            ],
+            [propName]: selectedFiles
+            
           }));
-          //console.log(inputs);
-        };
-        reader.onerror = () => {
-          console.log("Error reading file!");
-        };
-      });
+     
     } else {
       setInputs((values) => ({ ...values, [name]: value }));
       //console.log(inputs);
@@ -126,6 +114,7 @@ const InsProgetto = () => {
   };
 
   const handleSubmit = async (event) => {
+    
       console.log("SUBMITTING:",inputs)
       event.preventDefault();
       try {
@@ -154,9 +143,9 @@ const InsProgetto = () => {
         );
         return step;
       case 1:
-        // step[0] = (
-        //   <InfBase inputs={inputs} handleChange={handleChange}></InfBase>
-        // );
+        step[0] = (
+          <InfBase inputs={inputs} handleChange={handleChange}></InfBase>
+        );
         step[1] = (
           <Questionario
             inputs={inputs}
@@ -167,15 +156,15 @@ const InsProgetto = () => {
         return step;
 
       case 2:
-        // step[0] = (
-        //   <InfBase inputs={inputs} handleChange={handleChange}></InfBase>
-        // );
-        // step[1] = (
-        //   <Questionario
-        //     inputs={inputs}
-        //     handleChange={handleChange}
-        //   ></Questionario>
-        // );
+        step[0] = (
+          <InfBase inputs={inputs} handleChange={handleChange}></InfBase>
+        );
+        step[1] = (
+          <Questionario
+            inputs={inputs}
+            handleChange={handleChange}
+          ></Questionario>
+        );
         step[2] = (
           <Progetto
             inputs={inputs}
@@ -187,22 +176,22 @@ const InsProgetto = () => {
         return step;
 
       case 3:
-        // step[0] = (
-        //   <InfBase inputs={inputs} handleChange={handleChange}></InfBase>
-        // );
-        // step[1] = (
-        //   <Questionario
-        //     inputs={inputs}
-        //     handleChange={handleChange}
-        //   ></Questionario>
-        // );
-        // step[2] = (
-        //   <Progetto
-        //     inputs={inputs}
-        //     handleChange={handleChange}
-        //     handleChangeArray={handleChangeArray}
-        //   ></Progetto>
-        // );
+        step[0] = (
+          <InfBase inputs={inputs} handleChange={handleChange}></InfBase>
+        );
+        step[1] = (
+          <Questionario
+            inputs={inputs}
+            handleChange={handleChange}
+          ></Questionario>
+        );
+        step[2] = (
+          <Progetto
+            inputs={inputs}
+            handleChange={handleChange}
+            handleChangeArray={handleChangeArray}
+          ></Progetto>
+        );
         step[3] = (
           <Prodotto
             inputs={inputs}
@@ -214,35 +203,36 @@ const InsProgetto = () => {
         return step;
 
       case 4:
-        // step[0] = (
-        //   <InfBase inputs={inputs} handleChange={handleChange}></InfBase>
-        // );
-        // step[1] = (
-        //   <Questionario
-        //     inputs={inputs}
-        //     handleChange={handleChange}
-        //   ></Questionario>
-        // );
-        // step[2] = (
-        //   <Progetto
-        //     inputs={inputs}
-        //     handleChange={handleChange}
-        //     handleChangeArray={handleChangeArray}
-        //   ></Progetto>
-        // );
-        // step[3] = (
-        //   <Prodotto
-        //     inputs={inputs}
-        //     handleChange={handleChange}
-        //     handleChangeNft={handleChangeNft}
-        //   ></Prodotto>
-        // );
+        step[0] = (
+          <InfBase inputs={inputs} handleChange={handleChange}></InfBase>
+        );
+        step[1] = (
+          <Questionario
+            inputs={inputs}
+            handleChange={handleChange}
+          ></Questionario>
+        );
+        step[2] = (
+          <Progetto
+            inputs={inputs}
+            handleChange={handleChange}
+            handleChangeArray={handleChangeArray}
+          ></Progetto>
+        );
+        step[3] = (
+          <Prodotto
+            inputs={inputs}
+            handleChange={handleChange}
+            handleChangeNft={handleChangeNft}
+          ></Prodotto>
+        );
         step[4] = (
           <Faq
             inputs={inputs}
             handleChange={handleChange}
             handleChangeArray={handleChangeArray}
             setState={incrementStep}
+            handleSubmit={handleSubmit}
           ></Faq>
         );
 
@@ -366,7 +356,7 @@ e.preventDefault()
                 <h2>Create campaign</h2>
               </div>
               {renderCurrentSelectionHeader()}
-              <form  onSubmit={handleSubmit}>
+              <form  >
                 {renderCurrentSelection()}
               </form>
             </div>

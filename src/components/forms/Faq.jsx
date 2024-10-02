@@ -98,20 +98,20 @@ const Faq = (props) => {
           );
         }
       })()} */}
-<div className="add-btn-box">
+{/* <div className="add-btn-box">
               <a onClick={(e)=>props.setState(e,-1)}>Back</a>
               
-            </div>
+            </div> */}
 
       <div className="proceed-btn-box">
     
              
         <p>Min ~0.00037eth = 50MB</p>
-        <input
-          className="grd-btn dopot-btn-lg"
-          type="submit"
-          value={"Submit"}
-        />
+        <div
+          className="add-btn-box"
+          
+          
+        ><a onClick={props.handleSubmit}>Submit</a></div>
       </div>
     </>
   );

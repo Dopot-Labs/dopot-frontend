@@ -70,12 +70,17 @@ const Prodotto = (props) => {
           })()}
         </Tabs>
       </div>
-      
-            
-              <div className="add-btn-box">
-              <a onClick={(e)=>props.setState(e,-1)}>Back</a>
+      {(() => {
+        if (props.setState != null) {
+          return (
+            <div className="add-btn-box">
               <a onClick={(e)=>props.setState(e,+1)}>Save</a>
             </div>
+          );
+        }
+      })()}
+            
+              
             
           
       
@@ -227,6 +232,7 @@ const SchedaProdotto = (props) => {
           nProdotto={props.nProdotto}
           inputs={props.inputs}
           handleChangeNft={props.handleChangeNft}
+          handleChange={props.handleChange}
         ></NftMint>
       }
     </>
