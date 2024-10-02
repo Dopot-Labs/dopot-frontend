@@ -80,7 +80,7 @@ export async function addproj(inputs, t) {
       try {
         const updatedElements = await Promise.all(
           listFiles.map(async (element) => {
-            const { id } = await uploadFileToPinata(element)
+            const  id  = await uploadFileToPinata(element)
             return id;
           })
         );

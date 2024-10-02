@@ -71,7 +71,7 @@ const Favourites = () => {
     }
 
     fetchData();
-  }, []);
+  }, [address, t]);
 
 
 

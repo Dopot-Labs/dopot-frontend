@@ -14,6 +14,7 @@ import {
   refundNft,
 } from "../../utils/firebase/writeInfos";
 import Link from "next/link";
+import { getFileFromIPFS } from "@/utils/firebase/ipfs-db";
 
 
 const Profile = () => {
@@ -26,7 +27,6 @@ const Profile = () => {
   
 
   useEffect(() => {
-    let isMounted = true; // Flag to check if the component is mounted
 
     async function fetchData() {
       let tempCard = [];
@@ -40,19 +40,12 @@ const Profile = () => {
             if (tiers.hasOwnProperty(tokenId)) {
               try {
                 let obj = await getNftImage(tokenId);
-                const response = await fetch(
-                  obj.image.replace("ar://", "https://arweave.net/")
-                );
-                const data = await response.blob();
-                let reader = new FileReader();
-                reader.readAsDataURL(data);
-                reader.onloadend = function () {
-                  if (isMounted) {
-                    let base64data = reader.result;
+                const response = await getFileFromIPFS(obj.image)
+                const imageUrl = URL.createObjectURL(response);
                     tempCard.push({
                       tokenId,
                       addressCreator: project.addressCreator,
-                      image: base64data,
+                      image: imageUrl,
                       project: project.address,
                       addressDopotReward: obj.addressDopotReward,
                       title: project.imageNftDefListFiles[tokenId]?.name,
@@ -63,8 +56,8 @@ const Profile = () => {
                         self.findIndex((t) => t.address === item.address)
                     );
                     setinvestedCard([...uniqueInvestedCard]); // Assuming setinvestedCard is a state updater function
-                  }
-                };
+                  
+              
               } catch (error) {
                 console.error("Error fetching data:", error);
                 // Handle error as needed

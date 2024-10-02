@@ -55,7 +55,7 @@ const Prodotto = (props) => {
             const tabPanels = [];
             for (let i = 0; i < 3; i++) {
               tabPanels.push(
-                <TabPanel key={i} index={i} keepMounted>
+                <TabPanel key={"pannel" + i} index={i} keepMounted>
                   <SchedaProdotto
                     nProdotto={i + 1}
                     inputs={props.inputs}
@@ -74,16 +74,16 @@ const Prodotto = (props) => {
         if (props.setState != null) {
           return (
             <div className="add-btn-box">
-              <a onClick={(e)=>props.setState(e,+1)}>Save</a>
+              <a onClick={(e) => props.setState(e, +1)}>Save</a>
             </div>
           );
         }
       })()}
-            
-              
-            
-          
-      
+
+
+
+
+
     </>
   );
 };
@@ -94,36 +94,36 @@ const SchedaProdotto = (props) => {
   const [files2, setFiles2] = useState([]);
   const [files3, setFiles3] = useState([]);
 
-  const handleFileUpload = (event,n) => {
+  const handleFileUpload = (event, n) => {
     const selectedFiles = Array.from(event.target.files);
-    if (n === 1){
+    if (n === 1) {
 
       setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
-    }else if( n===2){
-      
+    } else if (n === 2) {
+
       setFiles2((prevFiles) => [...prevFiles, ...selectedFiles]);
     }
-  else if( n===3){
-      
-    setFiles3((prevFiles) => [...prevFiles, ...selectedFiles]);
-  }
-  props.handleChange(event)
+    else if (n === 3) {
+
+      setFiles3((prevFiles) => [...prevFiles, ...selectedFiles]);
+    }
+    props.handleChange(event)
   };
 
   // Funzione per rimuovere un file
-  const handleRemoveFile = (fileName,n) => {
-    if (n === 1){
+  const handleRemoveFile = (fileName, n) => {
+    if (n === 1) {
 
       setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
-    }else if( n===2){
-      
+    } else if (n === 2) {
+
       setFiles2((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
     }
-    else if( n===3){
-      
+    else if (n === 3) {
+
       setFiles3((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
     }
-    
+
   };
   return (
     <>
@@ -188,43 +188,95 @@ const SchedaProdotto = (props) => {
           <h4>Product photo</h4>
           <h3>This will be displayed on main page.</h3>
         </div>
-        <div class="file-upload">
+        <div className="file-upload">
           <input
             name={"fotoProdotto" + props.nProdotto}
             value={props.inputs["fotoProdotto" + props.nProdotto]}
-            onChange={(e)=>handleFileUpload(e,props.nProdotto)}
+            onChange={(e) => handleFileUpload(e, props.nProdotto)}
             type="file"
             id="file3"
             multiple
             accept=".png,.jpg,.jpeg"
-            class="file-input"
+            className="file-input"
           />
-          <label for="file3">
-            <div style={{ width: "100%" }} class="upload-icon">
+          <label htmlFor="file3">
+            <div style={{ width: "100%" }} className="upload-icon">
               <img src="/assets/img/logo-upload.svg" alt="Upload Icon" />
             </div>
             <p>Click to upload</p>
             <span>SVG, PNG, JPG or GIF (max. 800x400px)</span>
           </label>
           {/* Lista dei file caricati */}
-          <div className="file-list">
-            {files.map((file, index) => (
-              <div key={index} className="file-item">
-                <div className="file-details">
-                  <div className="file-name">{file.name}</div>
-                  <div className="file-size">
-                    {(file.size / 1024).toFixed(2)} KB
+          {props.nProdotto === 1 &&
+            <div className="file-list">
+              {files.map((file, index) => (
+                <div key={index} className="file-item">
+                  <div className="file-details">
+                    <div className="file-name">{file.name}</div>
+                    <div className="file-size">
+                      {(file.size / 1024).toFixed(2)} KB
+                    </div>
                   </div>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleRemoveFile(file.name)}
+                  >
+                    &times;
+                  </button>
+
+
                 </div>
-                <button
-                  className="delete-btn"
-                  onClick={() => handleRemoveFile(file.name)}
-                >
-                  &times;
-                </button>
-              </div>
-            ))}
-          </div>
+
+              ))}
+            </div>
+          }
+          {props.nProdotto === 2 &&
+            <div className="file-list">
+              {files2.map((file, index) => (
+                <div key={index} className="file-item">
+                  <div className="file-details">
+                    <div className="file-name">{file.name}</div>
+                    <div className="file-size">
+                      {(file.size / 1024).toFixed(2)} KB
+                    </div>
+                  </div>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleRemoveFile(file.name)}
+                  >
+                    &times;
+                  </button>
+
+
+                </div>
+
+              ))}
+            </div>
+          }
+
+          {props.nProdotto === 3 &&
+            <div className="file-list">
+              {files3.map((file, index) => (
+                <div key={index} className="file-item">
+                  <div className="file-details">
+                    <div className="file-name">{file.name}</div>
+                    <div className="file-size">
+                      {(file.size / 1024).toFixed(2)} KB
+                    </div>
+                  </div>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleRemoveFile(file.name)}
+                  >
+                    &times;
+                  </button>
+
+
+                </div>
+
+              ))}
+            </div>
+          }
         </div>
       </div>
       {

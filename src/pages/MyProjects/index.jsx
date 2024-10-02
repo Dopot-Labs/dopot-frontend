@@ -5,7 +5,6 @@ import { getRecoil } from "recoil-nexus";
 import Header from "../../components/Header.jsx";
 import {
   addressState,
-  progettiState,
   progettiImageState,
 } from "../../recoilState.js";
 import { withdraw } from "../../utils/firebase/writeInfos.jsx";
@@ -14,17 +13,19 @@ import { useTranslation } from "../../i18n/client.js";
 import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
 import Image from "next/image";
+import { downloadProjects } from "@/utils/firebase/retriveInfo.jsx";
 
 const Profile = () => {
   const { t } = useTranslation();
   const [projectsCard, setProjectsCard] = useState([]);
   const address = getRecoil(addressState);
-  let projects = getRecoil(progettiState);
+  
 
   useEffect(() => {
     // Update the document title using the browser API
     async function fetchData() {
       let myProjects = [];
+      const projects = await downloadProjects();
       projects
         .filter((p) => p.addressCreator === address)
         .forEach((project) => {
@@ -58,12 +59,13 @@ const Profile = () => {
     }
 
     fetchData();
-  }, [address, projects, t]);
+  }, [address, t]);
 
   useEffect(() => {
     // Update the document title using the browser API
     async function fetchData() {
       let myProjects = [];
+      const projects = await downloadProjects();
       projects
         .filter((p) => p.addressCreator === address)
         .forEach((project) => {
@@ -84,7 +86,7 @@ const Profile = () => {
       setProjectsCard(myProjects);
     }
     fetchData();
-  }, [address, projects]);
+  }, [address]);
 
   return (
     <div className="app">

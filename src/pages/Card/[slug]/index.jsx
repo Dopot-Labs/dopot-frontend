@@ -23,9 +23,11 @@ import {
   retriveFavorites,
   RetriveProjectTypes,
   retriveProjectStakes,
+  getNftImage,
 } from "../../../utils/firebase/retriveInfo";
 
 import { useTranslation } from "../../../i18n/client";
+import { getFileFromIPFS } from "@/utils/firebase/ipfs-db";
 const PaginaCard = () => {
   const { t } = useTranslation();
   const [toggleHeart, setToggleHeart] = useState(false);
@@ -41,6 +43,24 @@ const PaginaCard = () => {
   const [progetto, setProgetto] = useState({ logoAziendaListFiles: [] });
   const [base64Data, setBase64Data] = useState([]);
   const [cards, setCards] = useState([]);
+
+  const [imageSrc, setImageSrc] = useState(null);
+
+  useEffect(() => {
+    async function fetchImage() {
+      try {
+        const fileBlob = await getFileFromIPFS(progetto.logoAziendaListFiles[0]);
+     
+        // Convert Blob to a URL that can be used as an image source
+        const imageUrl = URL.createObjectURL(fileBlob);
+        setImageSrc(imageUrl);
+      } catch (error) {
+        console.error('Error fetching image from IPFS:', error);
+      }
+    }
+
+    fetchImage();
+  }, [progetto.logoAziendaListFiles]);
 
   useEffect(() => {
     const fetchBase64Data = async () => {
@@ -59,11 +79,9 @@ const PaginaCard = () => {
         const base64DataArray = [];
         if (fetchedProgetto.imageNftDefListFiles) {
           for (const tier of fetchedProgetto.imageNftDefListFiles) {
-            const response = await fetch(
-              tier["image"].replace("ar://", "https://arweave.net/")
-            );
-            const data = await response.blob();
-            base64DataArray.push(data);
+            const response = await getFileFromIPFS(tier["image"])
+            const imageUrl = URL.createObjectURL(response);
+            base64DataArray.push(imageUrl);
           }
         }
         setBase64Data(base64DataArray);
@@ -128,7 +146,7 @@ const PaginaCard = () => {
                 <div
                   className="logo-card-ins"
                   style={{
-                    backgroundImage: `url(https://arweave.net/${progetto.logoAziendaListFiles[0]})`,
+                    backgroundImage: imageSrc ? `url(${imageSrc})` : 'none',
                   }}
                 ></div>
               </div>

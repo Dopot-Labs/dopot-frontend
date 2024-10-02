@@ -24,19 +24,19 @@ const InvestiCard = (props) => {
     }
   }
   const [imageSrc, setImageSrc] = useState(null);
-  const binaryString = img;
+  // const binaryString = img;
 
-  useEffect(() => {
-    if (!binaryString) {
-      return;
-    }
-    var reader = new FileReader();
-    reader.readAsDataURL(binaryString);
-    reader.onloadend = function () {
-      var base64data = reader.result;
-      setImageSrc(base64data);
-    };
-  }, [binaryString]);
+  // useEffect(() => {
+  //   if (!binaryString) {
+  //     return;
+  //   }
+  //   var reader = new FileReader();
+  //   reader.readAsDataURL(binaryString);
+  //   reader.onloadend = function () {
+  //     var base64data = reader.result;
+  //     setImageSrc(base64data);
+  //   };
+  // }, [binaryString]);
 
   return (
     <div className="investi-card">
@@ -54,7 +54,7 @@ const InvestiCard = (props) => {
               <p className="">{spec}</p>
             </div>
             <div
-              style={{ backgroundImage: `url(${imageSrc})` }}
+              style={{ backgroundImage: `url(${img})` }}
               className="bg-img-main-invest"
             ></div>
           </div>
@@ -82,7 +82,7 @@ const InvestiCard = (props) => {
 
       <div className="content-invest">
         <div className="content-invest-box">
-          <img src={imageSrc} alt="BlogImg" />
+          <img src={img} alt="BlogImg" />
           <div className="text-invest">
             <h3 className="">Invest</h3>
             <p className="">{spec}</p>

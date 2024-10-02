@@ -7,7 +7,7 @@ import addressFundingToken from '../../abi/fundingToken/address.js';
 import addressDopotReward from '../../abi/dopotReward/address.js';
 import { useTranslation } from "../../i18n/client.js";
 import Web3 from 'web3'
-import { getAllProjects, openIndexedDB, getData } from './ipfs-db.jsx';
+import { getAllProjects, openIndexedDB, getData, getFileFromIPFS } from './ipfs-db.jsx';
 const { ethers, Contract } = require("ethers");
 const abiProject = require('../../abi/project/1.json');
 const abiProjectFactory = require('../../abi/projectFactory/1.json');
@@ -198,7 +198,7 @@ export async function getNftImage(tokenId) {
     const provider = await getRecoil(providerState)
     const dopotReward = new Contract(addressDopotReward, abiDopotReward, provider);
     const result = await dopotReward.uri(tokenId);
-    const response = await fetch(result.replace("ar://", "https://arweave.net/"));
+    const response = await  getFileFromIPFS(result)//fetch(result.replace("ar://", "https://arweave.net/"));
     const data = await response.json();
     return { image: data.image, addressDopotReward };
 }

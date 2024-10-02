@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useTranslation } from "../i18n/client";
+import { getFileFromIPFS } from "@/utils/firebase/ipfs-db";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const TabDocumenti = (props) => {
@@ -24,22 +25,28 @@ const TabDocumenti = (props) => {
 
   useEffect(() => {
     const fetchPdfs = async () => {
-      const blobs = await Promise.all(
-        documentazioneListFiles.map(async (data) => {
-          const url = `https://arweave.net/${data}`;
-          const response = await fetch(url);
-          if (response.ok) {
-            return URL.createObjectURL(await response.blob());
-          } else {
-            return null;
-          }
-        })
-      );
-      setPdfBlobs(blobs);
+      try{
+
+        const blobs = await Promise.all(
+          documentazioneListFiles.map(async (data) => {
+        
+            const response = await  getFileFromIPFS(data);
+            
+            return URL.createObjectURL(response);
+            
+          })
+        );
+        setPdfBlobs(blobs);
+      } catch (error) {
+        console.error('Error fetching files from IPFS:', error);
+      }
     };
 
     fetchPdfs();
   }, [documentazioneListFiles]);
+
+
+
 
   const handleClick = (index) => {
     const newIsVisible = [...showPdfs];

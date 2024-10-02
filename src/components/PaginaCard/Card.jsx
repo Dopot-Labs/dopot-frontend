@@ -15,6 +15,7 @@ import {
 const { ethers } = require("ethers");
 import { useRouter } from "next/router"; // Import useRouter
 import { retriveFavorites } from "@/utils/firebase/retriveInfo";
+import { getFileFromIPFS } from "@/utils/firebase/ipfs-db";
 
 const Card = (props) => {
   const { t } = useTranslation();
@@ -41,6 +42,23 @@ const Card = (props) => {
     fetchFavs()
     
   }, [trigger]);
+
+  const [imageSrc, setImageSrc] = useState(null);
+
+  useEffect(() => {
+    async function fetchImage() {
+      try {
+        const fileBlob = await getFileFromIPFS(progetto.logoAziendaListFiles[0]);
+        // Convert Blob to a URL that can be used as an image source
+        const imageUrl = URL.createObjectURL(fileBlob);
+        setImageSrc(imageUrl);
+      } catch (error) {
+        console.error('Error fetching image from IPFS:', error);
+      }
+    }
+
+    fetchImage();
+  }, [progetto.logoAziendaListFiles]);
 
   const [fees, setFees] = useState(null);
 
@@ -72,9 +90,7 @@ const Card = (props) => {
     <div className="profile-box-dash">
       <div
         className="pmg-right-card"
-        // style={{
-        //   backgroundImage: `url(https://arweave.net/${progetto.logoAziendaListFiles[0]})`,
-        // }}
+       
       >
         <div className="pmg-rc-left-card" style={{ width: "100%" }}>
           <div>
@@ -133,7 +149,7 @@ const Card = (props) => {
             <div
               className="logo"
               style={{
-                backgroundImage: `url(https://arweave.net/${progetto.logoAziendaListFiles[0]})`,
+                backgroundImage: imageSrc ? `url(${imageSrc})` : 'none',
               }}
             ></div>
           </div>

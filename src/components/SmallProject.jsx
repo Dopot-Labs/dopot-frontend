@@ -1,5 +1,5 @@
 ""
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IconInfoCard from "./PaginaCard/IconInfoCard";
 import IconInfoDai from "./PaginaCard/IconInfoDai";
 import PCDollarIcon from "../../../public/assets/img/pc-dollar-icon.png";
@@ -9,6 +9,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import { progettiState } from "../recoilState";
 import {RetriveProjectTypes} from "../utils/firebase/retriveInfo";
 import { useRouter } from "next/router"; // Import useRouter
+import { getFileFromIPFS } from "@/utils/firebase/ipfs-db";
 
 const SmallProject = (props) => {
   const router = useRouter(); // Initialize useRouter
@@ -23,8 +24,27 @@ const SmallProject = (props) => {
     window.scrollTo(0, -1000000);
   }
 
+  const [imageSrc, setImageSrc] = useState(null);
+
+  useEffect(() => {
+    async function fetchImage() {
+      try {
+        const fileBlob = await getFileFromIPFS(progetto.logoAziendaListFiles[0]);
+        // Convert Blob to a URL that can be used as an image source
+        const imageUrl = URL.createObjectURL(fileBlob);
+        setImageSrc(imageUrl);
+      } catch (error) {
+        console.error('Error fetching image from IPFS:', error);
+      }
+    }
+
+    fetchImage();
+  }, [progetto.logoAziendaListFiles]);
+
   return (
-    <div className="pmg-right-card" style={{backgroundImage: `url(https://arweave.net/${progetto.logoAziendaListFiles[0]})`}}>
+    <div className="pmg-right-card" style={{
+      backgroundImage: imageSrc ? `url(${imageSrc})` : 'none',
+      }}>
       <div className="pmg-rc-left">
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div className="settore box-bk-over-logo">

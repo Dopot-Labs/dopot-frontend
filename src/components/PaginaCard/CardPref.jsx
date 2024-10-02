@@ -19,6 +19,24 @@ const Card = (props) => {
   const [toggleHeart, setToggleHeart] = useState(true);
   const router = useRouter(); // Initialize useRouter
 
+
+  const [imageSrc, setImageSrc] = useState(null);
+
+  useEffect(() => {
+    async function fetchImage() {
+      try {
+        const fileBlob = await getFileFromIPFS(progetto.logoAziendaListFiles[0]);
+        // Convert Blob to a URL that can be used as an image source
+        const imageUrl = URL.createObjectURL(fileBlob);
+        setImageSrc(imageUrl);
+      } catch (error) {
+        console.error('Error fetching image from IPFS:', error);
+      }
+    }
+
+    fetchImage();
+  }, [progetto.logoAziendaListFiles]);
+
   useEffect(() => {
     setToggleHeart(
       progettiFavourites && Array.isArray(progettiFavourites)
@@ -36,7 +54,7 @@ const Card = (props) => {
       <div
         className="pmg-right-card"
         style={{
-          backgroundImage: `url(https://arweave.net/${progetto.logoAziendaListFiles[0]})`,
+          backgroundImage: imageSrc ? `url(${imageSrc})` : 'none',
         }}
       >
         <div className="pmg-rc-left-card" style={{ width: "100%" }}>
