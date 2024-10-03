@@ -23,7 +23,7 @@ import {
   retriveFavorites,
   RetriveProjectTypes,
   retriveProjectStakes,
-  getNftImage,
+
 } from "../../../utils/firebase/retriveInfo";
 
 import { useTranslation } from "../../../i18n/client";
@@ -50,7 +50,7 @@ const PaginaCard = () => {
     async function fetchImage() {
       try {
         const fileBlob = await getFileFromIPFS(progetto.logoAziendaListFiles[0]);
-     
+        
         // Convert Blob to a URL that can be used as an image source
         const imageUrl = URL.createObjectURL(fileBlob);
         setImageSrc(imageUrl);
@@ -69,7 +69,7 @@ const PaginaCard = () => {
       const fetchedProgetto = prog.find(
         (x) => x.address === address
       );
-      
+     
       setProgetto(fetchedProgetto);
       const fav = await retriveFavorites();
       setToggleHeart(fav ? fav.includes(address) : false);
@@ -79,7 +79,8 @@ const PaginaCard = () => {
         const base64DataArray = [];
         if (fetchedProgetto.imageNftDefListFiles) {
           for (const tier of fetchedProgetto.imageNftDefListFiles) {
-            const response = await getFileFromIPFS(tier["image"])
+            
+            const response = await getFileFromIPFS(tier["image"].split("//")[1])
             const imageUrl = URL.createObjectURL(response);
             base64DataArray.push(imageUrl);
           }
@@ -87,7 +88,7 @@ const PaginaCard = () => {
         setBase64Data(base64DataArray);
 
         const localCards = [];
-        for (let i = 1; i < parseInt(fetchedProgetto.numeroProdotti) + 1; i++) {
+        for (let i = 1; i < parseInt(fetchedProgetto.imageNftDefListFiles.length)+1; i++) {
           localCards.push(
             <InvestiCard
               key={i}
@@ -99,7 +100,7 @@ const PaginaCard = () => {
               img={base64DataArray[i - 1]}
               titolo={fetchedProgetto["name" + i]}
               currentSupply={
-                fetchedProgetto.imageNftDefListFiles[i - 1]["currentSupply"]
+                fetchedProgetto.imageNftDefListFiles[i-1]["currentSupply"]
               }
               state={fetchedProgetto.stateText}
             />

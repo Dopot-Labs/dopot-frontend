@@ -8,6 +8,7 @@ import Header from "../../components/Header.jsx";
 import {
   downloadProjects,
   getNftImage,
+  pushLink,
 } from "../../utils/firebase/retriveInfo";
 import {
   addShippingDetailsNft,
@@ -40,7 +41,7 @@ const Profile = () => {
             if (tiers.hasOwnProperty(tokenId)) {
               try {
                 let obj = await getNftImage(tokenId);
-                const response = await getFileFromIPFS(obj.image)
+                const response = await getFileFromIPFS(obj.image.split("//")[1])
                 const imageUrl = URL.createObjectURL(response);
                     tempCard.push({
                       tokenId,
@@ -200,7 +201,7 @@ const Profile = () => {
                               <div>Set shipping details</div>
                             </Link>
                             <Link
-                              href={`https://app.push.org/chat/${card?.addressCreator}`}
+                              href={`${pushLink}/chat/${card?.addressCreator}`}
                               target="_blank"
                               rel="noreferrer"
                             >

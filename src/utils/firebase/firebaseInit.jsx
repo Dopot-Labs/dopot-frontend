@@ -7,6 +7,7 @@ import addressDpt from '../../abi/dpt/address.js';
 import { PushAPI } from '@pushprotocol/restapi';
 import { getRecoil  } from 'recoil-nexus';
 import { providerState } from "../../recoilState";
+import { pushEnv } from "./retriveInfo.jsx";
 
 const contractTxId = "hdnrB5USC2aiqBr48jJfQ4W9EO1Kbm4-uSWe15f_F1k";
 export let db;
@@ -45,7 +46,7 @@ export async function init ()  {
 
     const signer = await getRecoil(providerState).getSigner();
     if(!(await get("pushUser"))){
-      const pushUser = await PushAPI.initialize(signer, { env: 'prod' });
+      const pushUser = await PushAPI.initialize(signer, { env: pushEnv });
       await set("pushUser", true);
       console.dir(pushUser)
     }
@@ -59,11 +60,11 @@ export async function getPushUser(){
   const signer = await getRecoil(providerState).getSigner();
   const address = await signer.getAddress();
   if(!PushAPI.user){
-    const pushUser = await PushAPI.initialize(signer, { env: 'prod' });
+    const pushUser = await PushAPI.initialize(signer, { env: pushEnv });
     await set("pushUser", true);
     return pushUser;
   }
-  return await PushAPI.user.get({ account: 'eip155:'+address, env: 'prod' });
+  return await PushAPI.user.get({ account: 'eip155:'+address, env: pushEnv });
 }
 
 export async function getIdentity(t){

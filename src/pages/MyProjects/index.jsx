@@ -13,7 +13,7 @@ import { useTranslation } from "../../i18n/client.js";
 import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
 import Image from "next/image";
-import { downloadProjects } from "@/utils/firebase/retriveInfo.jsx";
+import { downloadProjects, pushLink } from "@/utils/firebase/retriveInfo.jsx";
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -172,7 +172,7 @@ const Profile = () => {
               <div className="ins-head projects">
                 <h2>My Projects</h2>
                 <Link
-                  href="https://app.push.org/chat"
+                  href={`${pushLink}/chat`}
                   target="_blank"
                   rel="noreferrer"
                 >

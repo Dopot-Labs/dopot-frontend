@@ -52,30 +52,47 @@ const InsProgetto = () => {
   });
   const [progressionStep, setprogressionStep] = useState(0);
 
-  const handleChange = (e) => {
+  const handleChange = (e, nProdotto) => {
     let name = e.target.name;
     const value = e.target.value;
 
     if (e.target.files != null) {
+      // Create an array from e.target.files
+      let selectedFiles = [];
+
+      // Check if we already have files stored in the state for this input field
+      const propName = name + "ListFiles";
+
+      // If the state already has files for this input, copy them to selectedFiles
+      setInputs((prevState) => {
+        if (prevState[propName]) {
+          selectedFiles = [...prevState[propName]];
+        } else {
+          selectedFiles = [...e.target.files]; // copy all files if no state exists yet
+        }
+        return prevState;
+      });
+
+      // Now, only insert the newly uploaded file into the specific nProdotto index if nProdotto is defined
+      if ((typeof nProdotto !== "undefined") && (name !== "fotoProdotto1") && (name !== "fotoProdotto2") && (name !== "fotoProdotto3")) {
+        selectedFiles[nProdotto] = e.target.files[0];
+      }else{
+        selectedFiles[0] = e.target.files[0];
+      }
+
+      // Update the state with the updated selectedFiles array
       setInputs((prevState) => ({
         ...prevState,
-        [propName]: [],
+        [propName]: selectedFiles,
       }));
-      const selectedFiles = [...e.target.files];
-      const propName = name + "ListFiles";
-      console.log(selectedFiles);
-     
-          setInputs((prevState) => ({
-            ...prevState,
-            [propName]: selectedFiles
-            
-          }));
-     
+
+      //console.log(selectedFiles);
     } else {
+      // Handle other input types (non-file inputs)
       setInputs((values) => ({ ...values, [name]: value }));
-      //console.log(inputs);
     }
   };
+
 
   const handleChangeArray = (e, i) => {
     const { name, value } = e.target;
@@ -86,7 +103,7 @@ const InsProgetto = () => {
     } else {
       array = [...array, value];
     }
-    console.dir(inputs);
+    //console.dir(inputs);
     setInputs((prevState) => {
       return { ...prevState, [name]: array };
     });
@@ -114,19 +131,19 @@ const InsProgetto = () => {
   };
 
   const handleSubmit = async (event) => {
-    
-      console.log("SUBMITTING:",inputs)
-      event.preventDefault();
-      try {
-        await toast.promise(addproj(inputs, t), {
-          pending: t("confirm"),
-          success: t("created"),
-          error: t("error"),
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    
+
+   
+    event.preventDefault();
+    try {
+      await toast.promise(addproj(inputs, t), {
+        pending: t("confirm"),
+        success: t("created"),
+        error: t("error"),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
   };
 
   const renderCurrentSelection = () => {
@@ -264,8 +281,8 @@ const InsProgetto = () => {
     }
   };
 
-  const incrementStep = (e,step) => {
-e.preventDefault()
+  const incrementStep = (e, step) => {
+    e.preventDefault()
     setprogressionStep(progressionStep + step);
   };
   const address = getRecoil(addressState);
@@ -290,8 +307,8 @@ e.preventDefault()
                   <h3>
                     {address &&
                       address.toString().substring(0, 5) +
-                        "..." +
-                        address.toString().substring(38, 42)}
+                      "..." +
+                      address.toString().substring(38, 42)}
                   </h3>
                 </div>
               </div>

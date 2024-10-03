@@ -3,7 +3,7 @@ import { getPushUser, getIdentity, init, db } from "./firebaseInit.jsx"
 import { getRecoil, setRecoil } from 'recoil-nexus';
 import { addressState, providerState, progettiState } from '../../recoilState.js';
 import { genproj, bundlrFund, bundlrAdd, contrattoProjectAddTier, initialiseBundlr, webIrys } from "../genproj.jsx"
-import { getProvider, downloadProjects } from "./retriveInfo.jsx";
+import { getProvider, downloadProjects, pushEnv } from "./retriveInfo.jsx";
 import addressFundingToken from '../../abi/fundingToken/address.js';
 import addressDpt from '../../abi/dpt/address.js';
 const abiProject = require('../../abi/project/1.json');
@@ -14,14 +14,14 @@ import Web3 from 'web3'
 import { getData, openIndexedDB, uploadFileToPinata, writeData } from "./ipfs-db.jsx";
 
 const pushChannelAddress = "0x63381e4b8fe26cb1f55cc38e8369990594e017b1";
-const env = "prod";
+
 
 
 async function optInNotifications() {
   const signer = getRecoil(providerState).getSigner();
   const address = await signer.getAddress();
   const pushUser = await getPushUser();
-  const subscriptions = await pushUser.notification.subscriptions({ user: `eip155:42161:${address}`, env });
+  const subscriptions = await pushUser.notification.subscriptions({ user: `eip155:42161:${address}`, pushEnv });
   console.dir(subscriptions)
   if (!subscriptions.some(r => r.channel === pushChannelAddress)) {
     const subscribeStatus = await pushUser.notification.subscribe(`eip155:42161:${pushChannelAddress}`);

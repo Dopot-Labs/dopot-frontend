@@ -14,8 +14,11 @@ const abiProjectFactory = require('../../abi/projectFactory/1.json');
 const abiFundingToken = require('../../abi/fundingToken/1.json');
 const abiDopotReward = require('../../abi/dopotReward/1.json');
 let investorsLenght;
-const chainId = '0x7a69' //'0xa4b1'
-const jsonRPC = "http://192.168.1.63:8545" //"https://arb1.arbitrum.io/rpc"
+const chainId = /*'0x7a69'*/ '0xa4b1'
+const jsonRPC = /*"http://192.168.1.63:8545"*/ "https://arb1.arbitrum.io/rpc"
+
+export const pushLink = /*"https://staging.push.org"*/ "https://app.push.org"
+export const pushEnv = "prod";
 
 export async function getProvider() {
     if (!window.ethereum) return;
@@ -77,8 +80,8 @@ export async function getAddr(setState, dontAutoConnect, t) {
         address = await getProvider();
         setRecoil(addressState, address)
         setState(address.toString().substring(0, 7) + "...")
-        await init();
-        await getIdentity(t);
+        //await init();
+        //await getIdentity(t);
     }
 }
 
@@ -262,8 +265,14 @@ export async function retriveProjectStakes(projectAddress) {
     const address = await getProvider()
     //await init()
     let addressLogged = getRecoil(addressState)
-    const user = await getData("users", addressLogged) //db.get("users", ["addressUser"], ["addressUser", "==", addressLogged?.toString().toLowerCase()]);
-    return (user.projectStakes ? user.projectStakes : [])
+    try{
+        const user = await getData("users", addressLogged) //db.get("users", ["addressUser"], ["addressUser", "==", addressLogged?.toString().toLowerCase()]);
+        return (user.projectStakes ? user.projectStakes : [])
+
+    }catch (error) {
+        console.error("Error retrieving Stakes:", error);
+        return []
+    }
 }
 
 export function RetriveProjectTypes(tipoKey) {

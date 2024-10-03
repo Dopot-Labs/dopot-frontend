@@ -107,7 +107,7 @@ const SchedaProdotto = (props) => {
 
       setFiles3((prevFiles) => [...prevFiles, ...selectedFiles]);
     }
-    props.handleChange(event)
+    props.handleChange(event,n)
   };
 
   // Funzione per rimuovere un file
@@ -219,7 +219,7 @@ const SchedaProdotto = (props) => {
                   </div>
                   <button
                     className="delete-btn"
-                    onClick={() => handleRemoveFile(file.name)}
+                    onClick={() => handleRemoveFile(file.name,1)}
                   >
                     &times;
                   </button>
@@ -242,7 +242,7 @@ const SchedaProdotto = (props) => {
                   </div>
                   <button
                     className="delete-btn"
-                    onClick={() => handleRemoveFile(file.name)}
+                    onClick={() => handleRemoveFile(file.name,2)}
                   >
                     &times;
                   </button>
@@ -266,7 +266,7 @@ const SchedaProdotto = (props) => {
                   </div>
                   <button
                     className="delete-btn"
-                    onClick={() => handleRemoveFile(file.name)}
+                    onClick={() => handleRemoveFile(file.name,3)}
                   >
                     &times;
                   </button>

@@ -106,7 +106,7 @@ const Faq = (props) => {
       <div className="proceed-btn-box">
     
              
-        <p>Min ~0.00037eth = 50MB</p>
+        {/* <p>Min ~0.00037eth = 50MB</p> */}
         <div
           className="add-btn-box"
           

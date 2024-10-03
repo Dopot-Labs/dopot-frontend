@@ -81,7 +81,7 @@ export async function contrattoProjectAddTier(inputs) {
     const temp = {
       name: inputs["name" + i],
       description: inputs["description" + i],
-      image: nftimgcid,
+      image: "ipfs://"+nftimgcid,
       project: inputs.address,
       external_url: `https://dopot.fi/Card/${inputs.address}`,
       specs: inputs["specs" + i],

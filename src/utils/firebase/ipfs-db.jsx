@@ -139,7 +139,7 @@ export async function getFileFromIPFS(cid) {
         console.log('Returning fresh file from IPFS');
         return fileBlob; // Return the fresh file
     } catch (error) {
-        console.error("Error fetching file: ", error);
+        console.error(`Error fetching file:${cid} `, error);
         throw error;
     }
 }
@@ -164,8 +164,8 @@ async function saveToCache(cid, data) {
 // File size limits (example: 5MB for JSON, 2MB for images, etc.)
 const FILE_SIZE_LIMITS = {
     json: 5 * 1024 * 1024, // 5 MB for JSON
-    image: 2 * 1024 * 1024, // 2 MB for images
-    default: 5 * 1024 * 1024 // 5 MB for other files
+    image: 5 * 1024 * 1024, // 5 MB for images
+    default: 20 * 1024 * 1024 // 20 MB for other files
 };
 
 // Helper function to check file size
