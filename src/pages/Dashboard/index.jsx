@@ -6,7 +6,7 @@ import { MdSearch, MdRefresh } from "react-icons/md";
 import Card from "../../components/PaginaCard/Card.jsx";
 import { progettiState, progettiImageState } from "../../recoilState.js";
 import { getRecoil } from "recoil-nexus";
-import { addFavorites, addProjectStake } from "@/utils/firebase/writeInfos.jsx";
+import { addFavorites, addProjectStake, pushChatSend } from "@/utils/firebase/writeInfos.jsx";
 import { retriveFavorites } from "../../utils/firebase/retriveInfo.jsx";
 const { ethers } = require("ethers");
 import {
@@ -20,100 +20,92 @@ import { getData, writeData } from "@/utils/firebase/ipfs-db.jsx";
 
 const Home = () => {
   const { t } = useTranslation();
-  //const HandleSearch = useSearchForm();
-
   const [insuranceState, setInsuranceState] = useState(0);
   const [cards, setCards] = useState([]);
+  const [progetti, setProgetti] = useState([]);
   const [reload, setReload] = useState(false);
-  const [progetti, setProgetti] = useState([])
 
-
+  // Load insurance funds and projects
   useEffect(() => {
     async function load() {
-
-
       let insuranceFunds = await getInsuranceFunds();
       insuranceFunds = ethers.utils.formatEther(insuranceFunds.toString());
-      if (insuranceFunds >= 1)
-        insuranceFunds = insuranceFunds.substring(0, insuranceFunds.indexOf("."));
+      if (insuranceFunds >= 1) insuranceFunds = insuranceFunds.split(".")[0];
       setInsuranceState(insuranceFunds);
 
-
       let prog = await downloadProjects(t);
-      setProgetti(prog)
-
+      setProgetti(prog);
     }
-    load()
-
+    load();
   }, [reload]);
 
-
+  // Handle filtering based on URL search params
   useEffect(() => {
-
     if (progetti && progetti.length > 0) {
-
-      let cardsTemp = []
-      
-      const query = new URLSearchParams(window ? window.location.search : "");
+      const query = new URLSearchParams(window?.location.search || "");
       const state = query.get("s") || "ongoing";
       const campaign = query.get("c") || "reward";
       const type = query.get("t") || "any";
       let value = query.get("v") || "any";
 
-
-      progetti.filter(
+      // Filter projects based on the search parameters
+      let filteredProgetti = progetti.filter(
         (progetto) =>
           progetto.stateText?.toLowerCase().replace(" ", "") === state &&
           progetto.tipoCampagna === campaign &&
           (type !== "any" ? progetto.settore === type : true) &&
           (value !== "any"
             ? progetto.minInvestment >= parseInt(value.split("-")[0]) &&
-            progetto.minInvestment <= parseInt(value.split("-")[1])
+              progetto.minInvestment <= parseInt(value.split("-")[1])
             : true)
       );
-      if (state === "ongoing")
-        progetti.sort((a, b) => b.totalStaked - a.totalStaked);
 
-      progetti.forEach((element) => {
-        cardsTemp.push(
-          <Card
-            key={element.address}
-            progetto={element}
+      // Sort if needed
+      if (state === "ongoing") {
+        filteredProgetti.sort((a, b) => b.totalStaked - a.totalStaked);
+      }
 
-            immagini={getRecoil(progettiImageState)[element.address]}
-            address={element.address}
-            tier={element.tier}
-
-          ></Card>
-        );
-      });
+      // Update cards to display
+      const cardsTemp = filteredProgetti.map((element) => (
+        <Card
+          key={element.address}
+          progetto={element}
+          immagini={getRecoil(progettiImageState)[element.address]}
+          address={element.address}
+          tier={element.tier}
+        />
+      ));
       setCards(cardsTemp);
     }
+  }, [progetti, reload]);
 
-  }, [progetti])
-
+  // Handle the search form submission
   const HandleSearch = (e) => {
-    //e.preventDefault(); // This prevents the default form submission behavior
-    if (typeof window !== "undefined" && typeof document !== "undefined") {
+    e.preventDefault();
+
+    if (typeof window !== "undefined") {
       const stateSelect = document.querySelector("#sel1");
       const typeSelect = document.querySelector("#sel2");
       const categorySelect = document.querySelector("#sel3");
       const investmentSelect = document.querySelector("#sel4");
+
       const stateValue = stateSelect?.value;
       const typeValue = typeSelect?.value;
       const categoryValue = categorySelect?.value;
       const investmentValue = investmentSelect?.value;
 
+      // Update URL parameters
       const newURL = new URL(window.location.href);
       if (stateValue) newURL.searchParams.set("s", stateValue);
       if (typeValue) newURL.searchParams.set("c", typeValue);
       if (categoryValue) newURL.searchParams.set("t", categoryValue);
       if (investmentValue) newURL.searchParams.set("v", investmentValue);
-      window.history.pushState({ path: newURL.href }, "", newURL.href);
-      //window.location.href = newURL;
-      console.log("search param");
-      setReload(!reload);
 
+      // Update the browser URL without reloading the page
+      window.history.pushState({ path: newURL.href }, "", newURL.href);
+
+      // Trigger a reload to apply the new search filters
+      setReload(!reload);
     }
   };
 
@@ -205,7 +197,8 @@ const Home = () => {
 
   //   const newUserData  = { addressUser: address, shippingNft: {}, projectStakes: [] };
 
-  //   writeData("users",address,newUserData)
+  //   //writeData("users",address,newUserData)
+  //   await pushChatSend("0xAC52FBfac8a43818E7A73b27aab3FfF328A0E353", `Project Test Token Id qowioq, Shipping Details `)
   // }
 
   const [isHeaderOpen, setIsHeaderOpen] = useState(false);
@@ -364,8 +357,8 @@ const Home = () => {
           <h2 style={{ color: "black" }}>{cards.length} Results</h2>
         </div>
         <div className="profile-dash-cards">{cards}</div>
-        {/* <button onClick={testWrite}>TEST WRITE</button>
-        <button onClick={testRead}>TEST READ</button> */}
+        {/* <button onClick={testWrite}>TEST WRITE</button> */}
+        {/* <button onClick={testRead}>TEST READ</button> */}
         <label style={{ color: "black" }}>
           {"Insurance Founds" + ": " + insuranceState + " DAI"}
         </label>

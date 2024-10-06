@@ -168,7 +168,7 @@ const Profile = () => {
               <div className="ins-head">
                 <h2>My NFTs</h2>
               </div>
-              <div className="profile-main-grid">
+              <div className="profile-dash-cards">
                 {investedCard &&
                   investedCard.map((card, index) => (
                     <div key={index} className="pmg-right-card-nft">

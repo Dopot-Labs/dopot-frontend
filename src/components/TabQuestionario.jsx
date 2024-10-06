@@ -1,10 +1,14 @@
 "";
-import React from "react";
+import React, { useEffect } from "react";
 import BlogPost from "./PaginaCard/BlogPost";
 import { useTranslation } from "../i18n/client";
 
 const TabQuestionario = (props) => {
   const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage("en");
+  }, [i18n]);
   return (
     <div className="pc-content-grid-left">
       <h1>Questionnaire questions</h1>

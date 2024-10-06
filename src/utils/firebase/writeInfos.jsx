@@ -29,15 +29,15 @@ async function optInNotifications() {
   }
 }
 
-async function pushChatSend(projectCreatorAddress, content) {
+export async function pushChatSend(projectCreatorAddress, content) {
   const signer = getRecoil(providerState).getSigner();
   const pushUser = await getPushUser();
   const params = {
-    content,
+    content: content,
     type: 'Text',
-    signer,
-    //pgpPrivateKey: pgpDecryptedPvtKey,
-    //env
+    // signer,
+    // pgpPrivateKey: pgpDecryptedPvtKey,
+    // env
   }
   const response = await pushUser.chat.send(`eip155:${projectCreatorAddress}`, params);
   console.dir(response);

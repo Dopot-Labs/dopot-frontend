@@ -191,7 +191,7 @@ const Profile = () => {
                   </button>
                 </Link>
               </div>
-              <div className="profile-main-grid">{projectsCard}</div>
+              <div className="profile-dash-cards">{projectsCard}</div>
             </div>
           </section>
           <ToastContainer />

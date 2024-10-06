@@ -201,8 +201,8 @@ const Favourites = () => {
               </Link> */}
                 <h2>My Favourites</h2>
               </div>
-              <div className="profile-main-grid">
-                <div>{favoriteCard}</div>
+              <div className="profile-dash-cards">
+                {favoriteCard}
 
                 {/* <div className={isActive ? "pmg-right" : "sec-display-none-pref"}>
                 {favoriteCard}
