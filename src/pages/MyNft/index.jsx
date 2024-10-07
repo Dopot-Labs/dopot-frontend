@@ -28,21 +28,39 @@ const Profile = () => {
   
 
   useEffect(() => {
-
     async function fetchData() {
+      //console.log("Starting fetchData");
       let tempCard = [];
-      const projects = await downloadProjects();
-      if (projects){
-
-        for (const project of projects) {
-          let tiers = project.investors[address];
-          let tierId = 0;
-          for (const tokenId in tiers) {
-            if (tiers.hasOwnProperty(tokenId)) {
-              try {
-                let obj = await getNftImage(tokenId);
-                const response = await getFileFromIPFS(obj.image.split("//")[1])
-                const imageUrl = URL.createObjectURL(response);
+      
+      try {
+        const projects = await downloadProjects();
+       // console.log("Projects fetched:", projects);
+        
+        if (projects) {
+          for (const project of projects) {
+            let tiers = project.investors[address];
+            //console.log(`Processing project: ${project.addressCreator}`, tiers);
+            
+            if (tiers) {
+              let tierId = 0;
+              
+              for (const tokenId in tiers) {
+                if (tiers.hasOwnProperty(tokenId)) {
+                  //console.log(`Processing tokenId: ${tokenId}`);
+                  
+                  try {
+                    let obj = await getNftImage(tokenId);
+                    //console.log(`Fetched NFT image for tokenId: ${tokenId}`, obj);
+                    
+                    const imageHash = obj.image.split("//")[1];
+                    //console.log(`Extracted image hash: ${imageHash}`);
+                    
+                    const response = await getFileFromIPFS(imageHash);
+                    //console.log("Fetched image from IPFS:", response);
+                    
+                    const imageUrl = URL.createObjectURL(response);
+                    //console.log("Created image URL:", imageUrl);
+                    
                     tempCard.push({
                       tokenId,
                       addressCreator: project.addressCreator,
@@ -51,26 +69,42 @@ const Profile = () => {
                       addressDopotReward: obj.addressDopotReward,
                       title: project.imageNftDefListFiles[tokenId]?.name,
                     });
+                    
                     const uniqueInvestedCard = tempCard.filter(
                       (item, index, self) =>
-                        index ===
-                        self.findIndex((t) => t.address === item.address)
+                        index === self.findIndex((t) => t.address === item.address)
                     );
+                    
+                    //console.log("Updated unique invested cards:", uniqueInvestedCard);
                     setinvestedCard([...uniqueInvestedCard]); // Assuming setinvestedCard is a state updater function
-                  
-              
-              } catch (error) {
-                console.error("Error fetching data:", error);
-                // Handle error as needed
+                    
+                  } catch (error) {
+                    console.error(`Error processing tokenId: ${tokenId}`, error);
+                  }
+                } else {
+                  console.warn(`Tiers object does not have tokenId: ${tokenId}`);
+                }
+                
+                tierId++;
               }
+            } else {
+              console.warn(`No tiers found for address: ${address} in project: ${project.addressCreator}`);
             }
-            tierId++;
           }
+        } else {
+          console.warn("No projects found");
         }
+        
+      } catch (error) {
+        console.error("Error in fetchData:", error);
       }
+      
+      //console.log("Finished fetchData");
     }
-     fetchData();
+  
+    fetchData();
   }, [address]);
+  
 
   async function setShippingDetails(project, tokenId, title) {
     const shippingDetails = window.prompt(t("shippingDetails"));
@@ -168,7 +202,7 @@ const Profile = () => {
               <div className="ins-head">
                 <h2>My NFTs</h2>
               </div>
-              <div className="profile-dash-cards">
+              <div className="profile-main-grid">
                 {investedCard &&
                   investedCard.map((card, index) => (
                     <div key={index} className="pmg-right-card-nft">

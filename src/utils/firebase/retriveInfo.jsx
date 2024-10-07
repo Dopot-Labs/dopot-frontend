@@ -201,9 +201,15 @@ export async function getNftImage(tokenId) {
     const provider = await getRecoil(providerState)
     const dopotReward = new Contract(addressDopotReward, abiDopotReward, provider);
     const result = await dopotReward.uri(tokenId);
-    const response = await  getFileFromIPFS(result)//fetch(result.replace("ar://", "https://arweave.net/"));
-    const data = await response.json();
-    return { image: data.image, addressDopotReward };
+    //MOMENTARY FIX FOR ARWAVE SC:
+    const response = await  getFileFromIPFS(result.split("//")[1])//fetch(result.replace("ar://", "https://arweave.net/"));
+    //MOMENTARY FIX FOR ARWAVE SC:
+    
+    const data = await response.text();
+    //console.log("DATA:",data)
+    const jsonData = JSON.parse(data);
+    //console.log("JsonDATA",jsonData)
+    return { image: jsonData.image, addressDopotReward };
 }
 
 export async function retriveInvestment(t) {

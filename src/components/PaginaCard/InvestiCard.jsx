@@ -61,7 +61,7 @@ const InvestiCard = (props) => {
           <div className="box-supply">
             <p>Supply</p>
             <p className="">
-              {currentSupply}/{supply}
+             {supply}
             </p>
           </div>
 
@@ -90,7 +90,7 @@ const InvestiCard = (props) => {
             <div className="box-supply">
               <p>Supply</p>
               <p className="">
-                {currentSupply}/{supply}
+                {supply}
               </p>
             </div>
 

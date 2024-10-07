@@ -195,8 +195,8 @@ const Profile = () => {
               </Link> */}
                 <h2>My Investments</h2>
               </div>
-              <div className="profile-main-grid">
-                <div>{investedCard}</div>
+              <div className="profile-dash-cards">
+                {investedCard}
 
                 {/* <div className={isActive ? "pmg-right" : "sec-display-none-pref"}>
                 {favoriteCard}
