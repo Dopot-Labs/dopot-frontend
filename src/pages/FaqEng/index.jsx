@@ -24,7 +24,7 @@ const DopotShare = () => {
               Tutorials
             </h5>
             <h1>Learn Everyday New</h1>
-            <h5>Watch our highly finetune tutorials in multi language</h5>
+            <h5>Watch our highly finetune tutorials</h5>
           </div>
           {/* 
           <p>

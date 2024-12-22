@@ -26,14 +26,14 @@ const Home = ({ t }) => {
               data-aos-duration="750"
             >
               <img src="\assets\img\Icon.png" alt="" />
-              Crowdfunding meets the power of blockchain
+              Reward Crowdfunding meets the power of blockchain
             </h2>
             <h1
               data-aos="fade-right"
               data-aos-delay="400"
               data-aos-duration="750"
             >
-              Revolutionizing Crowdfunding with Blockchain.
+              Revolutionizing Reward Crowdfunding with Blockchain.
             </h1>
 
             <h2

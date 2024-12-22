@@ -10,7 +10,7 @@ footer .box {
 .footer-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
   grid-gap: 5rem;
   justify-content: space-between;

@@ -230,8 +230,8 @@ const Header = (props) => {
               <Link href="/">Home</Link>
               <Link href="/FaqEng">Tutorials</Link>
               <Link href="/DopotToken">Dopot Token</Link>
-              <div style={{ marginRight: "1.5rem" }} className="dropdown_menu">
-              <button className="dropbtn">
+              <div  className="dropdown_menu">
+              <button className="dropbtn" style={{ margin: "0" }}>
                 Community{" "}
                 <span>
                   <img
@@ -273,7 +273,7 @@ const Header = (props) => {
               </div>
               </div>
 
-              <div style={{ marginRight: "3.5rem" }} className="dropdown_menu">
+              <div  className="dropdown_menu">
                 <button className="dropbtn" style={{ margin: "0" }}>
                   Documents{" "}
                   <span>

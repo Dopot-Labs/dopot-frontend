@@ -812,3 +812,19 @@
     position: relative;
   }
 }
+
+.footer-grid-box.partnerships {
+  text-align: center;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+  gap:0;
+}
+
+.footer-grid-box.partnerships img {
+  max-width: 100%;
+  height: auto;
+}
