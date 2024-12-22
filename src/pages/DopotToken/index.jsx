@@ -119,7 +119,7 @@ const DopotPower = () => {
               onClick={() => addTokenToMetaMask(tokens[1])}
               style={{ cursor: "pointer" }}
             >
-              <img src={"/assets/img/dai.png"} alt="dai token" />
+              <img src={"/assets/img/dai-img.svg"} alt="dai token" />
               <p>DAI</p>
             </div>
           </div>
