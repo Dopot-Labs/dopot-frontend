@@ -74,6 +74,7 @@ header {
 
 .header-right a {
   color: var(--white) !important;
+  font-weight: 600 !important;
 }
 .header-content {
   width: 100%;

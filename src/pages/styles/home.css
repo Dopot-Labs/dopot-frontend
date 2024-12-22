@@ -15,7 +15,7 @@
   width: 100%;
   position: relative;
   height: 100vh;
-  background-image: url("/assets/img/header-bgg.svg"),
+  background-image: url("/assets/img/header-bg.png"),
     linear-gradient(#f26e50, #e85556);
   background-blend-mode: luminosity;
   background-position: center;

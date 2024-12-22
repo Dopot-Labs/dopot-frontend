@@ -230,42 +230,48 @@ const Header = (props) => {
               <Link href="/">Home</Link>
               <Link href="/FaqEng">Tutorials</Link>
               <Link href="/DopotToken">Dopot Token</Link>
-              {/* <div style={{ marginRight: "1.5rem" }} className="dropdown_menu">
-                <button className="dropbtn">
-                  Community{" "}
-                  <span>
-                    <img
-                      className="arrow-menu-dr"
-                      src={"/assets/img/arr-menu.svg"}
-                      alt=""
-                    />{" "}
-                  </span>
-                </button>
-
-                <div className="dropdown-content-menu">
-                  <button>
-                    <SocialIcon
-                      fgColor="white"
-                      url="https://www.instagram.com/dopotfi"
-                    />
-                  </button>
-                  <button>
-                    <SocialIcon
-                      fgColor="white"
-                      url="https://twitter.com/Dopot_fi"
-                    />
-                  </button>
-                  <button>
-                    <SocialIcon
-                      fgColor="white"
-                      url="https://discord.gg/j8xxZFsyvd"
-                    />
-                  </button>
-                  <button>
-                    <SocialIcon fgColor="white" url="https://t.me/dopotfi" />
-                  </button>
-                </div>
-              </div> */}
+              <div style={{ marginRight: "1.5rem" }} className="dropdown_menu">
+              <button className="dropbtn">
+                Community{" "}
+                <span>
+                  <img
+                    style={{ width: "7%" }}
+                    className="arrow-menu-dr"
+                    src={"/assets/img/arr-menu.svg"}
+                    alt=""
+                  />
+                </span>
+              </button>
+              <div className="dropdown-content-menu">
+                <Link target="_blank" href="https://x.com/Dopot_fi">
+                  <img
+                    style={{ marginTop: "0.3rem" }}
+                    src="/assets/img/social-x.svg"
+                    alt=""
+                  />
+                </Link>
+                <Link target="_blank" href="https://www.instagram.com/dopotfi/">
+                  <img src="/assets/img/social-insta.svg" alt="" />
+                </Link>
+                <Link target="_blank" href="https://t.me/dopotfi">
+                  <img
+                    style={{ width: " 33px", height: "33px" }}
+                    src="/assets/img/icons8-telegram.svg"
+                    alt=""
+                  />
+                </Link>
+                <Link
+                  target="_blank"
+                  href="https://discord.com/invite/j8xxZFsyvd"
+                >
+                  <img
+                    style={{ width: " 33px", height: "33px" }}
+                    src="/assets/img/icons8-discord.svg"
+                    alt=""
+                  />
+                </Link>
+              </div>
+              </div>
 
               <div style={{ marginRight: "3.5rem" }} className="dropdown_menu">
                 <button className="dropbtn" style={{ margin: "0" }}>

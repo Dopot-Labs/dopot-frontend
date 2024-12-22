@@ -58,7 +58,7 @@ const DopotShare = () => {
         </div>
         {/* <img className="dopot-power-img" src={PBottom} alt="PBottom" /> */}
       </main>
-      <div className="p-btn-box">
+      {/* <div className="p-btn-box">
         <div className="box-cont">
           <button className="grd-btn dopot-btn-lg">English</button>
           <button
@@ -68,7 +68,7 @@ const DopotShare = () => {
             Italian
           </button>
         </div>
-      </div>
+      </div> */}
       <div className="box-video-tutorials">
         <div className="row">
           <div className="col-lg">

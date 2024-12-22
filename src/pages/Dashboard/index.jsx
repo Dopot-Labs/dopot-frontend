@@ -359,9 +359,9 @@ const Home = () => {
         <div className="profile-dash-cards">{cards}</div>
         {/* <button onClick={testWrite}>TEST WRITE</button> */}
         {/* <button onClick={testRead}>TEST READ</button> */}
-        <label style={{ color: "black" }}>
+        {/* <label style={{ color: "black" }}>
           {"Insurance Founds" + ": " + insuranceState + " DAI"}
-        </label>
+        </label> */}
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ const Home = ({ t }) => {
               data-aos-delay="400"
               data-aos-duration="750"
             >
-              Revolutionizing crowdfunding with blockchain.
+              Revolutionizing Crowdfunding with Blockchain.
             </h1>
 
             <h2
@@ -42,7 +42,7 @@ const Home = ({ t }) => {
               data-aos-duration="750"
             >
               Dopot is the world's first decentralized platform revolutionizing
-              crypto-crowdfunding.
+              reward crowdfunding
             </h2>
             <div className="main-btns-box">
               <div style={{ padding: 0 }} className="box">
@@ -63,7 +63,7 @@ const Home = ({ t }) => {
                   style={{ justifyContent: "start" }}
                 >
                   <Link
-                    href="https://www.dx.app/dxsale/view?address=0x9672876A9B1D3cB60E6942B068f432fA85CF3EE3&chain=42161"
+                    href="https://app.uniswap.org/swap/?chain=arbitrum&inputCurrency=0xda10009cbd5d07dd0cecc66161fc93d7c9000da1&outputCurrency=0x1060021efb8d97DDe0720d66398efe92d56aFf82"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -76,7 +76,7 @@ const Home = ({ t }) => {
                         color: "var(--whitetr)",
                       }}
                     >
-                      Private Sale
+                      Buy Dopot Token
                     </h4>
                   </Link>
                 </div>

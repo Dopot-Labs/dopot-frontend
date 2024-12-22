@@ -43,6 +43,9 @@
 .box-token {
   width: 80%;
   margin: 7rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 .box-token h1 {
   font-size: 5rem;
