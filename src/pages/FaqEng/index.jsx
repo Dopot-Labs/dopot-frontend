@@ -72,31 +72,25 @@ const DopotShare = () => {
       <div className="box-video-tutorials">
         <div className="row">
           <div className="col-lg">
-            <img src="/assets/img/img-vetrina.svg" alt="" />
-            <h3>Coming soon...</h3>
+            
+          <iframe width="100%" height="250" src="https://www.youtube.com/embed/0Z2gDlswsuw?si=kEa4uHFHz1-zpKZ6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
           <div className="col-lg">
-            <img src="/assets/img/img-vetrina.svg" alt="" />
-            <h3>Coming soon...</h3>
+            
+          <iframe width="100%" height="250" src="https://www.youtube.com/embed/vWEgLfcpmg8?si=-nuTK0rPChpXUD5Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
-          <div className="col-lg">
-            <img src="/assets/img/img-vetrina.svg" alt="" />
-            <h3>Coming soon...</h3>
-          </div>
+          
         </div>
         <div className="row">
           <div className="col-lg">
-            <img src="/assets/img/img-vetrina.svg" alt="" />
-            <h3>Coming soon...</h3>
+            
+          <iframe width="100%" height="250" src="https://www.youtube.com/embed/gG8G3ecvNMw?si=f5HsFpFKxohkxvBb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
           <div className="col-lg">
-            <img src="/assets/img/img-vetrina.svg" alt="" />
-            <h3>Coming soon...</h3>
+            
+          <iframe width="100%" height="250" src="https://www.youtube.com/embed/BF91UJHFKnU?si=D0UosAQyV85k6Lla" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
-          <div className="col-lg">
-            <img src="/assets/img/img-vetrina.svg" alt="" />
-            <h3>Coming soon...</h3>
-          </div>
+          
         </div>
       </div>
     </div>
