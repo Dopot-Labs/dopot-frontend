@@ -2,12 +2,13 @@
 "";
 import React, { useState, useEffect } from "react";
 import { MdMenu, MdClear } from "react-icons/md";
-import { SocialIcon } from "react-social-icons";
+
 import { useTranslation } from "../i18n/client";
 import { FaTimes } from "react-icons/fa";
 import { getAddr } from "../utils/firebase/retriveInfo";
 import { ethers } from "ethers";
 import Link from "next/link";
+import Dropdown from "./Dropdown";
 
 async function isWalletConnected() {
   if (typeof window !== "undefined" && window.ethereum) {
@@ -55,6 +56,47 @@ const DeleteCookiesAndReload = () => {
       });
   }
 };
+
+const links = [
+  {
+    label: 'Twitter',
+    href: 'https://x.com/Dopot_fi',
+    icon: '/assets/img/social-x.svg',
+  },
+  {
+    label: 'Telegram',
+    href: 'https://t.me/dopotfi',
+    icon: '/assets/img/icons8-telegram.svg',
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/dopotfi/',
+    icon: '/assets/img/social-insta.svg',
+  },
+  {
+    label: 'Discord',
+    href: 'https://discord.com/invite/j8xxZFsyvd',
+    icon: '/assets/img/icons8-discord.svg',
+  },
+];
+
+const links2 = [
+  {
+    label: 'Whitepaper',
+    href: '/assets/dopot.pdf',
+    
+  },
+  {
+    label: 'Gitbook',
+    href: 'https://dopot.gitbook.io/dopot/"',
+    
+  },
+  {
+    label: 'Audit',
+    href: 'https://github.com/solidproof/projects/blob/main/2024/Dopot/SmartContract_Audit_Solidproof_DopotFi.pdf',
+    
+  },
+];
 
 const Header = (props) => {
   const { t } = useTranslation();
@@ -230,7 +272,8 @@ const Header = (props) => {
               <Link href="/">Home</Link>
               <Link href="/FaqEng">Tutorials</Link>
               <Link href="/DopotToken">Dopot Token</Link>
-              <div  className="dropdown_menu">
+              <Dropdown label="Community" links={links}/>
+              {/* <div  className="dropdown_menu">
               <button className="dropbtn" style={{ margin: "0" }}>
                 Community{" "}
                 <span>
@@ -271,9 +314,9 @@ const Header = (props) => {
                   />
                 </Link>
               </div>
-              </div>
-
-              <div  className="dropdown_menu">
+              </div> */}
+              <Dropdown label="Documents" links={links2}/>
+              {/* <div  className="dropdown_menu">
                 <button className="dropbtn" style={{ margin: "0" }}>
                   Documents{" "}
                   <span>
@@ -292,7 +335,7 @@ const Header = (props) => {
                     Audit
                   </Link>
                 </div>
-              </div>
+              </div> */}
 
               {walletState && (
                 <Link href="/Profile">

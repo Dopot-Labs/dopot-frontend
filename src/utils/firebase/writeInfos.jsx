@@ -376,3 +376,34 @@ export async function addInvestment(pAddress, numTier, price, title, t) {
     console.error(e);
   }
 }
+
+
+
+  export const addTokenToMetaMask = async (token) => {
+    if (window.ethereum) {
+      try {
+        const wasAdded = await window.ethereum.request({
+          method: "wallet_watchAsset",
+          params: {
+            type: "ERC20", // The type of token
+            options: {
+              address: token.address, // The contract address of the token
+              symbol: token.symbol, // A symbol for the token (up to 5 characters)
+              decimals: token.decimals, // The number of decimals the token uses
+              image: token.image, // A string url of the token logo
+            },
+          },
+        });
+
+        if (wasAdded) {
+          console.log(`${token.symbol} was added to MetaMask`);
+        } else {
+          console.log(`Failed to add ${token.symbol}`);
+        }
+      } catch (error) {
+        console.error("Error adding token to MetaMask", error);
+      }
+    } else {
+      console.error("MetaMask is not installed!");
+    }
+  }

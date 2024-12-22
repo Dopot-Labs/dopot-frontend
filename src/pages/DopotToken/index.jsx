@@ -6,6 +6,22 @@ import Header from "../../components/Header.jsx";
 import { useTranslation } from "../../i18n/client.js";
 
 import Link from "next/link";
+import { addTokenToMetaMask } from "@/utils/firebase/writeInfos.jsx";
+
+const tokens = [
+  {
+    symbol: "DPT",
+    address: "0x1060021efb8d97DDe0720d66398efe92d56aFf82", // Replace with actual token contract address
+    decimals: 18,
+    image: "/assets/img/dpt-img.svg", // Path to the token image
+  },
+  {
+    symbol: "DAI",
+    address: "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1", // Replace with actual token contract address
+    decimals: 18,
+    image: "/assets/img/dai.png", // Path to the token image
+  },
+];
 
 const DopotPower = () => {
   const { t } = useTranslation();
@@ -27,7 +43,10 @@ const DopotPower = () => {
               Dopot Token
             </h5>
             <h1>Discover The Dopot Token</h1>
-            <h5>Dopot Token (DPT) : The Platform Token Utility</h5>
+            <h5>Dopot Token (DPT) :
+            </h5>
+            <h5>
+              The Platform Token Utility</h5>
           </div>
         </div>
       </main>
@@ -54,6 +73,7 @@ const DopotPower = () => {
             <p>Sustainability</p>
           </div>
         </div>
+
         <div className="char-cont">
           <h3>Characteristics</h3>
 
@@ -82,6 +102,32 @@ const DopotPower = () => {
             </li>
           </ul>
         </div>
+        <div className="box">
+          <h3 style={{
+            fontSize: "3.5rem !important",
+            fontWeight: "600"
+          }}>Add to Metamask</h3>
+          <div className="p-cards-grid">
+            <div className="p-card"
+              onClick={() => addTokenToMetaMask(tokens[0])}
+              style={{ cursor: "pointer" }}
+            >
+              <img src={"/logo192.png"} alt="dpt token" />
+              <p>DPT</p>
+            </div>
+            <div className="p-card"
+              onClick={() => addTokenToMetaMask(tokens[1])}
+              style={{ cursor: "pointer" }}
+            >
+              <img src={"/assets/img/dai.png"} alt="dai token" />
+              <p>DAI</p>
+            </div>
+          </div>
+
+
+
+        </div>
+
 
         <iframe
           src="https://app.uniswap.org/swap/?chain=arbitrum&inputCurrency=0xda10009cbd5d07dd0cecc66161fc93d7c9000da1&outputCurrency=0x1060021efb8d97DDe0720d66398efe92d56aFf82"
