@@ -173,6 +173,7 @@
   }
   .dopot-power {
     height: 40vh !important;
+    padding-top: 5rem;
   }
   .box-video-tutorials .row {
     justify-content: center;
