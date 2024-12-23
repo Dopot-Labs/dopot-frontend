@@ -2,9 +2,9 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: end;
-  padding-bottom: 7rem !important;
-  height: 55vh;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .p-btn-box {
@@ -180,9 +180,7 @@
   .dopot-power-img {
     height: 7.5rem;
   }
-  .dopot-power {
-    padding: 23rem 0 0rem 0;
-  }
+ 
   .dopot-power h2 {
     font-size: 3rem;
   }
