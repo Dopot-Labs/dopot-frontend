@@ -124,7 +124,7 @@ className="scorpi-grid-card"
               >
                 <img src={"/assets/img/logo-learn.png"} alt="IconPersonGrd" />
                 <h4>Learn</h4>
-                <p>Learn more about cryptocurrencies and crowdfunding</p>
+                <p>Learn more about cryptocurrencies and reward crowdfunding</p>
               </div>
               <div
                 data-aos="fade-up"
@@ -173,7 +173,7 @@ className="scorpi-grid-card"
 
         <div className="box">
           <h4 className="crowd-funding">
-            Why invest in <span>Crowdfounding 3.0</span>
+            Why invest in <span>Reward Crowdfounding 3.0</span>
           </h4>
           <div className="crowd-box">
             <div className="ill-text-info-box">
