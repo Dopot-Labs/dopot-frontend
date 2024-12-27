@@ -21,7 +21,7 @@ const DopotToken = () => {
                 src="\assets\img\Icon.png"
                 alt=""
               />
-              Tutorials
+              Learn
             </h5>
             <h1>Learn Everyday New</h1>
             <h5>Watch our highly finetune tutorials</h5>

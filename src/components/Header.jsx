@@ -121,7 +121,7 @@ const Header = (props) => {
           </div>
           <div className="header-right">
             <Link href="/">Home</Link>
-            <Link href="/FaqEng">Tutorials</Link>
+            <Link href="/FaqEng">Learn</Link>
             <Link href="/DopotToken">Dopot Token</Link>
 
             {/* <div style={{ marginRight: "1.5rem" }} className="dropdown_menu">
@@ -270,7 +270,7 @@ const Header = (props) => {
           {isHeaderOpen ? (
             <div className="header-mob-box">
               <Link href="/">Home</Link>
-              <Link href="/FaqEng">Tutorials</Link>
+              <Link href="/FaqEng">Learn</Link>
               <Link href="/DopotToken">Dopot Token</Link>
               <Dropdown label="Community" links={links}/>
               {/* <div  className="dropdown_menu">

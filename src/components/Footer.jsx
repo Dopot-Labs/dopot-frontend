@@ -17,7 +17,7 @@ const Footer = () => {
         </div>
         <div className="footer-grid-box menu">
           <Link href="/">Home</Link>
-          <Link href="/FaqEng">Tutorials</Link>
+          <Link href="/FaqEng">Learn</Link>
           <Link href="/DopotToken">Dopot Token</Link>
         </div>
         <div className="footer-grid-box social">
