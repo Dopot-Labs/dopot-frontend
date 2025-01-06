@@ -88,7 +88,7 @@ const links2 = [
   },
   {
     label: 'Gitbook',
-    href: 'https://dopot.gitbook.io/dopot/"',
+    href: 'https://dopot.gitbook.io/dopot',
     
   },
   {
@@ -212,7 +212,7 @@ const Header = (props) => {
               </button>
               <div className="dropdown-content-menu">
                 <Link href="/assets/dopot.pdf">Whitepaper</Link>
-                <Link href="https://dopot.gitbook.io/dopot/">Gitbook</Link>
+                <Link href="https://dopot.gitbook.io/dopot">Gitbook</Link>
                 <Link href="https://github.com/solidproof/projects/blob/main/2024/Dopot/SmartContract_Audit_Solidproof_DopotFi.pdf">
                   Audit
                 </Link>
