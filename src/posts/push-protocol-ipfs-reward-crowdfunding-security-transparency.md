@@ -3,6 +3,7 @@ title: "How Push Protocol and IPFS Make Reward Crowdfunding Secure and Transpare
 description: "Explore how Push Protocol and IPFS are transforming reward crowdfunding by ensuring secure communication and transparent data storage. Learn how platforms like Dopot leverage these decentralized technologies to prevent fraud, protect data, and build trust in the blockchain ecosystem."
 date: "2025-10-23"
 author: "Rehan Shafqat"
+tags: ["Security & Privacy", "Blockchain Technology", "Adoption and Real Usecases"]
 ---
 
 # How Push Protocol and IPFS Make Reward Crowdfunding Secure and Transparent

@@ -3,6 +3,7 @@ title: "NFTs in Reward Crowdfunding: How NFTs Are Unlocking New Rewards for Inve
 description: "Discover how NFTs are transforming reward crowdfunding by offering unique, tradeable rewards for investors. Learn how Dopot leverages blockchain technology and NFTs to create secure, transparent, and innovative investment opportunities."
 date: "2025-06-24"
 author: "Rehan Shafqat"
+tags: ["NFT & Metaverse", "Finance & Investments", "Adoption and Real Usecases"]
 ---
 
 # NFTs in Reward Crowdfunding: How NFTs Are Unlocking New Rewards for Investors

@@ -84,17 +84,17 @@ const links2 = [
   {
     label: 'Whitepaper',
     href: '/assets/dopot.pdf',
-    
+
   },
   {
     label: 'Gitbook',
     href: 'https://dopot.gitbook.io/dopot',
-    
+
   },
   {
     label: 'Audit',
     href: 'https://github.com/solidproof/projects/blob/main/2024/Dopot/SmartContract_Audit_Solidproof_DopotFi.pdf',
-    
+
   },
 ];
 
@@ -114,7 +114,7 @@ const Header = (props) => {
       <div className="box">
         {/* Header for PC */}
         <div className="header-content">
-          <div className="header-left">
+          <div className="header-left flex items-center justify-center">
             <Link href="/">
               <img src={"/assets/img/Brand Logo.png"} alt="Dopot" />
             </Link>
@@ -123,8 +123,7 @@ const Header = (props) => {
             <Link href="/">Home</Link>
             <Link href="/FaqEng">Learn</Link>
             <Link href="/DopotToken">Dopot Token</Link>
-            <Link href="/FAQ">FAQ</Link>
-            <Link href="/Blog">Blog</Link>
+
 
             {/* <div style={{ marginRight: "1.5rem" }} className="dropdown_menu">
               <button className="dropbtn">
@@ -220,6 +219,8 @@ const Header = (props) => {
                 </Link>
               </div>
             </div>
+            <Link href="/FAQ">FAQ</Link>
+            <Link href="/Blog">Blog</Link>
           </div>
           <div className="flex items-center justify-center gap-2">
             {walletState && (
@@ -274,9 +275,8 @@ const Header = (props) => {
               <Link href="/">Home</Link>
               <Link href="/FaqEng">Learn</Link>
               <Link href="/DopotToken">Dopot Token</Link>
-              <Link href="/FAQ">FAQ</Link>
-            <Link href="/Blog">Blog</Link>
-              <Dropdown label="Community" links={links}/>
+
+              <Dropdown label="Community" links={links} />
               {/* <div  className="dropdown_menu">
               <button className="dropbtn" style={{ margin: "0" }}>
                 Community{" "}
@@ -319,7 +319,7 @@ const Header = (props) => {
                 </Link>
               </div>
               </div> */}
-              <Dropdown label="Documents" links={links2}/>
+              <Dropdown label="Documents" links={links2} />
               {/* <div  className="dropdown_menu">
                 <button className="dropbtn" style={{ margin: "0" }}>
                   Documents{" "}
@@ -340,7 +340,8 @@ const Header = (props) => {
                   </Link>
                 </div>
               </div> */}
-
+              <Link href="/FAQ">FAQ</Link>
+              <Link href="/Blog">Blog</Link>
               {walletState && (
                 <Link href="/Profile">
                   <button className="grd-btn dopot-btn-lg">Account</button>

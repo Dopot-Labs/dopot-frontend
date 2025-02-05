@@ -1,8 +1,9 @@
 ---
 title: "Metamask, Push Protocol, and Aragon: The Triad of Secure Reward Crowdfunding on Dopot"
-description: "Discover how Metamask, Push Protocol, and Aragon power Dopot, creating a secure, transparent, and efficient decentralized reward crowdfunding platform. Learn how these tools redefine trust in blockchain-based fundraising"
+description: "Discover how Metamask, Push Protocol, and Aragon power Dopot, creating a secure, transparent, and efficient decentralized reward crowdfunding platform. Learn how these tools redefine trust in blockchain-based fundraising."
 date: "2025-05-14"
 author: "Rehan Shafqat"
+tags: ["Security & Privacy", "Blockchain Technology", "DEFI"]
 ---
 
 # Metamask, Push Protocol, and Aragon: The Triad of Secure Reward Crowdfunding on Dopot

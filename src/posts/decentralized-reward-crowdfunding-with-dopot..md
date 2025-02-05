@@ -3,6 +3,7 @@ title: "Empowering Investors and Startups: The Decentralized Reward Crowdfunding
 description: "Discover how Dopot is revolutionizing reward crowdfunding with blockchain, smart contracts, and NFTs. Empowering investors and startups with secure, transparent, and rewarding opportunities, this decentralized platform transforms investments into tradable digital assets. Learn how trust, innovation, and community governance redefine the future of funding!"
 date: "2025-10-01"
 author: "Rehan Shafqat"
+tags: ["DEFI", "NFT & Metaverse", "Finance & Investments"]
 ---
 
 # Empowering Investors and Startups: The Decentralized Reward Crowdfunding Method

@@ -3,7 +3,9 @@ title: "How Tokenomics Shapes the Future of Reward Crowdfunding and Investment"
 description: "Discover how tokenomics is revolutionizing reward crowdfunding and investment. Learn how platforms like Dopot use blockchain and tokens to ensure transparency, mitigate risks, and empower decentralized finance."
 date: "2025-09-02"
 author: "Rehan Shafqat"
+tags: ["Finance & Investments", "DEFI", "Blockchain Technology"]
 ---
+
 
 # How Tokenomics Shapes the Future of Reward Crowdfunding and Investment
 

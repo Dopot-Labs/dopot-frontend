@@ -32,20 +32,17 @@ export default function Post({ post }) {
               />
               Blog
             </h5>
+          
+
             <h1 style={{
               "filter": "drop-shadow(0px 5px 4px #000) !important"
             }}>{post.title}</h1>
             <div className="flex flex-col gap-2">
 
-              <h5 style={{
-                "filter": "drop-shadow(0px 5px 4px #000) !important"
-              }}>{post.description}</h5>
-              <h5 style={{
-                "filter": "drop-shadow(0px 5px 4px #000) !important"
-              }}>Author: {post.author}</h5>
-              <h5 style={{
-                "filter": "drop-shadow(0px 5px 4px #000) !important"
-              }}>{post.date}</h5>
+              <h5 >{post.description}</h5>
+              <h5 >Author: {post.author}</h5>
+              <h5 >{post.date}</h5>
+            
             </div>
           </div>
         </div>

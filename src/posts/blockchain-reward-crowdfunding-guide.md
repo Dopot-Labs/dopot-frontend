@@ -3,6 +3,7 @@ title: "From Fundraising to Equity: A Step-by-Step Guide to Blockchain-Based Rew
 description: "Discover how blockchain-based reward crowdfunding works with Dopot. From creating campaigns to issuing NFTs as rewards, learn how startups can raise capital securely and transparently while offering investors exciting, tradeable rewards."
 date: "2025-03-21"
 author: "Rehan Shafqat"
+tags: ["Guides & Tutorial", "NFT & Metaverse", "Finance & Investments"]
 ---
 
 # From Fundraising to Equity: A Step-by-Step Guide to Blockchain-Based Reward Crowdfunding
