@@ -210,3 +210,21 @@
     padding: 2.5rem 0 2.5rem 2.5rem;
   }
 }
+
+/* For even smaller screens like phones */
+@media screen and (max-width: 600px) {
+  .dopot-power h1 {
+    font-size: 2.5rem; /* Further reduced font size for phones */
+    margin: 1rem 0; /* Less margin for phones */
+  }
+
+  .dopot-power {
+    height: 40vh !important;
+    padding-top: 15rem;
+  }
+
+  .dopot-power h5 {
+    font-size: 1.2rem; /* Smaller font size for h5 on phones */
+    margin: 0.5rem 0; /* Reduced margin */
+  }
+}

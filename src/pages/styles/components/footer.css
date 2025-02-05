@@ -88,6 +88,7 @@ footer .box {
 @media screen and (max-width: 650px) {
   .footer-grid-box.menu {
     justify-content: center;
+    overflow: auto;
   }
   .footer-grid-box.logo {
     justify-content: center;

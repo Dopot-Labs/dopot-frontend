@@ -166,8 +166,8 @@ export default function FAQ() {
                 <span className="text-2xl">{faq.question}</span>
                 <span className="text-white !text-2xl">{openIndex === index ? "▲" : "▼"}</span>
               </button>
-              <div className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === index ? "max-h-60 p-4" : "max-h-0 p-0"}`}>
-                <p className="text-black !text-2xl">{faq.answer}</p>
+              <div className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === index ? "max-h-96 p-4" : "max-h-0 p-0"}`}>
+                <p className="text-black !text-2xl mb-2">{faq.answer}</p>
               </div>
             </div>
           ))
