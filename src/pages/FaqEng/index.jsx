@@ -15,11 +15,11 @@ const DopotShare = () => {
         </div>
         <div className="box">
           <div className="dopot-power">
-            <h5>
+          <h5 className="flex items-center justify-center gap-2">
               <img
-                style={{ marginRight: "0.7rem", marginBottom: "0.35rem" }}
+                className="mr-2 mb-1 w-5 h-5 gap-2"
                 src="\assets\img\Icon.png"
-                alt=""
+                alt="Icon"
               />
               Learn
             </h5>
@@ -94,6 +94,22 @@ const DopotShare = () => {
             Decentralized Reward Crowdfunding: How dopot.fi Works #Crypto #Blockchain #Crowdfunding #DeFi
             </h2>
           <iframe width="100%" height="250" src="https://www.youtube.com/embed/BF91UJHFKnU?si=D0UosAQyV85k6Lla" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          
+        </div>
+
+        <div className="row">
+          <div className="col-lg">
+          <h2>
+          Dopot Token: The Bitcoin of DeFi – Exploring Its Features and Why It Mirrors Bitcoin
+            </h2>
+          <iframe width="100%" height="250" src="https://www.youtube.com/embed/tRJtF9PqBi8?si=_njHJAmY-KLjM-vw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div className="col-lg">
+          <h2>
+          Dopot.fi: The Decentralized Project Leading the Global Transition from Web2 to Web3"
+            </h2>
+          <iframe width="100%" height="250" src="https://www.youtube.com/embed/RE14ndMdAT4?si=tcFt_wXGNt0ECVjd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
           
         </div>

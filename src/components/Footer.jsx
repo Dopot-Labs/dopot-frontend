@@ -19,6 +19,8 @@ const Footer = () => {
           <Link href="/">Home</Link>
           <Link href="/FaqEng">Learn</Link>
           <Link href="/DopotToken">Dopot Token</Link>
+          <Link href="/FAQ">FAQ</Link>
+          <Link href="/Blog">Blog</Link>
         </div>
         <div className="footer-grid-box social">
           <Link target="_blank" href="https://x.com/Dopot_fi">
@@ -31,13 +33,13 @@ const Footer = () => {
           <Link target="_blank" href="https://www.instagram.com/dopotfi/">
             <img src="/assets/img/social-insta.svg" alt="" />
           </Link>
-          <Link target="_blank" href="https://t.me/dopotfi">
+          {/* <Link target="_blank" href="https://t.me/dopotfi">
             <img
               style={{ width: "33px", height: "33px" }}
               src="/assets/img/icons8-telegram.svg"
               alt=""
             />
-          </Link>
+          </Link> */}
           <Link target="_blank" href="https://discord.com/invite/j8xxZFsyvd">
             <img
               style={{ width: "33px", height: "33px" }}

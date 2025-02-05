@@ -15,11 +15,11 @@ const DopotToken = () => {
         </div>
         <div className="box">
           <div className="dopot-power">
-            <h5>
+          <h5 className="flex items-center justify-center gap-2">
               <img
-                style={{ marginRight: "0.7rem", marginBottom: "0.35rem" }}
+                className="mr-2 mb-1 w-5 h-5 gap-2"
                 src="\assets\img\Icon.png"
-                alt=""
+                alt="Icon"
               />
               Learn
             </h5>

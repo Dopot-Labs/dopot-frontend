@@ -63,11 +63,11 @@ const links = [
     href: 'https://x.com/Dopot_fi',
     icon: '/assets/img/social-x.svg',
   },
-  {
-    label: 'Telegram',
-    href: 'https://t.me/dopotfi',
-    icon: '/assets/img/icons8-telegram.svg',
-  },
+  // {
+  //   label: 'Telegram',
+  //   href: 'https://t.me/dopotfi',
+  //   icon: '/assets/img/icons8-telegram.svg',
+  // },
   {
     label: 'Instagram',
     href: 'https://www.instagram.com/dopotfi/',
@@ -123,6 +123,8 @@ const Header = (props) => {
             <Link href="/">Home</Link>
             <Link href="/FaqEng">Learn</Link>
             <Link href="/DopotToken">Dopot Token</Link>
+            <Link href="/FAQ">FAQ</Link>
+            <Link href="/Blog">Blog</Link>
 
             {/* <div style={{ marginRight: "1.5rem" }} className="dropdown_menu">
               <button className="dropbtn">
@@ -157,7 +159,7 @@ const Header = (props) => {
               </div>
             </div> */}
             <div className="dropdown_menu">
-              <button className="dropbtn">
+              <button className="dropbtn flex items-center justify-center">
                 Community{" "}
                 <span>
                   <img
@@ -179,13 +181,13 @@ const Header = (props) => {
                 <Link target="_blank" href="https://www.instagram.com/dopotfi/">
                   <img src="/assets/img/social-insta.svg" alt="" />
                 </Link>
-                <Link target="_blank" href="https://t.me/dopotfi">
+                {/* <Link target="_blank" href="https://t.me/dopotfi">
                   <img
                     style={{ width: " 33px", height: "33px" }}
                     src="/assets/img/icons8-telegram.svg"
                     alt=""
                   />
-                </Link>
+                </Link> */}
                 <Link
                   target="_blank"
                   href="https://discord.com/invite/j8xxZFsyvd"
@@ -199,7 +201,7 @@ const Header = (props) => {
               </div>
             </div>
             <div className="dropdown_menu">
-              <button className="dropbtn">
+              <button className="dropbtn flex items-center justify-center">
                 Documents{" "}
                 <span>
                   <img
@@ -219,7 +221,7 @@ const Header = (props) => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="flex items-center justify-center gap-2">
             {walletState && (
               <Link href="/Profile">
                 <button className="grd-btn dopot-btn-sm">Account</button>
@@ -272,6 +274,8 @@ const Header = (props) => {
               <Link href="/">Home</Link>
               <Link href="/FaqEng">Learn</Link>
               <Link href="/DopotToken">Dopot Token</Link>
+              <Link href="/FAQ">FAQ</Link>
+            <Link href="/Blog">Blog</Link>
               <Dropdown label="Community" links={links}/>
               {/* <div  className="dropdown_menu">
               <button className="dropbtn" style={{ margin: "0" }}>

@@ -217,7 +217,7 @@ const Home = () => {
                 <option value="" disabled hidden>
                   Project status
                 </option>
-                <option value="ongoing">Live Crowdfounding</option>
+                <option value="ongoing">Live Crowdfunding</option>
                 <option value="successful">Closed Crowdfunding</option>
                 <option value="pendingapproval">Pending</option>
               </select>
@@ -227,7 +227,7 @@ const Home = () => {
                 <option value="" disabled hidden>
                   Project type
                 </option>
-                <option value="reward">Reward Crowdfounding</option>
+                <option value="reward">Reward Crowdfunding</option>
                 <option value="equity">Equity</option>
               </select>
             </div>

@@ -25,7 +25,7 @@ const Dropdown = ({ label, links }) => {
     <div ref={dropdownRef} style={{ position: "relative", display: "inline-block" }}>
       <button
         onClick={toggleDropdown}
-        className="dropbtn"
+        className="dropbtn flex items-center justify-center"
         style={{ margin: "0" }}
       >
         {label}

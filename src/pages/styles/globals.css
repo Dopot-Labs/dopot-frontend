@@ -3,6 +3,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
 
+@import "tailwindcss";
 :root {
   font-size: 9px;
   --white: #ffffff;
@@ -202,3 +203,59 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+
+.article-content {
+  width: 80% !important;
+  margin: 7rem auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+}
+.article-content p {
+  font-size: large;
+  color: #1d1f1e;
+}
+.article-content li {
+  font-size: large;
+  color: #1d1f1e;
+}
+
+.article-content a{
+  font-size: large !important;
+  color: #ed6154 !important;
+}
+
+.article-content h2 {
+  margin-top: 3rem;
+  font-size: xx-large;
+  color: #ed6154;
+  font-weight: bold;
+}
+
+.article-content h1 {
+  display: none;
+}
+
+.article-content img {
+  display: none;
+}
+
+.blogpost-header{
+  width: 100%;
+  position: relative;
+  height: 55vh;
+  background-blend-mode: luminosity;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 0 0 100px 100px;
+  margin-bottom: 5rem;
+}
+
+
+.blogpost-card{
+  background-blend-mode: luminosity;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
