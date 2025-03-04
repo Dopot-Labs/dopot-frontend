@@ -69,14 +69,14 @@ const Profile = () => {
                     </Link>
                   </div>
                   <div className="pts-right-grid-card">
-                    <Link href="https://app.proofofhumanity.id" target="_blank" rel="noreferrer">
+                    <Link href="https://v2.proofofhumanity.id" target="_blank" rel="noreferrer">
                       <img
                         className="myprojects-img"
                         src={"/assets/img/impostazioni.png"}
                         alt="ProfileIcon"
                       />
                     </Link>
-                    <Link href="https://app.proofofhumanity.id" target="_blank" rel="noreferrer">
+                    <Link href="https://v2.proofofhumanity.id" target="_blank" rel="noreferrer">
                       <p>Verify Identity</p>
                     </Link>
                   </div>

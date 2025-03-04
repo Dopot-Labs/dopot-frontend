@@ -8,7 +8,7 @@ const IconInfoCard = (props) => {
     const selectedAddress = event.target.value;
     if (selectedAddress !== "default")
       window.open(
-        `https://app.proofofhumanity.id/profile/${selectedAddress}`,
+        `https://v2.proofofhumanity.id/profile/${selectedAddress}`,
         "_blank"
       );
   };

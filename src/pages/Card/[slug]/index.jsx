@@ -215,7 +215,7 @@ const PaginaCard = () => {
                             cursor: "pointer",
                           }}
                           target="_blank"
-                          href={`https://app.proofofhumanity.id/profile/${progetto.addressCreator}`}
+                          href={`https://v2.proofofhumanity.id/profile/${progetto.addressCreator}`}
                           rel="noreferrer"
                         >
                           {progetto.addressCreator}

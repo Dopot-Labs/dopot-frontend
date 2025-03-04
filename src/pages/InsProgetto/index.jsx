@@ -352,7 +352,7 @@ const InsProgetto = () => {
                   </div>
                   <div className="pts-right-grid-card">
                     <Link
-                      href={"https://app.proofofhumanity.id"}
+                      href={"https://v2.proofofhumanity.id"}
                       target="_blank"
                       rel="noreferrer"
                     >
