@@ -17,7 +17,7 @@ const Footer = () => {
         </div>
         <div className="footer-grid-box menu">
           <Link href="/">Home</Link>
-          <Link href="/FaqEng">Learn</Link>
+          <Link href="/Learn">Learn</Link>
           <Link href="/DopotToken">Dopot Token</Link>
           <Link href="/FAQ">FAQ</Link>
           <Link href="/Blog">Blog</Link>
@@ -55,6 +55,13 @@ const Footer = () => {
               style={{ width: "120px", marginTop: "0.5rem" }}
               src="/assets/img/push-logo.png"
               alt="Push Protocol"
+            />
+          </Link>
+          <Link target="_blank" href="https://oceurope.org/">
+            <img
+              style={{ width: "120px", marginTop: "0.5rem" }}
+              src="/assets/img/oce.png"
+              alt="OCE"
             />
           </Link>
         </div>

@@ -87,6 +87,21 @@ const links2 = [
 
   },
   {
+    label: 'Business Plan',
+    href: '/assets/bp.pdf',
+
+  },
+  {
+    label: 'Pitch Deck',
+    href: '/assets/pd.pdf',
+
+  },
+  {
+    label: 'Financial Plan',
+    href: '/assets/dopot.xlsx',
+
+  },
+  {
     label: 'Gitbook',
     href: 'https://dopot.gitbook.io/dopot',
 
@@ -121,7 +136,7 @@ const Header = (props) => {
           </div>
           <div className="header-right">
             <Link href="/">Home</Link>
-            <Link href="/FaqEng">Learn</Link>
+            <Link href="/Learn">Learn</Link>
             <Link href="/DopotToken">Dopot Token</Link>
 
 
@@ -213,6 +228,9 @@ const Header = (props) => {
               </button>
               <div className="dropdown-content-menu">
                 <Link href="/assets/dopot.pdf">Whitepaper</Link>
+                <Link href="/assets/bp.pdf">Business Plan</Link>
+                <Link href="/assets/pd.pdf">Pitch Deck</Link>
+                <Link href="/assets/dopot.xlsx">Financial Plan</Link>
                 <Link href="https://dopot.gitbook.io/dopot">Gitbook</Link>
                 <Link href="https://github.com/solidproof/projects/blob/main/2024/Dopot/SmartContract_Audit_Solidproof_DopotFi.pdf">
                   Audit
@@ -273,7 +291,7 @@ const Header = (props) => {
           {isHeaderOpen ? (
             <div className="header-mob-box">
               <Link href="/">Home</Link>
-              <Link href="/FaqEng">Learn</Link>
+              <Link href="/Learn">Learn</Link>
               <Link href="/DopotToken">Dopot Token</Link>
 
               <Dropdown label="Community" links={links} />

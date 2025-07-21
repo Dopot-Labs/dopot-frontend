@@ -29,6 +29,7 @@
   margin-left: 2rem;
 }
 
+
 /* Links inside the dropdown */
 .dropdown-content-menu a,
 .dropdown-content-menu button {
@@ -37,6 +38,7 @@
   display: block;
   margin: 0 !important;
 }
+
 
 /* Change color of dropdown links on hover */
 .dropdown-content-menu a:hover,
@@ -140,12 +142,12 @@ header {
 }
 
 .header-mob-box a {
-  font-size: 2.3rem !important;
+  font-size: 2rem !important;
   color: var(--white) !important;
   text-align: center !important;
 }
 .header-mob-box button {
-  font-size: 2.3rem !important;
+  font-size: 2rem !important;
   text-align: center !important;
 }
 .header-mob-box button:hover {
@@ -173,7 +175,6 @@ header {
   z-index: 1000001;
 }
 .header-mob-box a {
-  font-size: 1.85rem;
   color: #fff;
   width: 100%;
   text-align: center;

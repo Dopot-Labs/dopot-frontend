@@ -63,7 +63,7 @@ const DopotToken = () => {
       <div className="p-btn-box">
         <div className="box-cont">
           <button
-            onClick={(e) => router.push("/FaqEng")}
+            onClick={(e) => router.push("/Learn")}
             className="purple-border-btn dopot-btn-lg"
           >
             English
