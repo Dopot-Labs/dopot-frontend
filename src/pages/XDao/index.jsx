@@ -69,7 +69,7 @@ const Profile = () => {
                         alt="ProfileIcon"
                       />
                     </Link>
-                    <Link href={"https://app.aragon.org/#/daos/arbitrum/0x8115cf635a71fe591b9c74d706a6d028ba44a776/dashboard"} target="_blank" rel="noreferrer">
+                    <Link href={"https://app.aragon.org/dao/arbitrum-mainnet/0x8115CF635A71FE591B9c74d706a6d028ba44A776/dashboard"} target="_blank" rel="noreferrer">
                       <p>DAO</p>
                     </Link>
                   </div>
