@@ -139,7 +139,7 @@ export default function FAQ() {
               Faq
             </h5>
             <h1 className="text-4xl font-bold">FAQs</h1>
-            <h5 className="text-gray-500">Find answers to the most common questions about Dopot.</h5>
+            <h5 className="text-gray-500 md:max-w-full max-w-sm">Find answers to the most common questions about Dopot.</h5>
           </div>
         </div>
       </main>
