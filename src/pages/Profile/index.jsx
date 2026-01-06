@@ -29,12 +29,35 @@ const Profile = () => {
       let tempCard = [];
       const favorites = await retriveFavorites();
       const projects = await downloadProjects();
-      for (const project of projects) {
-        if (!project.investors) continue;
-        let tiers = project.investors[address];
-        for (const tierId in tiers) {
-          if (tiers.hasOwnProperty(tierId) /* && tiers[tierId] !== 0*/) {
-            tempCard.push(
+
+      // Check if projects is a valid array
+      if (Array.isArray(projects)) {
+        for (const project of projects) {
+          if (!project.investors) continue;
+          let tiers = project.investors[address];
+          for (const tierId in tiers) {
+            if (tiers.hasOwnProperty(tierId) /* && tiers[tierId] !== 0*/) {
+              tempCard.push(
+                <Card
+                  progetto={project}
+                  immagini={getRecoil(progettiImageState)[project.address]}
+                  address={project.address}
+                  tier={project.tier}
+                  progettiFavourites={favorites}
+                ></Card>
+              );
+            }
+          }
+        }
+      }
+      setinvestedCard(tempCard);
+
+      let tempCard2 = [];
+      if (Array.isArray(projects)) {
+        for (const element of favorites) {
+          let project = projects.find((project) => project.address === element);
+          if (project) {
+            tempCard2.push(
               <Card
                 progetto={project}
                 immagini={getRecoil(progettiImageState)[project.address]}
@@ -45,21 +68,6 @@ const Profile = () => {
             );
           }
         }
-      }
-      setinvestedCard(tempCard);
-
-      let tempCard2 = [];
-      for (const element of favorites) {
-        let project = projects.find((project) => project.address === element);
-        tempCard2.push(
-          <Card
-            progetto={project}
-            immagini={getRecoil(progettiImageState)[project.address]}
-            address={project.address}
-            tier={project.tier}
-            progettiFavourites={favorites}
-          ></Card>
-        );
       }
       setfavoriteCard(tempCard2);
     }

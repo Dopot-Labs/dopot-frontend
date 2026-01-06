@@ -1,10 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 "";
 import React, { useState, useEffect, useMemo } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
+import dynamic from "next/dynamic";
 import { useTranslation } from "../i18n/client";
 import { getFileFromIPFS } from "@/utils/firebase/ipfs-db";
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
+// Dynamically import react-pdf components to avoid SSR issues
+const Document = dynamic(
+  () => import("react-pdf").then((mod) => mod.Document),
+  { ssr: false }
+);
+const Page = dynamic(
+  () => import("react-pdf").then((mod) => mod.Page),
+  { ssr: false }
+);
+
+// Setup PDF.js worker only on client side
+if (typeof window !== "undefined") {
+  import("react-pdf").then((pdfjs) => {
+    pdfjs.pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.pdfjs.version}/pdf.worker.js`;
+  });
+}
 
 const TabDocumenti = (props) => {
   const { t } = useTranslation();
